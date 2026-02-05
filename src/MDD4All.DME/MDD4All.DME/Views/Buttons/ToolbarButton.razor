@@ -1,0 +1,43 @@
+﻿@namespace MDD4All.DME.Views.EditorView
+@using MDD4All.DME.Views.Buttons.Icons
+
+<button class="wb-btn-reset btn-@Action.ToString().ToLower() @(IsActive ? "active" : "")"
+        @onclick="OnInternalClick"
+        title="@Tooltip"
+        disabled="@Disabled"
+        type="button">
+
+    @switch (Action)
+    {
+        case ToolbarAction.Create:
+            <IconCreate />
+            break;
+        case ToolbarAction.Add:
+            <IconAdd />
+            break;
+        case ToolbarAction.Delete:
+        case ToolbarAction.DeleteChild:
+            <IconTrash />
+            break;
+        case ToolbarAction.DeleteMode:
+            <IconDeleteMode IsActive="@IsActive" />
+            break;
+    }
+</button>
+
+@code {
+    public enum ToolbarAction { Create, Add, Delete, DeleteMode, DeleteChild }
+    [Parameter] public ToolbarAction Action { get; set; }
+    [Parameter] public bool IsActive { get; set; }
+    [Parameter] public bool Disabled { get; set; } // New Parameter [cite: 21]
+    [Parameter] public string Tooltip { get; set; } = "";
+    [Parameter] public EventCallback OnActionTriggered { get; set; }
+
+    private async Task OnInternalClick()
+    {
+        if (!Disabled) // Safety check
+        {
+            await OnActionTriggered.InvokeAsync();
+        }
+    }
+}

@@ -1,0 +1,53 @@
+﻿@namespace MDD4All.DME.Views.EditorView
+@using MDD4All.DME.ViewModels
+@using MDD4All.DME.Views.Buttons.Icons
+
+<div class="card-header-grid" @onclick="@(() => Notify(EditorAction.ToggleExpand))">
+    <div class="card-title">
+        <span class="selectable-label" @onclick="@(() => Notify(EditorAction.Select))">
+            @State.Title
+        </span>
+
+        @if (!string.IsNullOrEmpty(State.BadgeText))
+        {
+            <span class="badge-list">@State.BadgeText</span>
+        }
+    </div>
+
+    <div class="header-controls-right">
+        <div class="card-actions" @onclick:stopPropagation="true">
+            @if (State.ShowCreateButton)
+            {
+                <ToolbarButton Action="ToolbarButton.ToolbarAction.Create"
+                           OnActionTriggered="@(() => Notify(EditorAction.Create))"
+                           Tooltip="Create instance" />
+            }
+            @if (State.ShowAddButton)
+            {
+                <ToolbarButton Action="ToolbarButton.ToolbarAction.Add"
+                           OnActionTriggered="@(() => Notify(EditorAction.Add))"
+                           Tooltip="Add element" />
+            }
+            @if (State.ShowDeleteModeButton)
+            {
+                <ToolbarButton Action="ToolbarButton.ToolbarAction.DeleteMode"
+                           IsActive="@State.IsDeleteMode"
+                           OnActionTriggered="@(() => Notify(EditorAction.ToggleDeleteMode))"
+                           Tooltip="@(State.IsDeleteMode ? "Disable delete mode" : "Enable delete mode")" />
+            }
+            @if (State.ShowDeleteButton)
+            {
+                <ToolbarButton Action="ToolbarButton.ToolbarAction.Delete"
+                           OnActionTriggered="@(() => Notify(EditorAction.Delete))"
+                           Tooltip="Delete instance" />
+            }
+        </div>
+
+        @if (State.ShowExpander)
+        {
+            <div class="expander-icon-right" title="@(State.IsExpanded ? "Collapse" : "Expand")">
+                @(State.IsExpanded ? "▼" : "▶")
+            </div>
+        }
+    </div>
+</div>

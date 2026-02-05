@@ -1,0 +1,315 @@
+/* --- 1. GLOBAL UI FOUNDATION --- */
+* {
+    box-sizing: border-box;
+    outline: none !important;
+    box-shadow: none !important; /* Verhindert Fokus-Rahmen */
+}
+
+:root {
+    --bg-main: #ffffff;
+    --bg-toolbar: #f3f5f8;
+    --bg-panel-header: #f8f9fa;
+    --bg-editor-area: #ffffff;
+    --border-color: #d2d2d2;
+    --accent-color: #0078d4;
+    /* Funktionsfarben */
+    --warning-orange: #f2994a;
+    --success-color: #107c10;
+    --error-color: #d13438;
+    /* NEU: Manuell abgedunkelte Farben für den "Mittelweg" (VS-sicher) */
+    --success-dim: #0f740f; /* Kräftigeres Grün */
+    --warning-dim: #de8d44; /* Satteres Orange */
+    --error-dim: #bd3033;
+    /* Hover-Hintergründe (Satt & Deckend) */
+    --hover-blue: #d0e8ff;
+    --hover-green: #d9f2d9;
+    --hover-red: #ffd9d9;
+    --hover-orange: #ffe6c9;
+    /* Dimensionen (rem-basiert für Zoom-Effekt) */
+    --base-font-size: 1.1rem; /* Dein gewünschter Zoom-Faktor */
+    --header-height: 2.375rem;
+    --panel-header-height: 2.275rem;
+    --card-header-height: 2.65rem;
+    --btn-size: 2.0rem;
+    --radius-card: 0.5rem;
+    --indent-step: 1.25rem;
+    --ui-gutter: 12px;
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: var(--base-font-size);
+    background-color: var(--bg-main);
+    overflow: hidden;
+}
+
+/* --- 2. GRID SYSTEM --- */
+.workbench-grid {
+    display: grid !important;
+    height: 100vh;
+    grid-template-rows: var(--header-height) 2.4rem 1fr;
+    grid-template-columns: 14.5rem 1fr;
+    grid-template-areas: "toolbar toolbar" "breadcrumb breadcrumb" "explorer editor";
+}
+
+.explorer-area, .editor-area {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 0;
+    height: 100%;
+}
+
+.explorer-area {
+    grid-area: explorer;
+    border-right: 1px solid var(--border-color);
+    background: white;
+}
+
+.editor-area {
+    grid-area: editor;
+    background: var(--bg-editor-area);
+}
+
+.explorer-content, .editor-body {
+    flex: 1;
+    overflow: auto !important;
+    min-height: 0;
+}
+
+.editor-body {
+    padding: 0 !important;
+}
+
+    .editor-body > .editor-card {
+        margin: 0 3px 0 0 !important;
+        border-radius: 0 !important;
+        border: none !important;
+        border-bottom: 1px solid var(--border-color) !important;
+    }
+
+/* --- 3. DIE HOVER-ENGINE (NEU MIT FARB-SYNCHRONISATION) --- */
+.tool-group {
+    display: flex;
+    gap: 2px !important;
+    align-items: center;
+}
+
+.wb-btn-reset {
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--btn-size) !important;
+    height: var(--btn-size) !important;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+}
+
+    .wb-btn-reset svg {
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+
+    /* RUHEZUSTAND: Striche dunkel, Kreis farbig */
+    .wb-btn-reset .wb-icon-lines {
+        fill: #333 !important;
+    }
+
+    .wb-btn-reset .wb-icon-active-line {
+        stroke: #333 !important;
+    }
+
+    .wb-btn-reset.btn-add .wb-icon-badge {
+        fill: var(--success-dim) !important;
+    }
+
+    .wb-btn-reset.btn-deletemode .wb-icon-badge {
+        fill: var(--warning-dim) !important;
+    }
+
+    /* HOVER-ZUSTAND: Alles wird farbig */
+
+    /* Add-Button Hover */
+    .wb-btn-reset.btn-add:hover {
+        background-color: var(--hover-green) !important;
+    }
+
+        .wb-btn-reset.btn-add:hover .wb-icon-lines,
+        .wb-btn-reset.btn-add:hover .wb-icon-badge {
+            fill: var(--success-color) !important;
+        }
+
+    /* DeleteMode-Button Hover */
+    .wb-btn-reset.btn-deletemode:hover {
+        background-color: var(--hover-orange) !important;
+    }
+
+        .wb-btn-reset.btn-deletemode:hover .wb-icon-lines,
+        .wb-btn-reset.btn-deletemode:hover .wb-icon-badge {
+            fill: var(--warning-orange) !important;
+        }
+        /* Diagonale Linie beim Hover auch orange machen */
+        .wb-btn-reset.btn-deletemode:hover .wb-icon-active-line {
+            stroke: var(--warning-orange) !important;
+        }
+
+    /* Create & Trash Hover */
+    .wb-btn-reset.btn-create:hover {
+        background-color: var(--hover-blue) !important;
+    }
+
+        .wb-btn-reset.btn-create:hover svg {
+            fill: var(--accent-color) !important;
+        }
+
+    .wb-btn-reset.btn-delete:hover,
+    .wb-btn-reset.btn-deletechild:hover {
+        background-color: var(--hover-red) !important;
+    }
+
+        .wb-btn-reset.btn-delete:hover svg,
+        .wb-btn-reset.btn-deletechild:hover svg {
+            fill: var(--error-color) !important;
+        }
+
+    /* AKTIV-STATUS: Weiß auf Orange */
+    .wb-btn-reset.active {
+        background-color: var(--warning-orange) !important;
+    }
+
+        .wb-btn-reset.active .wb-icon-lines,
+        .wb-btn-reset.active .wb-icon-badge,
+        .wb-btn-reset.active svg {
+            fill: #ffffff !important;
+        }
+
+        .wb-btn-reset.active .wb-icon-active-line {
+            stroke: #ffffff !important;
+            stroke-width: 1.6px !important;
+        }
+
+/* --- 4. STEPPER, CARDS & SCROLLBARS --- */
+.btn-stepper {
+    width: 1.6rem !important;
+    height: 1.6rem !important;
+    background: #e1e1e1 !important;
+    border: 1px solid #ccc !important;
+    font-weight: 800;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s ease;
+}
+
+    .btn-stepper:hover {
+        background-color: #d1d1d1 !important;
+        border-color: var(--accent-color) !important;
+    }
+
+    .btn-stepper.plus {
+        color: var(--success-color) !important;
+    }
+
+    .btn-stepper.minus {
+        color: var(--error-color) !important;
+    }
+
+.editor-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+}
+
+    .card-header, .editor-card > div:first-child {
+        background-color: var(--bg-panel-header) !important;
+        min-height: var(--card-header-height);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+.card-content {
+    padding: 0.6rem 0 0.8rem var(--indent-step);
+}
+
+/* --- 5. SCROLLBARS --- */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d2d2d2;
+    border-radius: 10px;
+}
+
+/* --- 6. DICTIONARY TABLE (TYPENSICHER & BÜNDIG) --- */
+
+.flush-content-wrapper {
+    margin: 0 -0.625rem;
+    [cite_start] /* Hebt das Standard-Padding der Karte auf [cite: 10, 11] */
+    border-top: 1px solid var(--border-color);
+}
+
+.dictionary-table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.dict-header, .dict-row {
+    display: grid;
+    /* 40px Action, 1fr Key, 1fr Value, 10px Symmetrie-Ausgleich rechts */
+    grid-template-columns: 40px 1fr 1fr 10px;
+    align-items: stretch;
+}
+
+.dict-header {
+    background-color: #fcfcfc;
+    border-bottom: 1px solid var(--border-color);
+    margin-top: -1px; /* Verhindert doppelte Linien zum Header */
+}
+
+.header-cell {
+    padding: 8px 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+}
+
+/* Der Trennstrich in der Mitte (nach der Key-Spalte) */
+.dict-header .header-cell:nth-child(2),
+.dict-row .key-column {
+    border-right: 1px solid #eee;
+}
+
+.dict-row {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+    .dict-row:last-child {
+        border-bottom: none;
+    }
+
+.data-cell {
+    padding: 4px 10px;
+    min-width: 0;
+}
+
+.action-cell {
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

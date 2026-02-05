@@ -1,0 +1,57 @@
+﻿/* primitiv.css - Konvertiert in REM */
+.property-row {
+    display: grid;
+    grid-template-columns: 10rem 1fr; /* 160px */
+    gap: 0.625rem; /* 10px */
+    align-items: center;
+    margin-bottom: 0.125rem; /* 2px */
+    padding: 0 0.625rem; /* 10px */
+    width: 100%;
+}
+
+.property-label {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.form-control {
+    height: 1.5rem; /* 24px */
+    padding: 0.125rem 0.375rem; /* 2px 6px */
+    font-size: 0.85rem;
+    border: 0.0625rem solid #ced4da; /* 1px */
+    border-radius: 0.1875rem; /* 3px */
+    width: 100%;
+}
+
+/* Kompakt-Modus: Wird in der List-Kachel verwendet */
+.property-row.compact-mode {
+    display: flex;
+    grid-template-columns: none;
+    gap: 0.5rem; /* 8px */
+    padding: 0;
+    width: auto;
+}
+
+.compact-mode .property-label {
+    min-width: unset;
+    width: auto;
+    font-weight: 600;
+}
+
+.compact-mode .form-control {
+    width: 6.875rem; /* 110px */
+}
+
+/* Spezifische Breiten für Kachel-Inputs */
+.compact-mode input[type="number"] {
+    width: 4.375rem; /* 70px */
+}
+
+.compact-mode .date-input {
+    width: 9.375rem; /* 150px */
+}
+
+.form-select {
+    padding: 0 1.25rem 0 0.375rem; /* 0 20px 0 6px */
+    background-position: right 0.25rem center; /* 4px */
+}

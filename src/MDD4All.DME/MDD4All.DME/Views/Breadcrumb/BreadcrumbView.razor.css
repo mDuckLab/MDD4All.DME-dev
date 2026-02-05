@@ -1,0 +1,13 @@
+﻿.breadcrumb-container {
+    height: 2.2rem;
+    display: flex;
+    align-items: center;
+    padding: 0; /* Wichtig: Kein Padding hier */
+}
+
+.breadcrumb-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}

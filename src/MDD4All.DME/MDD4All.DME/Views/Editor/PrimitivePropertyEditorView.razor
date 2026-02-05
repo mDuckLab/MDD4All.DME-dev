@@ -1,0 +1,80 @@
+﻿@namespace MDD4All.DME.Views.EditorView
+@using System.Globalization
+
+<div class="property-row @(IsCompact ? "compact-mode" : "")">
+    @*<label class="property-label">@ViewModel.Title</label>*@
+
+    @if (ShowTitle)
+    {
+        <label>@ViewModel.Title</label>
+    }
+
+    <div class="property-input-zone" style="@(IsCompact ? "flex-grow: 1; display: flex;" : "")">
+        @if (ViewModel.Type!.IsEnum)
+        {
+            <select class="form-control form-select"
+                @onchange="@(e => ViewModel.Item = Enum.Parse(ViewModel.Type, e.Value?.ToString() ?? ""))">
+                @foreach (var value in Enum.GetValues(ViewModel.Type))
+                {
+                    <option value="@value" selected="@(value.Equals(ViewModel.Item))">@value</option>
+                }
+            </select>
+        }
+        else
+        {
+            @switch (Type.GetTypeCode(ViewModel.Type))
+            {
+                case TypeCode.Boolean:
+                    <input type="checkbox" class="form-check-input"
+               checked="@((bool)(ViewModel.Item ?? false))"
+               @onchange="@(e => ViewModel.Item = (bool)(e.Value ?? false))" />
+                    break;
+
+                case TypeCode.DateTime:
+                    <input type="datetime-local" class="form-control"
+               value="@(((DateTime)(ViewModel.Item ?? DateTime.Now)).ToString("yyyy-MM-ddTHH:mm"))"
+               @onchange="@(e => OnDateTimeChanged(e.Value?.ToString()))" />
+                    break;
+
+                case TypeCode.Int16:
+                case TypeCode.Int32:
+                case TypeCode.Int64:
+                case TypeCode.SByte:
+                    <input type="number" step="1" class="form-control"
+               onkeydown="if(event.key==='.' || event.key===',') event.preventDefault();"
+               value="@ViewModel.Item"
+               @onchange="@(e => OnIntegerChanged(e.Value?.ToString()))" />
+                    break;
+
+                case TypeCode.Byte:
+                case TypeCode.UInt16:
+                case TypeCode.UInt32:
+                case TypeCode.UInt64:
+                    <input type="number" step="1" min="0" class="form-control"
+               pattern="[0-9]*"
+               onkeydown="if(event.key==='.' || event.key===',' || event.key==='-') event.preventDefault();"
+               value="@ViewModel.Item"
+               @onchange="@(e => OnIntegerChanged(e.Value?.ToString()))" />
+                    break;
+
+                case TypeCode.Single:
+                case TypeCode.Double:
+                case TypeCode.Decimal:
+                    <input type="number" step="any" class="form-control"
+               value="@Convert.ToString(ViewModel.Item, CultureInfo.InvariantCulture)"
+               @onchange="@(e => ViewModel.Item = Convert.ChangeType(e.Value, ViewModel.Type, CultureInfo.InvariantCulture))" />
+                    break;
+
+                default:
+                    @* Use local value for text to handle rejected inputs (snap-back) *@
+                    <input type="text"
+               class="form-control"
+               value="@_localValue"
+               @oninput="OnInput"
+               @onchange="OnCommit"
+               @onblur="OnBlur" />
+                    break;
+            }
+        }
+    </div>
+</div>

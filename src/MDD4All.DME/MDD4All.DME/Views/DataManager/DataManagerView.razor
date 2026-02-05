@@ -1,0 +1,36 @@
+﻿@using MDD4All.DME.ViewModels
+@namespace MDD4All.DME.Views
+@inject IJSRuntime JSRuntime
+
+<div class="dm-inline-wrapper">
+    <select class="dm-select" @bind="ViewModel.SelectedTypeFullName">
+        <option value="">-- Typ --</option>
+        @foreach (var type in ViewModel.AvailableTypes)
+        {
+            <option value="@type.FullName">@type.Name</option>
+        }
+    </select>
+
+    <label class="dm-checkbox-label">
+        <input type="checkbox" @bind="ViewModel.IsNamespaceFilterActive" />
+        <span>Filter</span>
+    </label>
+
+    <button class="dm-btn" @onclick="OnImportClick">Import</button>
+
+    <div style="display:none">
+        <InputFile id="importInput" OnChange="HandleFileSelected" />
+    </div>
+
+    <button class="dm-btn"
+            @onclick="OnNewClick"
+            disabled="@(string.IsNullOrEmpty(ViewModel.SelectedTypeFullName))">
+        Neu
+    </button>
+
+    <button class="dm-btn dm-btn-save"
+            @onclick="OnSaveClick"
+            disabled="@(!ViewModel.HasActiveObject)">
+        Sichern
+    </button>
+</div>

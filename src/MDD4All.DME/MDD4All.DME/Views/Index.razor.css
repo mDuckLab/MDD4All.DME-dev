@@ -1,0 +1,68 @@
+﻿/* TOOLBAR: Graublau */
+.top-toolbar {
+    grid-area: toolbar;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--ui-gutter);
+    background: var(--bg-toolbar) !important;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* BREADCRUMB: Haus-Icon fluchtet mit Explorer */
+.breadcrumb-area {
+    grid-area: breadcrumb;
+    display: flex;
+    align-items: center;
+    padding: 0 !important;
+    border-bottom: 1px solid var(--border-color);
+    background: #ffffff;
+    height: 2.4rem;
+}
+
+/* PANEL HEADERS: Hellgrau */
+.panel-header {
+    height: var(--panel-header-height);
+    background: var(--bg-panel-header) !important;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--ui-gutter) !important;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #666;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* STEPPER: Zentriert */
+.depth-stepper-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-left: 1px solid var(--border-color);
+    padding-left: 1rem;
+    height: 100%;
+}
+
+.stepper-controls {
+    display: flex;
+    align-items: center;
+    background: #f0f0f0;
+    border-radius: 4px;
+    padding: 2px;
+    gap: 4px;
+}
+
+.depth-display {
+    min-width: 2.2rem;
+    text-align: center;
+    font-weight: 700;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    font-size: 0.85rem;
+    padding: 1px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,91 @@
+﻿/* --- EditorHeaderView.razor.css --- */
+
+.card-header-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--header-height);
+    padding: 0 0.15rem 0 var(--ui-gutter);
+    background: var(--bg-header) !important;
+    border-bottom: 0.0625rem solid var(--border-color);
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+}
+
+    /* SMART-HIGHLIGHT: 
+   Wird blau im neutralen Bereich ODER auf dem Pfeil. 
+   Stoppt bei Titel- oder Button-Hover. */
+    .card-header-grid:hover:not(:has(.selectable-label:hover, .card-actions:hover)) {
+        background-color: #ebf3fb !important;
+    }
+
+        /* PFEIL-SYNCHRONISATION: 
+   Leuchtet blau, wenn die Leiste blau markiert ist. */
+        .card-header-grid:hover:not(:has(.selectable-label:hover, .card-actions:hover)) .expander-icon-right {
+            color: var(--accent-color) !important;
+        }
+
+.card-title {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    /* OPTISCHER OFFSET: Verschiebt Titel UND Badge gemeinsam nach unten */
+    transform: translateY(3px);
+}
+
+.selectable-label {
+    color: var(--accent-color) !important;
+    font-weight: 600;
+    padding: 0 0.3rem;
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    line-height: 1;
+    transition: all 0.1s;
+}
+
+    .selectable-label:hover {
+        text-decoration: underline;
+        color: #005a9e !important;
+    }
+
+/* NEUTRALER GHOST-BADGE */
+.badge-list {
+    background-color: #f3f5f8 !important;
+    color: #666 !important;
+    border: 0.5px solid #d2d2d2 !important;
+    padding: 0 0.4rem;
+    margin-left: 0.6rem;
+    border-radius: 0.25rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: lowercase;
+    white-space: nowrap;
+    height: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.header-controls-right {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.card-actions {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    z-index: 2;
+}
+
+.expander-icon-right {
+    width: var(--btn-size);
+    height: var(--btn-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: #444;
+    transition: color 0.1s ease;
+}

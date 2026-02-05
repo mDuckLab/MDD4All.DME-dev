@@ -1,0 +1,68 @@
+﻿@page "/"
+@namespace MDD4All.DME.Views
+@using MDD4All.DME.ViewModels.EditorViewModels
+@using MDD4All.DME.ViewModels
+@using MDD4All.DME.Views.EditorView
+@using MDD4All.UI.BlazorComponents.Tree
+
+<div class="workbench-grid">
+
+    @* --- TOP TOOLBAR: Links-Rechts Verteilung --- *@
+    <header class="top-toolbar">
+        <div class="tool-group">
+            <DataManagerView ViewModel="MainViewModel.DataManagerViewModel" />
+        </div>
+
+        <div class="tool-group depth-stepper-container">
+            <span class="stepper-label">Visible Depth:</span>
+            <div class="stepper-controls">
+                @* Verwendung der Button-Basis-Klasse für einheitlichen Look *@
+                <button type="button" class="wb-btn-reset btn-stepper" @onclick="DecreaseDepth">−</button>
+                <div class="depth-display">
+                    @(_maxDepth == 0 ? "All" : _maxDepth.ToString())
+                </div>
+                <button type="button" class="wb-btn-reset btn-stepper" @onclick="IncreaseDepth">+</button>
+            </div>
+        </div>
+    </header>
+
+    @* --- BREADCRUMB AREA --- *@
+    <section class="breadcrumb-area">
+        @if (MainViewModel.TreeViewModel?.SelectedNodeParentList != null)
+        {
+            <BreadcrumbView Path="MainViewModel.TreeViewModel.SelectedNodeParentList" />
+        }
+    </section>
+
+    @* --- EXPLORER SIDEBAR --- *@
+    <aside class="explorer-area">
+        <div class="panel-header">Explorer</div>
+        <div class="explorer-content">
+            @if (MainViewModel.TreeViewModel != null)
+            {
+                <MvvmTree TNode="ObjectEditorViewModel"
+                      DataContext="@MainViewModel.TreeViewModel"
+                      SelectedNodeChanged="OnTreeSelectionChange">
+                    <TitleTemplate Context="node">@node.Title</TitleTemplate>
+                </MvvmTree>
+            }
+        </div>
+    </aside>
+
+    @* --- MAIN EDITOR AREA --- *@
+    <main class="editor-area">
+        <div class="panel-header">Editor</div>
+        <div class="editor-body">
+            @if (MainViewModel.SelectedEditorViewModel != null)
+            {
+                <ObjectEditorView ViewModel="@((ObjectEditorViewModel)MainViewModel.SelectedEditorViewModel)"
+                              MaxDepth="@_maxDepth"
+                              CurrentDepth="1" />
+            }
+            else
+            {
+                <div class="p-5 text-center text-muted">Please select an item from the explorer to begin editing.</div>
+            }
+        </div>
+    </main>
+</div>

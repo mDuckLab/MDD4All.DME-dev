@@ -1,0 +1,48 @@
+﻿@namespace MDD4All.DME.Views.EditorView
+@using MDD4All.DME.ViewModels.EditorViewModels
+
+@if (this.IsReferenceType)
+{
+    <div class="editor-card @(CurrentDepth == 1 ? "card-root" : "card-indent") @(this._state.IsDeleteMode ? "delete-mode-active" : "")">
+
+        <EditorHeaderView State="@this._state" OnAction="this.HandleAction" />
+
+        @if (this._state.IsExpanded)
+        {
+            <div class="card-content">
+                @if (this._state.CanRenderChildren)
+                {
+                    @if (this.ViewModel is ComplexObjectEditorViewModel complex)
+                    {
+                        <ComplexObjectBody ViewModel="complex" MaxDepth="@MaxDepth" CurrentDepth="@(CurrentDepth + 1)" />
+                    }
+                    else if (this.ViewModel is IndexedCollectionEditorViewModel collection)
+                    {
+                        <IndexedCollectionBody ViewModel="collection" State="@this._state" MaxDepth="@MaxDepth" CurrentDepth="@(CurrentDepth + 1)" />
+                    }
+                    else if (this.ViewModel is DictionaryEditorViewModel dictionary)
+                    {
+                        @* Dieser Wrapper sorgt mit negativem Margin dafür, dass die Box-in-Box Optik verschwindet *@
+                        <div class="flush-content-wrapper">
+                            <DictionaryBody ViewModel="dictionary"
+                            DeleteMode="@this._state.IsDeleteMode"
+                            MaxDepth="@MaxDepth"
+                            CurrentDepth="@(CurrentDepth + 1)" />
+                        </div>
+                    }
+
+                }
+                else if (this.ViewModel.HasChildNodes)
+                {
+                    <div class="depth-limit-msg">... Maximale Tiefe erreicht ...</div>
+                }
+            </div>
+        }
+    </div>
+}
+else if (this.ViewModel is PrimitivePropertyViewModel primitive)
+{
+    <div class="simple-property-row">
+        <PrimitivePropertyEditorView ViewModel="primitive" IsCompact="false" />
+    </div>
+}

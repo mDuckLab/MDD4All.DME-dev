@@ -1,0 +1,49 @@
+﻿@namespace MDD4All.DME.Views.EditorView
+@using MDD4All.DME.ViewModels.EditorViewModels
+@using MDD4All.DME.ViewModels;
+
+@{
+    // Berechnung: Wie viele Zeilen brauchen wir für 3 Spalten?
+    // Wir nehmen immer mindestens 5 Zeilen als Basis.
+    int childCount = ViewModel.Children?.Count ?? 0;
+    int requiredRows = (int)Math.Ceiling(childCount / 3.0);
+    int maxRows = Math.Max(5, requiredRows);
+}
+
+<div class="indexed-body-container @(ViewModel.IsUnderlyingTypeSimple ? "vertical-column-flow" : "stack-mode-complex")
+     @(childCount >= 5 ? "show-dividers" : "")"
+     style="--max-rows: @maxRows;">
+
+    @if (ViewModel.Children != null)
+    {
+        @foreach (var child in ViewModel.Children)
+        {
+            var childVm = (ObjectEditorViewModel)child;
+
+            @if (ViewModel.IsUnderlyingTypeSimple)
+            {
+                <div class="simple-line-item">
+                    <div class="delete-action-area">
+                        @if (State.IsDeleteMode)
+                        {
+                            <ToolbarButton Action="ToolbarButton.ToolbarAction.DeleteChild"
+                           OnActionTriggered="() => OnDeleteChild(childVm)" />
+                        }
+                    </div>
+
+                    <ObjectEditorView ViewModel="@childVm"
+                          MaxDepth="@MaxDepth"
+                          CurrentDepth="@CurrentDepth" />
+                </div>
+            }
+            else
+            {
+                <div class="complex-wrapper">
+                    <ObjectEditorView ViewModel="@childVm"
+                          MaxDepth="@MaxDepth"
+                          CurrentDepth="@CurrentDepth" />
+                </div>
+            }
+        }
+    }
+</div>

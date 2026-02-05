@@ -1,0 +1,68 @@
+﻿/* --- BreadcrumbNode.razor.css --- */
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+}
+
+    /* Haus-Icon rückt exakt unter das "E" von Explorer */
+    .breadcrumb-item:first-child {
+        padding-left: var(--ui-gutter);
+    }
+
+/* KLICKBARE ELEMENTE (Buttons) */
+.breadcrumb-btn {
+    background: transparent !important;
+    border: none !important;
+    padding: 0.2rem 0;
+    display: flex;
+    align-items: center;
+    color: var(--accent-color);
+    /* Konsistenz zum Editor-Header */
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none !important;
+    transition: all 0.1s ease;
+}
+
+    /* DER "NICE" HOVER-EFFEKT (wie beim Editor-Titel) */
+    .breadcrumb-btn:hover {
+        text-decoration: underline !important;
+        color: #005a9e !important; /* Tiefblaues Feedback */
+    }
+
+/* NICHT KLICKBARES ELEMENT (Das Aktuelle/Letzte) */
+.breadcrumb-label {
+    display: flex;
+    align-items: center;
+    color: #666; /* Neutrales Grau für die aktuelle Position */
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: default;
+    padding: 0.2rem 0;
+}
+
+.node-title {
+    padding-left: 4px;
+    line-height: 1.2;
+}
+
+.breadcrumb-icon-box {
+    width: var(--icon-box-width);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* TRENNER-STYLING */
+.breadcrumb-item + .breadcrumb-item::before {
+    content: "›";
+    margin: 0 0.4rem;
+    color: #aaa;
+    font-weight: 400;
+    user-select: none;
+}
+    

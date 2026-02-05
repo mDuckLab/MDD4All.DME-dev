@@ -1,0 +1,23 @@
+﻿@namespace MDD4All.DME.Views.EditorView
+@using MDD4All.DME.ViewModels.EditorViewModels
+@using MDD4All.DME.ViewModels;
+
+<div class="complex-object-body">
+    @if (this.ViewModel.Children != null)
+    {
+        @foreach (var child in this.ViewModel.Children)
+        {
+            if (child is ObjectEditorViewModel childVm)
+            {
+                <ObjectEditorView ViewModel="childVm" MaxDepth="@MaxDepth" CurrentDepth="@CurrentDepth" />
+            }
+        }
+    }
+</div>
+
+@code {
+    [Parameter] public ComplexObjectEditorViewModel ViewModel { get; set; } = null!;
+    [Parameter] public int MaxDepth { get; set; }
+    [Parameter] public int CurrentDepth { get; set; }
+    [Parameter] public bool IsCompact { get; set; } = false;
+}

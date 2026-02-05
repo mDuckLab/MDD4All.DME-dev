@@ -1,0 +1,25 @@
+﻿@namespace MDD4All.DME.Views.EditorView
+@using MDD4All.DME.ViewModels.EditorViewModels
+
+<div class="dictionary-table">
+    @if (this.ViewModel.Children?.Any() == true)
+    {
+        @* Tabellen-Header mit Trennstrich-Logik im CSS *@
+        <div class="dict-header">
+            <div class="action-placeholder"></div>
+            <div class="header-cell">KEY</div>
+            <div class="header-cell">VALUE</div>
+        </div>
+
+        @foreach (var child in this.ViewModel.Children)
+        {
+            if (child is DictionaryEntryViewModel entryViewModel)
+            {
+                <DictionaryEntryView DataContext="@entryViewModel"
+                         DeleteMode="@DeleteMode"
+                         MaxDepth="@MaxDepth"
+                         CurrentDepth="@CurrentDepth" />
+            }
+        }
+    }
+</div>
