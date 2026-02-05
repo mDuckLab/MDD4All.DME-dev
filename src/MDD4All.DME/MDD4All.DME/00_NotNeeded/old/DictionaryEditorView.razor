@@ -1,0 +1,69 @@
+﻿@namespace MDD4All.DME.Views.EditorView
+@using MDD4All.DME.ViewModels.EditorViewModels
+@using MDD4All.DME.Views.Buttons.Icons
+
+<div class="editor-card">
+    @* Header mit Titel und zentralen Dictionary-Aktionen *@
+    <div class="card-header-grid" @onclick="OnToggleExpanded">
+        <div class="card-title">
+            <span class="selectable-label" @onclick="OnSelectNode" @onclick:stopPropagation="true">
+                @DataContext.Title
+            </span>
+            <span class="badge-list">Dictionary</span>
+        </div>
+
+        <div class="header-controls-right">
+            <div class="card-actions" @onclick:stopPropagation="true">
+                @if (DataContext.Item != null)
+                {
+                    @* Button: Neuen Eintrag (Key/Value-Paar) hinzufügen *@
+                    <button class="btn btn-success btn-icon-sm"
+                        @onclick="OnAddElementClick"
+                        data-tooltip="Add entry">
+                        <IconAdd />
+                    </button>
+
+                    @* Button: Das gesamte Dictionary löschen *@
+                    <button class="btn btn-danger btn-icon-sm"
+                        @onclick="OnDeleteDictionaryClick"
+                        data-tooltip="Delete dictionary">
+                        <IconTrash />
+                    </button>
+                }
+                else
+                {
+                    @* Button: Dictionary instanziieren (CreateInstance) *@
+                    <button class="btn btn-primary btn-icon-sm"
+                        @onclick="OnCreateInstanceClick"
+                        data-tooltip="Create dictionary instance">
+                        <IconCreate />
+                    </button>
+                }
+            </div>
+
+            @if (DataContext.Item != null)
+            {
+                <div class="expander-icon-right">
+                    @(IsExpanded ? "▼" : "▲")
+                </div>
+            }
+        </div>
+    </div>
+
+    @* Inhaltsbereich: Liste der Einträge *@
+    @if (IsExpanded && DataContext.Item != null)
+    {
+        <div class="card-content">
+            <div class="dictionary-container">
+                @foreach (var child in DataContext.Children)
+                {
+                    @if (child is DictionaryEntryViewModel entryVm)
+                    {
+                        @* Hier binden wir die 50/50 View für die Einträge ein *@
+                        <DictionaryEntryView DataContext="entryVm" />
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>
