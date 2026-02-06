@@ -14,9 +14,9 @@ namespace MDD4All.DME.DataModels.PersonsExamples
             myIntList = new List<int> { 0, 1, 2, 3, 4, 5 };
 
             //Initialisierung für den leeren Fall
-           ContactDetails = new Dictionary<string, string>();
-            NamedAddresses = new Dictionary<string, Address>();
-            RouteMap = new Dictionary<Address, Address>();
+           //ContactDetails = new Dictionary<string, string>();
+           // NamedAddresses = new Dictionary<string, Address>();
+           // RouteMap = new Dictionary<Address, Address>();
         }
 
         // Konstruktor mit 9 Argumenten für das PersonRepository
@@ -31,30 +31,30 @@ namespace MDD4All.DME.DataModels.PersonsExamples
             dateTime = DateTime.Now;
             myIntList = new List<int> { 0, 1, 2 };
 
-            // 1. Simple-Simple: string -> string
-            ContactDetails = new Dictionary<string, string>
-            {
-                { "Mobile", "0176-1234567" },
-                { "Email", firstName.ToLower() + "." + lastName.ToLower() + "@example.com" },
-                { "Slack", "@" + firstName.ToLower() }
-            };
+            //// 1. Simple-Simple: string -> string
+            //ContactDetails = new Dictionary<string, string>
+            //{
+            //    { "Mobile", "0176-1234567" },
+            //    { "Email", firstName.ToLower() + "." + lastName.ToLower() + "@example.com" },
+            //    { "Slack", "@" + firstName.ToLower() }
+            //};
 
-            // 2. Simple-Complex: string -> Address
-            NamedAddresses = new Dictionary<string, Address>
-            {
-                { "Work", new Address("Business-Park", 10u, 500.0, 12345, "Industriestadt") },
-                { "Home-Office", new Address(street, houseNumber, size, postCode, cityName) }
-            };
+            //// 2. Simple-Complex: string -> Address
+            //NamedAddresses = new Dictionary<string, Address>
+            //{
+            //    { "Work", new Address("Business-Park", 10u, 500.0, 12345, "Industriestadt") },
+            //    { "Home-Office", new Address(street, houseNumber, size, postCode, cityName) }
+            //};
 
-            // 3. Complex-Complex: Address -> Address
-            // Hier nutzen wir zwei Address-Objekte als Key und Value
-            Address startPoint = new Address(street, houseNumber, size, postCode, cityName);
-            Address endPoint = new Address("Zielweg", 99u, 15.5, 54321, "Zielstadt");
+            //// 3. Complex-Complex: Address -> Address
+            //// Hier nutzen wir zwei Address-Objekte als Key und Value
+            //Address startPoint = new Address(street, houseNumber, size, postCode, cityName);
+            //Address endPoint = new Address("Zielweg", 99u, 15.5, 54321, "Zielstadt");
 
-            RouteMap = new Dictionary<Address, Address>
-            {
-                { startPoint, endPoint }
-            };
+            //RouteMap = new Dictionary<Address, Address>
+            //{
+            //    { startPoint, endPoint }
+            //};
         }
 
         public string FirstName { get; set; }
@@ -67,9 +67,9 @@ namespace MDD4All.DME.DataModels.PersonsExamples
         public int[]? myIntArray { get; set; } = null;
         public Address? WorkAddress { get; set; } = null;
 
-        public Dictionary<string, string> ContactDetails { get; set; }
-        public Dictionary<string, Address> NamedAddresses { get; set; }
-        public Dictionary<Address, Address> RouteMap { get; set; }
+        //public Dictionary<string, string> ContactDetails { get; set; }
+        //public Dictionary<string, Address> NamedAddresses { get; set; }
+        //public Dictionary<Address, Address> RouteMap { get; set; }
 
         public override string ToString()
         {

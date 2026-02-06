@@ -23,12 +23,12 @@
                     else if (this.ViewModel is DictionaryEditorViewModel dictionary)
                     {
                         @* Dieser Wrapper sorgt mit negativem Margin dafür, dass die Box-in-Box Optik verschwindet *@
-                        <div class="flush-content-wrapper">
+@*                        <div class="flush-content-wrapper">
                             <DictionaryBody ViewModel="dictionary"
                             DeleteMode="@this._state.IsDeleteMode"
                             MaxDepth="@MaxDepth"
                             CurrentDepth="@(CurrentDepth + 1)" />
-                        </div>
+                        </div>*@
                     }
 
                 }
