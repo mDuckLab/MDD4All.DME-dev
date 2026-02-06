@@ -3,5 +3,5 @@
 	url = https://github.com/oalt/MDD4All.UI.DataModels.git
 [submodule "src/MDD4All.UI.BlazorComponents"]
 	path = src/MDD4All.UI.BlazorComponents
-	url = https://github.com/oalt/MDD4All.UI.BlazorComponents.git
+	url = https://github.com/MrDucky0815/MDD4All.UI.BlazorComponents.git
 	branch = dev
