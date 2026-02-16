@@ -4,6 +4,8 @@
 @using MDD4All.DME.ViewModels
 @using MDD4All.DME.Views.EditorView
 @using MDD4All.UI.BlazorComponents.Tree
+@using MDD4All.UI.DataModels.Tree
+@using CommunityToolkit.Mvvm.ComponentModel
 
 <div class="workbench-grid">
 
@@ -12,6 +14,8 @@
         <div class="tool-group">
             <DataManagerView ViewModel="MainViewModel.DataManagerViewModel" />
         </div>
+
+        <TreeDisplayToggle @bind-Active="_showTreeIcons" />
 
         <div class="tool-group depth-stepper-container">
             <span class="stepper-label">Visible Depth:</span>
@@ -42,6 +46,7 @@
             {
                 <MvvmTree TNode="ObjectEditorViewModel"
                       DataContext="@MainViewModel.TreeViewModel"
+                      ShowTreeIcons="_showTreeIcons"
                       SelectedNodeChanged="OnTreeSelectionChange">
                     <TitleTemplate Context="node">@node.Title</TitleTemplate>
                 </MvvmTree>

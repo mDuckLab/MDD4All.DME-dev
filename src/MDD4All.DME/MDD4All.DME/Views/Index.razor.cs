@@ -14,6 +14,8 @@ namespace MDD4All.DME.Views
         [Inject]
         public MainViewModel MainViewModel { get; set; } = null!;
 
+        private bool _showTreeIcons = true;
+
         private int _maxDepth = 5;
 
         private const int Limit = 9;

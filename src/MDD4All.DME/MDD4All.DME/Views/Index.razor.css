@@ -66,3 +66,17 @@
     align-items: center;
     justify-content: center;
 }
+
+/* --- Tree Display Toggle Styling --- */
+
+.form-check-input:checked {
+    background-color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+}
+
+.toggle-container {
+    padding-left: 1rem !important;
+    margin-left: 1rem !important;
+    border-left: 1px solid var(--border-color);
+    height: 100%;
+}
