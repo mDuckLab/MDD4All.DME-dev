@@ -2,31 +2,33 @@
 * {
     box-sizing: border-box;
     outline: none !important;
-    box-shadow: none !important; /* Verhindert Fokus-Rahmen */
+    box-shadow: none !important; /* Prevents unwanted focus rings */
 }
 
 :root {
+    /* Main Backgrounds */
     --bg-main: #ffffff;
     --bg-toolbar: #f3f5f8;
     --bg-panel-header: #f8f9fa;
     --bg-editor-area: #ffffff;
-    --border-color: #d2d2d2;
+    /* Global Borders & Accents */
+    --border-color: #d2d2d2; /* The primary UI divider color */
     --accent-color: #0078d4;
-    /* Funktionsfarben */
+    /* Semantic Colors */
     --warning-orange: #f2994a;
     --success-color: #107c10;
     --error-color: #d13438;
-    /* NEU: Manuell abgedunkelte Farben f¸r den "Mittelweg" (VS-sicher) */
-    --success-dim: #0f740f; /* Kr‰ftigeres Gr¸n */
-    --warning-dim: #de8d44; /* Satteres Orange */
+    /* Dimmed variants for better visual hierarchy */
+    --success-dim: #0f740f;
+    --warning-dim: #de8d44;
     --error-dim: #bd3033;
-    /* Hover-Hintergr¸nde (Satt & Deckend) */
+    /* Hover Effects (Saturated & Opaque) */
     --hover-blue: #d0e8ff;
     --hover-green: #d9f2d9;
     --hover-red: #ffd9d9;
     --hover-orange: #ffe6c9;
-    /* Dimensionen (rem-basiert f¸r Zoom-Effekt) */
-    --base-font-size: 1.1rem; /* Dein gew¸nschter Zoom-Faktor */
+    /* Dimensions (rem-based for scaling support) */
+    --base-font-size: 1.1rem;
     --header-height: 2.375rem;
     --panel-header-height: 2.275rem;
     --card-header-height: 2.65rem;
@@ -34,6 +36,8 @@
     --radius-card: 0.5rem;
     --indent-step: 1.25rem;
     --ui-gutter: 12px;
+    /* Dynamic width for the explorer sidebar */
+    --explorer-width: 14.5rem;
 }
 
 html, body {
@@ -50,11 +54,42 @@ html, body {
 .workbench-grid {
     display: grid !important;
     height: 100vh;
+    /* Rows: Toolbar, Breadcrumb, and Content Area */
     grid-template-rows: var(--header-height) 2.4rem 1fr;
-    grid-template-columns: 14.5rem 1fr;
-    grid-template-areas: "toolbar toolbar" "breadcrumb breadcrumb" "explorer editor";
+    /* Columns: Sidebar, Resizer (0px width for "Zen" look), and Editor */
+    grid-template-columns: var(--explorer-width) 0px 1fr;
+    /* Headers span all columns for a clean T-junction */
+    grid-template-areas:
+        "toolbar toolbar toolbar"
+        "breadcrumb breadcrumb breadcrumb"
+        "explorer resizer editor";
 }
 
+/* --- 3. LAYOUT COMPONENTS --- */
+
+/* Top Toolbar: Sticky header with toolbar background */
+.top-toolbar {
+    grid-area: toolbar;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--ui-gutter);
+    background: var(--bg-toolbar) !important;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Breadcrumb Nav Area */
+.breadcrumb-area {
+    grid-area: breadcrumb;
+    display: flex;
+    align-items: center;
+    padding: 0 !important;
+    border-bottom: 1px solid var(--border-color);
+    background: #ffffff;
+    height: 2.4rem;
+}
+
+/* Content Area Foundations */
 .explorer-area, .editor-area {
     display: flex !important;
     flex-direction: column !important;
@@ -64,33 +99,65 @@ html, body {
 
 .explorer-area {
     grid-area: explorer;
+    /* The single, clean vertical line is now part of the explorer */
     border-right: 1px solid var(--border-color);
     background: white;
+    z-index: 1;
 }
+
+/* ZEN RESIZER: Invisible hit area sitting exactly on the border */
+.resizer-handle {
+    grid-area: resizer;
+    cursor: col-resize;
+    z-index: 100;
+    background-color: transparent; /* Removes the "gray block" distraction */
+    /* Wider hit area for better ergonomics, centered on the line */
+    width: 10px;
+    margin-left: -5px;
+    transition: background-color 0.2s;
+}
+
+    .resizer-handle:hover, .resizer-handle:active {
+        /* Subtle highlight when dragging */
+        background-color: var(--accent-color) !important;
+        opacity: 0.4;
+    }
 
 .editor-area {
     grid-area: editor;
     background: var(--bg-editor-area);
 }
 
+/* Containers with Scroll support */
 .explorer-content, .editor-body {
     flex: 1;
     overflow: auto !important;
     min-height: 0;
 }
 
-.editor-body {
-    padding: 0 !important;
+/* Panel Header: Labels for sidebar/editor sections */
+.panel-header {
+    height: var(--panel-header-height);
+    background: var(--bg-panel-header) !important;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--ui-gutter) !important;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #666;
+    border-bottom: 1px solid var(--border-color);
 }
 
-    .editor-body > .editor-card {
-        margin: 0 3px 0 0 !important;
-        border-radius: 0 !important;
-        border: none !important;
-        border-bottom: 1px solid var(--border-color) !important;
-    }
+/* Editor Cards Alignment */
+.editor-body > .editor-card {
+    margin: 0 3px 0 0 !important;
+    border-radius: 0 !important;
+    border: none !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
 
-/* --- 3. DIE HOVER-ENGINE (NEU MIT FARB-SYNCHRONISATION) --- */
+/* --- 4. HOVER ENGINE (Icon Buttons) --- */
 .tool-group {
     display: flex;
     gap: 2px !important;
@@ -115,7 +182,7 @@ html, body {
         height: 1.2rem;
     }
 
-    /* RUHEZUSTAND: Striche dunkel, Kreis farbig */
+    /* Default state: dark icons, dimmed badges */
     .wb-btn-reset .wb-icon-lines {
         fill: #333 !important;
     }
@@ -131,8 +198,6 @@ html, body {
     .wb-btn-reset.btn-deletemode .wb-icon-badge {
         fill: var(--warning-dim) !important;
     }
-
-    /* HOVER-ZUSTAND: Alles wird farbig */
 
     /* Add-Button Hover */
     .wb-btn-reset.btn-add:hover {
@@ -153,7 +218,7 @@ html, body {
         .wb-btn-reset.btn-deletemode:hover .wb-icon-badge {
             fill: var(--warning-orange) !important;
         }
-        /* Diagonale Linie beim Hover auch orange machen */
+
         .wb-btn-reset.btn-deletemode:hover .wb-icon-active-line {
             stroke: var(--warning-orange) !important;
         }
@@ -177,7 +242,7 @@ html, body {
             fill: var(--error-color) !important;
         }
 
-    /* AKTIV-STATUS: Weiﬂ auf Orange */
+    /* Active Toggle State */
     .wb-btn-reset.active {
         background-color: var(--warning-orange) !important;
     }
@@ -193,7 +258,42 @@ html, body {
             stroke-width: 1.6px !important;
         }
 
-/* --- 4. STEPPER, CARDS & SCROLLBARS --- */
+/* --- 5. EDITOR CARDS & STEPPER --- */
+
+/* Depth Stepper Layout */
+.depth-stepper-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-left: 1px solid var(--border-color);
+    padding-left: 1rem;
+    height: 100%;
+}
+
+.stepper-controls {
+    display: flex;
+    align-items: center;
+    background: #f0f0f0;
+    border-radius: 4px;
+    padding: 2px;
+    gap: 4px;
+}
+
+.depth-display {
+    min-width: 2.2rem;
+    text-align: center;
+    font-weight: 700;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    font-size: 0.85rem;
+    padding: 1px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Compact Stepper Buttons */
 .btn-stepper {
     width: 1.6rem !important;
     height: 1.6rem !important;
@@ -204,7 +304,6 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.1s ease;
 }
 
     .btn-stepper:hover {
@@ -220,6 +319,7 @@ html, body {
         color: var(--error-color) !important;
     }
 
+/* Editor Object Cards */
 .editor-card {
     background: white;
     border: 1px solid var(--border-color);
@@ -242,22 +342,11 @@ html, body {
     padding: 0.6rem 0 0.8rem var(--indent-step);
 }
 
-/* --- 5. SCROLLBARS --- */
-::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
+/* --- 6. DICTIONARY TABLE (Typesafe & Flush) --- */
 
-::-webkit-scrollbar-thumb {
-    background: #d2d2d2;
-    border-radius: 10px;
-}
-
-/* --- 6. DICTIONARY TABLE (TYPENSICHER & B‹NDIG) --- */
-
+/* Removes card padding so the table touches the borders */
 .flush-content-wrapper {
     margin: 0 -0.625rem;
-    [cite_start] /* Hebt das Standard-Padding der Karte auf [cite: 10, 11] */
     border-top: 1px solid var(--border-color);
 }
 
@@ -269,7 +358,7 @@ html, body {
 
 .dict-header, .dict-row {
     display: grid;
-    /* 40px Action, 1fr Key, 1fr Value, 10px Symmetrie-Ausgleich rechts */
+    /* Grid: 40px (Actions) | Key | Value | 10px (Buffer) */
     grid-template-columns: 40px 1fr 1fr 10px;
     align-items: stretch;
 }
@@ -277,7 +366,7 @@ html, body {
 .dict-header {
     background-color: #fcfcfc;
     border-bottom: 1px solid var(--border-color);
-    margin-top: -1px; /* Verhindert doppelte Linien zum Header */
+    margin-top: -1px; /* Prevents double lines against container */
 }
 
 .header-cell {
@@ -288,7 +377,7 @@ html, body {
     text-transform: uppercase;
 }
 
-/* Der Trennstrich in der Mitte (nach der Key-Spalte) */
+/* Inner vertical separator line */
 .dict-header .header-cell:nth-child(2),
 .dict-row .key-column {
     border-right: 1px solid #eee;
@@ -312,4 +401,28 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* --- 7. SCROLLBARS & TOGGLES --- */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d2d2d2;
+    border-radius: 10px;
+}
+
+/* Custom Checkbox (Switch) styling */
+.form-check-input:checked {
+    background-color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+}
+
+.toggle-container {
+    padding-left: 1rem !important;
+    margin-left: 1rem !important;
+    border-left: 1px solid var(--border-color);
+    height: 100%;
 }

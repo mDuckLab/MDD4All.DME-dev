@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using KMRD.KamcosRelease.DataModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -145,7 +146,10 @@ namespace MDD4All.DME.Services
 
         public List<Type> GetAvailableDataModels()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
+            //Assembly assembly = Assembly.GetExecutingAssembly();
+
+            Assembly assembly = typeof(SystemReleaseInfo).Assembly;
+
             List<Type> filteredTypes = new List<Type>();
 
             foreach (Type type in assembly.GetTypes())

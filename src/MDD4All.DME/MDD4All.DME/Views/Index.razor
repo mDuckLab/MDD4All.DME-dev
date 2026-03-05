@@ -1,15 +1,14 @@
 ﻿@page "/"
 @namespace MDD4All.DME.Views
-@using MDD4All.DME.ViewModels.EditorViewModels
 @using MDD4All.DME.ViewModels
+@using MDD4All.DME.Views.Editor
 @using MDD4All.DME.Views.EditorView
 @using MDD4All.UI.BlazorComponents.Tree
 @using MDD4All.UI.DataModels.Tree
-@using CommunityToolkit.Mvvm.ComponentModel
 
 <div class="workbench-grid">
 
-    @* --- TOP TOOLBAR: Links-Rechts Verteilung --- *@
+    @* --- TOP TOOLBAR --- *@
     <header class="top-toolbar">
         <div class="tool-group">
             <DataManagerView ViewModel="MainViewModel.DataManagerViewModel" />
@@ -17,17 +16,7 @@
 
         <TreeDisplayToggle @bind-Active="_showTreeIcons" />
 
-        <div class="tool-group depth-stepper-container">
-            <span class="stepper-label">Visible Depth:</span>
-            <div class="stepper-controls">
-                @* Verwendung der Button-Basis-Klasse für einheitlichen Look *@
-                <button type="button" class="wb-btn-reset btn-stepper" @onclick="DecreaseDepth">−</button>
-                <div class="depth-display">
-                    @(_maxDepth == 0 ? "All" : _maxDepth.ToString())
-                </div>
-                <button type="button" class="wb-btn-reset btn-stepper" @onclick="IncreaseDepth">+</button>
-            </div>
-        </div>
+        <EditorDepthStepperView @bind-Value="_maxDepth" Limit="9" />
     </header>
 
     @* --- BREADCRUMB AREA --- *@
@@ -54,6 +43,9 @@
         </div>
     </aside>
 
+    @* --- INTERACTIVE RESIZER --- *@
+    <div class="resizer-handle" @onmousedown="StartResizing"></div>
+
     @* --- MAIN EDITOR AREA --- *@
     <main class="editor-area">
         <div class="panel-header">Editor</div>
@@ -66,7 +58,9 @@
             }
             else
             {
-                <div class="p-5 text-center text-muted">Please select an item from the explorer to begin editing.</div>
+                <div class="p-5 text-center text-muted">
+                    Please select an item from the explorer to begin editing.
+                </div>
             }
         </div>
     </main>

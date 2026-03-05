@@ -106,10 +106,12 @@ namespace MDD4All.DME.Analyzers
         }
 
         /// <summary>
-        /// Creates and analyzes a new <see cref="TypeAnalyzer"/> instance based on the static (compile-time) type of the provided object.
+        /// Creates and analyzes a new <see cref="TypeAnalyzer"/> instance based on the provided object's type.
+        /// <br/>- If the object is not null: Uses the actual runtime type.
+        /// <br/>- If the object is null: Falls back to the static (compile-time) type <typeparamref name="T"/>.
         /// </summary>
         /// <typeparam name="T">The static type of the object to analyze.</typeparam>
-        /// <param name="analyzeObject">The object to analyze.</param>
+        /// <param name="analyzeObject">The object instance to analyze.</param>
         /// <returns>A new, analyzed <see cref="TypeAnalyzer"/> instance.</returns>
         public static TypeAnalyzer CreateAnalyst<T>(T analyzeObject)
         {
@@ -164,7 +166,10 @@ namespace MDD4All.DME.Analyzers
         #region input Functions
 
         /// <summary>
-        /// Analyzes the static (compile-time) type of the provided object.
+        /// Analyzes the type of the provided object instance.
+        /// <br/>This method prioritizes the actual runtime type.
+        /// If the object is null, it uses the 
+        /// static (compile-time) type <typeparamref name="T"/> as a fallback.
         /// </summary>
         /// <typeparam name="T">The static type of the object.</typeparam>
         /// <param name="analyzeObject">The object to analyze.</param>

@@ -1,4 +1,8 @@
-﻿/* TOOLBAR: Graublau */
+﻿/* TOP TOOLBAR
+   The main command center of the workbench. 
+   Uses a subtle gray-blue background to distinguish the global actions 
+   from the white workspace areas.
+*/
 .top-toolbar {
     grid-area: toolbar;
     display: flex;
@@ -9,7 +13,11 @@
     border-bottom: 1px solid var(--border-color);
 }
 
-/* BREADCRUMB: Haus-Icon fluchtet mit Explorer */
+/* BREADCRUMB AREA
+   Indicates the current navigation path. 
+   Zero padding on the container ensures the home icon aligns perfectly 
+   with the Explorer sidebar's vertical line.
+*/
 .breadcrumb-area {
     grid-area: breadcrumb;
     display: flex;
@@ -20,7 +28,10 @@
     height: 2.4rem;
 }
 
-/* PANEL HEADERS: Hellgrau */
+/* PANEL HEADERS
+   Used for section labels like "Explorer" or "Editor".
+   The bold uppercase style mimics a professional IDE feel (Visual Studio style).
+*/
 .panel-header {
     height: var(--panel-header-height);
     background: var(--bg-panel-header) !important;
@@ -34,7 +45,10 @@
     border-bottom: 1px solid var(--border-color);
 }
 
-/* STEPPER: Zentriert */
+/* DEPTH STEPPER
+   A specialized tool to control how deep nested object structures are rendered.
+   The left border acts as a visual separator from the tree icons toggle.
+*/
 .depth-stepper-container {
     display: flex;
     align-items: center;
@@ -44,6 +58,10 @@
     height: 100%;
 }
 
+/* STEPPER CONTROLS
+   Capsule-shaped container for the + and - buttons.
+   Uses a light gray background to group the buttons haptically.
+*/
 .stepper-controls {
     display: flex;
     align-items: center;
@@ -53,6 +71,10 @@
     gap: 4px;
 }
 
+/* DEPTH DISPLAY
+   The numeric readout for the current depth. 
+   White background and dark border make the number pop for easy readability.
+*/
 .depth-display {
     min-width: 2.2rem;
     text-align: center;
@@ -67,13 +89,19 @@
     justify-content: center;
 }
 
-/* --- Tree Display Toggle Styling --- */
-
+/* TOGGLE SYSTEM
+   Ensures custom checkboxes (like the tree icon toggle) match 
+   the application's primary accent color when active.
+*/
 .form-check-input:checked {
     background-color: var(--accent-color) !important;
     border-color: var(--accent-color) !important;
 }
 
+/* TOGGLE CONTAINER
+   Provides consistent spacing and a vertical divider for toggle switches 
+   inside the toolbar's tool groups.
+*/
 .toggle-container {
     padding-left: 1rem !important;
     margin-left: 1rem !important;

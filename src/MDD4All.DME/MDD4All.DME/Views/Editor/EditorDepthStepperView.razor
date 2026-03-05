@@ -1,0 +1,57 @@
+﻿<div class="tool-group depth-stepper-container">
+    <span class="stepper-label">@Label</span>
+    <div class="stepper-controls">
+        <button type="button" class="wb-btn-reset btn-stepper" @onclick="HandleDecrease">−</button>
+        <div class="depth-display">
+            @(Value == 0 ? "All" : Value.ToString())
+        </div>
+        <button type="button" class="wb-btn-reset btn-stepper" @onclick="HandleIncrease">+</button>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int Value { get; set; }
+    [Parameter] public EventCallback<int> ValueChanged { get; set; }
+    [Parameter] public int Limit { get; set; } = 9;
+    [Parameter] public string Label { get; set; } = "Visible Depth";
+
+    private async Task HandleIncrease()
+    {
+        int next = Value;
+
+        if (next == 0)
+        {
+            next = 2; 
+        }
+        else if (next >= Limit)
+        {
+            next = 0; 
+        }
+        else
+        {
+            next++;
+        }
+
+        await ValueChanged.InvokeAsync(next);
+    }
+
+    private async Task HandleDecrease()
+    {
+        int next = Value;
+
+        if (next == 0)
+        {
+            next = Limit;
+        }
+        else if (next <= 2)
+        {
+            next = 0; 
+        }
+        else
+        {
+            next--;
+        }
+
+        await ValueChanged.InvokeAsync(next);
+    }
+}

@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\..\DME_Testdaten\src\KMRD.KamcosRelease.DataModels\KMRD.KamcosRelease.DataModels-dev.csproj" />
       <ProjectReference Include="..\..\MDD4All.UI.BlazorComponents\src\MDD4All.UI.BlazorComponents\MDD4All.UI.BlazorComponents-dev.csproj" />
       <ProjectReference Include="..\..\MDD4All.UI.DataModels\src\MDD4All.UI.DataModels\MDD4All.UI.DataModels-dev.csproj" />
       <ProjectReference Include="..\MDD4All.DME.DataModels\MDD4All.DME.ViewModels.csproj" />
