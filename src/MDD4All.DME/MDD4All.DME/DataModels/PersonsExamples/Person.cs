@@ -29,7 +29,7 @@ namespace MDD4All.DME.DataModels.PersonsExamples
             IsFemale = isFemale;
             Address = new Address(street, houseNumber, size, postCode, cityName);
             dateTime = DateTime.Now;
-            myIntList = new List<int> { 0, 1, 2 };
+            //myIntList = new List<int> { 0, 1, 2 };
 
             // 1. Simple-Simple: string -> string
             ContactDetails = new Dictionary<string, string>

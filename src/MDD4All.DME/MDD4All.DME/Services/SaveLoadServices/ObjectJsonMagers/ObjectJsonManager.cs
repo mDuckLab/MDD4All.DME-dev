@@ -146,9 +146,9 @@ namespace MDD4All.DME.Services
 
         public List<Type> GetAvailableDataModels()
         {
-            //Assembly assembly = Assembly.GetExecutingAssembly();
+            Assembly assembly = Assembly.GetExecutingAssembly();
 
-            Assembly assembly = typeof(SystemReleaseInfo).Assembly;
+            //Assembly assembly = typeof(SystemReleaseInfo).Assembly;
 
             List<Type> filteredTypes = new List<Type>();
 

@@ -64,6 +64,7 @@ namespace MDD4All.DME.ViewModels.EditorViewModels
             {
                 this.Item = Array.CreateInstance(UnderlyingType, length);
                 this.Children.Clear();
+                UpdateParentReference();
             }
         }
         #endregion
@@ -141,6 +142,7 @@ namespace MDD4All.DME.ViewModels.EditorViewModels
                     newArray.SetValue(newElement, newIndex);
 
                     this.Item = newArray;
+                    UpdateParentReference();
 
                     ObjectEditorViewModel? childViewModel = ReferenceEditorViewModel.CreateChildViewModel(this.Tree!,
                                                                                                             new ArrayAccess(newIndex),
@@ -203,6 +205,7 @@ namespace MDD4All.DME.ViewModels.EditorViewModels
                     }
 
                     this.Item = newArray;
+                    UpdateParentReference();
                 }
 
                 this.ReorderIndexChild(index);
