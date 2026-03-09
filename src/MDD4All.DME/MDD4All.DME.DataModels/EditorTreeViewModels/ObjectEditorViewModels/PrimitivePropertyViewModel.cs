@@ -83,7 +83,7 @@ namespace MDD4All.DME.ViewModels.EditorViewModels
                 // Using the common base class for ListAccess and ArrayAccess
                 if (Access is IndexedAccess indexedAccess)
                 {
-                    result = indexedAccess.Index.ToString();
+                    result = (indexedAccess.Index +1 ).ToString();
                 }
                 else
                 {
