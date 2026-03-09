@@ -89,3 +89,26 @@
     color: #444;
     transition: color 0.1s ease;
 }
+
+/* --- GHOST-LOOK FIX --- */
+
+/* Wir kombinieren beide Klassen, um die Spezifität zu erhöhen.
+   Das überschreibt die blaue Farbe aus der gleichen Datei. */
+.selectable-label.label-ghost {
+    color: #aaaaaa !important; /* Neutrales Grau statt Akzent-Blau */
+    font-style: italic !important;
+    cursor: default !important;
+    text-decoration: none !important;
+}
+
+    /* Deaktiviert explizit den Hover-Effekt (Unterstreichen & Farbwechsel) */
+    .selectable-label.label-ghost:hover {
+        color: #aaaaaa !important;
+        text-decoration: none !important;
+    }
+
+/* Optional: Den Hintergrund des Headers leicht abblassen */
+.card-header-grid.is-ghost {
+    background-color: #fafafa !important; /* */
+    cursor: default !important;
+}

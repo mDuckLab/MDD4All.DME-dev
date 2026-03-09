@@ -14,5 +14,14 @@ namespace MDD4All.DME.Views.EditorView
         {
             await OnAction.InvokeAsync(action);
         }
+
+        private async Task OnSelectLabel()
+        {
+            // Wir führen die Aktion nur aus, wenn das Objekt NICHT null ist
+            if (!State.IsNull)
+            {
+                await Notify(EditorAction.Select);
+            }
+        }
     }
 }

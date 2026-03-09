@@ -4,10 +4,14 @@
 
 <div class="card-header-grid" @onclick="@(() => Notify(EditorAction.ToggleExpand))">
     <div class="card-title">
-        <span class="selectable-label" @onclick="@(() => Notify(EditorAction.Select))">
+        @* Nur der Titel bekommt die Ghost-Klasse *@
+        <span class="selectable-label @(State.IsNull ? "label-ghost" : "")"
+              @onclick="OnSelectLabel"
+              @onclick:stopPropagation="State.IsNull">
             @State.Title
         </span>
 
+        @* Das Badge bleibt wie es ist *@
         @if (!string.IsNullOrEmpty(State.BadgeText))
         {
             <span class="badge-list">@State.BadgeText</span>

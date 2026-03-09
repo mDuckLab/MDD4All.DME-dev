@@ -39,6 +39,7 @@ namespace MDD4All.DME.Views.EditorView
         {
             // Set basic info
             this._state.Title = this.ViewModel.Title;
+            this._state.IsNull = this.ViewModel.IsNull;
 
             // Handle BadgeText for reference types
             if (this.ViewModel is ReferenceEditorViewModel referenceEditorViewModel)

@@ -71,7 +71,34 @@ namespace MDD4All.DME.ViewModels
         #endregion
 
         #region properties
-        public virtual object? Item { get; set; }
+
+        private object? _item;
+
+        public virtual object? Item
+        {
+            get
+            {
+                return _item;
+            }
+            set
+            {
+                if (_item != value)
+                {
+                    bool wasNullBefore = (_item == null);
+
+                    _item = value;
+
+                    bool isNullNow = (_item == null);
+
+                    OnPropertyChanged(nameof(Item));
+
+                    if (wasNullBefore != isNullNow)
+                    {
+                        OnPropertyChanged(nameof(IsNull));
+                    }
+                }
+            }
+        }
 
         public Type Type
         {
@@ -148,6 +175,19 @@ namespace MDD4All.DME.ViewModels
                     result = Type?.Name ?? "Object";
                 }
 
+                return result;
+            }
+        }
+
+        public bool IsNull
+        {
+            get
+            {
+                bool result = false;
+                if (this.Item == null)
+                {
+                    result = true;
+                }
                 return result;
             }
         }

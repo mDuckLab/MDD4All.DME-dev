@@ -4,6 +4,7 @@
     {
         public string Title { get; set; } = string.Empty;
         public string? BadgeText { get; set; }
+        public bool IsNull { get; set; }
 
         public bool ShowCreateButton { get; set; }
         public bool ShowAddButton { get; set; }
