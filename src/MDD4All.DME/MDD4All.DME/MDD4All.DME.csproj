@@ -25,6 +25,7 @@
       <ProjectReference Include="..\..\MDD4All.UI.DataModels\src\MDD4All.UI.DataModels\MDD4All.UI.DataModels-dev.csproj" />
       <ProjectReference Include="..\MDD4All.DME.DataModels\MDD4All.DME.ViewModels.csproj" />
       <ProjectReference Include="..\MDD4All.DME.Services\MDD4All.DME.Services.csproj" />
+      <ProjectReference Include="..\MDD4All.DME.ViewModels.DataManger\MDD4All.DME.ViewModels.DataManager.csproj" />
     </ItemGroup>
 
 </Project>

@@ -57,19 +57,19 @@ namespace MDD4All.DME.DataModels.PersonsExamples
             };
         }
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
         public int Age { get; set; }
         public bool IsFemale { get; set; }
-        public Address Address { get; set; }
-        public DateTime dateTime { get; set; } = DateTime.Now;
-        public List<int> myIntList { get; set; }
+        public Address? Address { get; set; }
+        public DateTime? dateTime { get; set; } = DateTime.Now;
+        public List<int>? myIntList { get; set; }
         public int[]? myIntArray { get; set; } = null;
         public Address? WorkAddress { get; set; } = null;
 
-        public Dictionary<string, string> ContactDetails { get; set; }
-        public Dictionary<string, Address> NamedAddresses { get; set; }
-        public Dictionary<Address, Address> RouteMap { get; set; }
+        public Dictionary<string, string>? ContactDetails { get; set; }
+        public Dictionary<string, Address>? NamedAddresses { get; set; }
+        public Dictionary<Address, Address>? RouteMap { get; set; }
 
         public override string ToString()
         {

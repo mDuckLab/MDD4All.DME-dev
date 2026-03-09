@@ -56,9 +56,9 @@ namespace MDD4All.DME.Views.EditorView
             if (vm == null) return typeof(PrimitivePropertyEditorView); // Fallback
 
             if (vm is PrimitivePropertyViewModel) return typeof(PrimitivePropertyEditorView);
-            if (vm is ComplexObjectEditorViewModel) return typeof(ComplexObjectEditorView);
-            if (vm is IndexedCollectionEditorViewModel) return typeof(IndexedCollectionEditorView);
-            if (vm is DictionaryEditorViewModel) return typeof(DictionaryEditorView);
+            // if (vm is ComplexObjectEditorViewModel) return typeof(ComplexObjectEditorView);
+            // if (vm is IndexedCollectionEditorViewModel) return typeof(IndexedCollectionEditorView);
+            // if (vm is DictionaryEditorViewModel) return typeof(DictionaryEditorView);
 
             return typeof(PrimitivePropertyEditorView);
         }

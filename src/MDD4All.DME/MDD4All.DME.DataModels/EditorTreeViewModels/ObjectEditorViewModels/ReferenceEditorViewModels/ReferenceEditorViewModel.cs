@@ -190,6 +190,7 @@ namespace MDD4All.DME.ViewModels.EditorViewModels
         }
         #endregion
 
+        //refactoring nochmal anschauen
         protected void UpdateParentReference()
         {
             if (this.Parent != null && this.Parent is ObjectEditorViewModel parentVM && parentVM.Item != null)

@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using KMRD.KamcosRelease.DataModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -144,36 +143,90 @@ namespace MDD4All.DME.Services
             return result;
         }
 
+        //public List<Type> GetAvailableDataModels()
+        //{
+        //    Assembly assembly = Assembly.GetExecutingAssembly();
+
+        //    //Assembly assembly = typeof(SystemReleaseInfo).Assembly;
+
+        //    List<Type> filteredTypes = new List<Type>();
+
+        //    foreach (Type type in assembly.GetTypes())
+        //    {
+        //        if (type.IsClass && type.IsPublic && !type.IsAbstract && type.GetConstructor(Type.EmptyTypes) != null)
+        //        {
+        //            if (IsNamespaceFilterActive)
+        //            {
+        //                if (type.Namespace != null && type.Namespace.Contains("DataModels"))
+        //                {
+        //                    filteredTypes.Add(type);
+        //                }
+        //            }
+        //            else
+        //            {
+        //                if (type.Namespace != null && !type.Namespace.StartsWith("Microsoft") && !type.Namespace.StartsWith("System"))
+        //                {
+        //                    filteredTypes.Add(type);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return filteredTypes;
+        //}
+
+
         public List<Type> GetAvailableDataModels()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-
-            //Assembly assembly = typeof(SystemReleaseInfo).Assembly;
-
             List<Type> filteredTypes = new List<Type>();
 
-            foreach (Type type in assembly.GetTypes())
+            // get all loaded assemblies from everywhere
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+            foreach (Assembly assembly in assemblies)
             {
-                if (type.IsClass && type.IsPublic && !type.IsAbstract && type.GetConstructor(Type.EmptyTypes) != null)
+                try
                 {
-                    if (IsNamespaceFilterActive)
+                    // skip system stuff for speed
+                    string? name = assembly.FullName;
+                    if (name != null && (name.StartsWith("Microsoft") || name.StartsWith("System")))
                     {
-                        if (type.Namespace != null && type.Namespace.Contains("DataModels"))
-                        {
-                            filteredTypes.Add(type);
-                        }
+                        if (IsNamespaceFilterActive) continue;
                     }
-                    else
+
+                    foreach (Type type in assembly.GetTypes())
                     {
-                        if (type.Namespace != null && !type.Namespace.StartsWith("Microsoft") && !type.Namespace.StartsWith("System"))
+                        // need public class with empty constructor
+                        if (type.IsClass && type.IsPublic && !type.IsAbstract && type.GetConstructor(Type.EmptyTypes) != null)
                         {
-                            filteredTypes.Add(type);
+                            if (IsNamespaceFilterActive)
+                            {
+                                // filter by datamodels string
+                                if (type.Namespace != null && type.Namespace.Contains("DataModels"))
+                                {
+                                    filteredTypes.Add(type);
+                                }
+                            }
+                            else
+                            {
+                                // no microsoft or system here
+                                if (type.Namespace != null && !type.Namespace.StartsWith("Microsoft") && !type.Namespace.StartsWith("System"))
+                                {
+                                    filteredTypes.Add(type);
+                                }
+                            }
                         }
                     }
                 }
+                catch (ReflectionTypeLoadException)
+                {
+                    // assembly broken? just skip
+                    continue;
+                }
             }
-            return filteredTypes;
+            // sorting
+            return filteredTypes.OrderBy(t => t.Name).ToList();
         }
+
 
         public object? LoadFromContent(string jsonContent)
         {
