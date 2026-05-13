@@ -3,14 +3,23 @@
 @using MDD4All.DME.ViewModels;
 
 <div class="complex-object-body">
-    @if (this.ViewModel.Children != null)
+    @if (ViewModel.IsNull)
     {
-        @foreach (var child in this.ViewModel.Children)
+        <div>The element is not initialized.</div>
+    }
+    else
+    {
+        @if (this.ViewModel.Children != null)
         {
-            if (child is ObjectEditorViewModel childVm)
+
+            @foreach (var child in this.ViewModel.Children)
             {
-                <ObjectEditorView ViewModel="childVm" MaxDepth="@MaxDepth" CurrentDepth="@CurrentDepth" />
+                if (child is ObjectEditorViewModel childVm)
+                {
+                    <ObjectEditorView ViewModel="childVm" MaxDepth="@MaxDepth" CurrentDepth="@CurrentDepth" />
+                }
             }
+
         }
     }
 </div>

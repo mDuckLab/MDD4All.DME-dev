@@ -1,0 +1,30 @@
+﻿<span>
+    @switch(DataContext.TypeCategory)
+    {
+        case Analyzers.TypeCategory.None:
+            <i class="bi bi-file-earmark-ruled-fill m-1" style="color:goldenrod; font-weight:bold;"> </i>
+            break;
+
+        case Analyzers.TypeCategory.IList:
+            <i class="bi bi-collection-fill m-1" style="color:forestgreen;"></i>
+            break;
+
+        case Analyzers.TypeCategory.Array:
+            <i class="bi bi-collection-fill m-1" style="color:darkviolet;"></i>
+            break;
+
+        case Analyzers.TypeCategory.IDictionary:
+            <i class="bi bi-collection-fill m-1" style="color:orange;"></i>
+            break;
+        case Analyzers.TypeCategory.Simple:
+        case Analyzers.TypeCategory.SimpleNullable:
+            <i class="bi bi-square-fill m-1 simpleTypeIcon"></i>
+            break;
+
+        default:
+            <i class="bi bi-question m-1"></i>
+            break;
+    }
+</span>
+
+

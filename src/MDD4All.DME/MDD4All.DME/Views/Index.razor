@@ -3,6 +3,7 @@
 @using MDD4All.DME.ViewModels
 @using MDD4All.DME.Views.Editor
 @using MDD4All.DME.Views.EditorView
+@using MDD4All.DME.Views.Tree
 @using MDD4All.UI.BlazorComponents.Tree
 @using MDD4All.UI.DataModels.Tree
 
@@ -14,7 +15,7 @@
             <DataManagerView ViewModel="MainViewModel.DataManagerViewModel" />
         </div>
 
-        <TreeDisplayToggle @bind-Active="_showTreeIcons" />
+        @* <TreeDisplayToggle @bind-Active="_showTreeIcons" /> *@
 
         <EditorDepthStepperView @bind-Value="_maxDepth" Limit="9" />
     </header>
@@ -35,9 +36,8 @@
             {
                 <MvvmTree TNode="ObjectEditorViewModel"
                       DataContext="@MainViewModel.TreeViewModel"
-                      ShowTreeIcons="_showTreeIcons"
                       SelectedNodeChanged="OnTreeSelectionChange">
-                    <TitleTemplate Context="node">@node.Title</TitleTemplate>
+                    <TitleTemplate Context="node">@node.Level <EditorTreeIcon DataContext="node" />@node.Title</TitleTemplate>
                 </MvvmTree>
             }
         </div>

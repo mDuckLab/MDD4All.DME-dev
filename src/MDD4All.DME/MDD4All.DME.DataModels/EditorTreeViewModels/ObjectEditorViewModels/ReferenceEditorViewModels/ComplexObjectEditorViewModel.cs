@@ -135,6 +135,8 @@ namespace MDD4All.DME.ViewModels.EditorViewModels
                 }
 
                 this.CreateTree();
+
+                EditorState.IsExpanded = true;
             }
         }
         #endregion

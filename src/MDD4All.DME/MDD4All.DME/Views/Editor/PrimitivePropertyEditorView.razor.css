@@ -1,7 +1,7 @@
 ﻿/* primitiv.css - Konvertiert in REM */
 .property-row {
     display: grid;
-    grid-template-columns: 10rem 1fr; /* 160px */
+    grid-template-columns: 14rem 1fr; /* 160px */
     gap: 0.625rem; /* 10px */
     align-items: center;
     margin-bottom: 0.125rem; /* 2px */

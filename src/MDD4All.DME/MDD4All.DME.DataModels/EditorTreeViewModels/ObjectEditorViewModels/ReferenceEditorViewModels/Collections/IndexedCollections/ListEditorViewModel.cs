@@ -107,6 +107,7 @@ namespace MDD4All.DME.ViewModels.EditorViewModels
         override protected void ExecuteCreateInstance()
         {
             this.CreateListInstance();
+            EditorState.IsExpanded = true;
         }
 
         override protected void ExecuteAddItem()

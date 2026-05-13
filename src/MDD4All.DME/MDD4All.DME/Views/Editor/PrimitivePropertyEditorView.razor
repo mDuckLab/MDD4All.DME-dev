@@ -1,12 +1,15 @@
 ﻿@namespace MDD4All.DME.Views.EditorView
 @using System.Globalization
+@using MDD4All.DME.Views.Tree
 
 <div class="property-row @(IsCompact ? "compact-mode" : "")">
     @*<label class="property-label">@ViewModel.Title</label>*@
 
+    
+
     @if (ShowTitle)
     {
-        <label>@ViewModel.Title</label>
+        <label><small>@ViewModel.Level <EditorTreeIcon DataContext="ViewModel" /></small> @ViewModel.Title</label>
     }
 
     <div class="property-input-zone" style="@(IsCompact ? "flex-grow: 1; display: flex;" : "")">

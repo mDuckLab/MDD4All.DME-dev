@@ -1,14 +1,17 @@
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
-using MDD4All.DME.ViewModels; 
-using MDD4All.DME.Views.EditorView; 
+using MDD4All.DME.ViewModels;
+using MDD4All.DME.ViewModels.Editor.EditorTreeViewModels.ObjectEditorViewModels;
 
 namespace MDD4All.DME.Views.EditorView
 {
     public partial class EditorHeaderView : ComponentBase
-    {
-        [Parameter] public EditorState State { get; set; } = null!;
-        [Parameter] public EventCallback<EditorAction> OnAction { get; set; }
+    {        
+        [Parameter] 
+        public EventCallback<EditorAction> OnAction { get; set; }
+
+        [Parameter]
+        public ObjectEditorViewModel DataContext { get; set; } = null!;
 
         protected async Task Notify(EditorAction action)
         {
@@ -18,7 +21,7 @@ namespace MDD4All.DME.Views.EditorView
         private async Task OnSelectLabel()
         {
             // Wir führen die Aktion nur aus, wenn das Objekt NICHT null ist
-            if (!State.IsNull)
+            if (!DataContext.IsNull)
             {
                 await Notify(EditorAction.Select);
             }

@@ -5,7 +5,6 @@ using MDD4All.UI.BlazorComponents.Services;
 using MDD4All.DME.Services;
 using MDD4All.DME.ViewModels;
 using MDD4All.DME.Services.Save_Load_Services.SaveServices.Interface;
-using KMRD.KamcosRelease.DataModels;
 
 namespace MDD4All.DME
 {
@@ -13,8 +12,6 @@ namespace MDD4All.DME
     {
         public static void Main(string[] args)
         {
-            SystemReleaseInfo systemReleaseInfo = new SystemReleaseInfo();
-
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddRazorPages();

@@ -3,22 +3,30 @@
 
 @if (this.IsReferenceType)
 {
-    <div class="editor-card @(CurrentDepth == 1 ? "card-root" : "card-indent") @(this._state.IsDeleteMode ? "delete-mode-active" : "")">
+    <div class="editor-card @(CurrentDepth == 1 ? "card-root" : "card-indent") @(ViewModel.EditorState.IsDeleteMode ? "delete-mode-active" : "")">
 
-        <EditorHeaderView State="@this._state" OnAction="this.HandleAction" />
+        <EditorHeaderView DataContext="ViewModel"
+                          OnAction="this.HandleAction" />
 
-        @if (this._state.IsExpanded)
+        @if (ViewModel.EditorState.IsExpanded)
         {
-            <div class="card-content">
-                @if (this._state.CanRenderChildren)
+            <div class="card-content" style="@CssBackgroundExtension">
+                @if (ViewModel.EditorState.CanRenderChildren)
                 {
                     @if (this.ViewModel is ComplexObjectEditorViewModel complex)
                     {
-                        <ComplexObjectBody ViewModel="complex" MaxDepth="@MaxDepth" CurrentDepth="@(CurrentDepth + 1)" />
+                        <ComplexObjectBody ViewModel="complex" 
+                                           MaxDepth="@MaxDepth" 
+                                           CurrentDepth="@(CurrentDepth + 1)" />
                     }
                     else if (this.ViewModel is IndexedCollectionEditorViewModel collection)
                     {
-                        <IndexedCollectionBody ViewModel="collection" State="@this._state" MaxDepth="@MaxDepth" CurrentDepth="@(CurrentDepth + 1)" />
+                        
+                        <IndexedCollectionBody ViewModel="collection"
+                                                MaxDepth="@MaxDepth"
+                                                CurrentDepth="@(CurrentDepth + 1)" />
+                        
+                        
                     }
                     else if (this.ViewModel is DictionaryEditorViewModel dictionary)
                     {

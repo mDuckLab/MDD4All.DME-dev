@@ -3,6 +3,7 @@ using MDD4All.DME.ViewModels;
 using MDD4All.DME.ViewModels.EditorViewModels;
 using MDD4All.DME.ViewModels.EditorViewModels.Accesses;
 using MDD4All.DME.Analyzers;
+using MDD4All.DME.ViewModels.Editor.EditorTreeViewModels.ObjectEditorViewModels;
 
 namespace MDD4All.DME.Views.EditorView
 {
@@ -12,14 +13,12 @@ namespace MDD4All.DME.Views.EditorView
         [Parameter] public int MaxDepth { get; set; } = 0;
         [Parameter] public int CurrentDepth { get; set; } = 1;
 
-        private EditorState _state = new EditorState();
-
         private bool IsReferenceType
         {
             get
             {
                 bool result = false;
-                if (this.ViewModel is ReferenceEditorViewModel)
+                if (ViewModel is ReferenceEditorViewModel)
                 {
                     result = true;
                 }
@@ -27,126 +26,59 @@ namespace MDD4All.DME.Views.EditorView
             }
         }
 
-        protected override void OnParametersSet()
+        private string CssBackgroundExtension
         {
-            if (this.ViewModel != null)
+            get
             {
-                this.InitializeState();
-            }
-        }
-
-        private void InitializeState()
-        {
-            // Set basic info
-            this._state.Title = this.ViewModel.Title;
-            this._state.IsNull = this.ViewModel.IsNull;
-
-            // Handle BadgeText for reference types
-            if (this.ViewModel is ReferenceEditorViewModel referenceEditorViewModel)
-            {
-                this._state.BadgeText = referenceEditorViewModel.BadgeText;
-            }
-
-            // Check depth limit explicitly
-            if (this.MaxDepth == 0 || this.CurrentDepth < this.MaxDepth)
-            {
-                this._state.CanRenderChildren = true;
-            }
-            else
-            {
-                this._state.CanRenderChildren = false;
-            }
-
-            // Logic for reference types within depth limit
-            if (this._state.CanRenderChildren == true && this.ViewModel is ReferenceEditorViewModel referenceEditor)
-            {
-                if (this.ViewModel.Item == null)
+                string result = "";
+                if(ViewModel is ListEditorViewModel)
                 {
-                    // Item is deleted -> Reset UI and show Create button
-                    this.ResetStateForLimitOrSimpleType();
-                    this._state.ShowCreateButton = true;
+                    result = "background-color:#EFF9EB;";
                 }
-                else
-                {
-                    this._state.ShowCreateButton = false;
-                    this._state.ShowExpander = this.ViewModel.HasChildNodes;
-                    this._state.ShowDeleteButton = this.ViewModel.Parent != null;
-
-                    // Use Enum-Category to determine button visibility
-                    switch (this.ViewModel.TypeCategory)
-                    {
-                        case TypeCategory.IList:
-                        case TypeCategory.Array:
-                            if (referenceEditor is IndexedCollectionEditorViewModel indexedCollectionEditorViewModel)
-                            {
-                                this._state.ShowAddButton = true;
-                                if (indexedCollectionEditorViewModel.IsUnderlyingTypeSimple == true)
-                                {
-                                    this._state.ShowDeleteModeButton = true;
-                                }
-                            }
-                            break;
-
-                        case TypeCategory.IDictionary:
-                            this._state.ShowAddButton = true;
-                            this._state.ShowDeleteModeButton = true;
-                            break;
-                    }
-                }
-            }
-            else
-            {
-                // Fallback for simple types or depth limit
-                this.ResetStateForLimitOrSimpleType();
+                return result;
             }
         }
 
-        private void ResetStateForLimitOrSimpleType()
+        protected override void OnInitialized()
         {
-            this._state.ShowExpander = false;
-            this._state.ShowAddButton = false;
-            this._state.ShowDeleteButton = false;
-            this._state.ShowCreateButton = false;
-            this._state.ShowDeleteModeButton = false;
-
-            if (this._state.CanRenderChildren == false || this.ViewModel.Item == null)
-            {
-                this._state.IsExpanded = false;
-            }
+            ViewModel.EditorState.CurrentDepth = CurrentDepth;
+            ViewModel.EditorState.MaxDepth = MaxDepth;
         }
+
+        
 
         private void HandleAction(EditorAction action)
         {
             if (action == EditorAction.ToggleExpand)
             {
-                this._state.IsExpanded = !this._state.IsExpanded;
+                ViewModel.EditorState.IsExpanded = !ViewModel.EditorState.IsExpanded;
             }
             else if (action == EditorAction.ToggleDeleteMode)
             {
-                this._state.IsDeleteMode = !this._state.IsDeleteMode;
+                ViewModel.EditorState.IsDeleteMode = !ViewModel.EditorState.IsDeleteMode;
             }
             else if (action == EditorAction.Select)
             {
                 // Select node in tree if available
-                if (this.ViewModel.Tree != null)
+                if (ViewModel.Tree != null)
                 {
-                    this.ViewModel.Tree.SelectedNode = this.ViewModel;
+                    ViewModel.Tree.SelectedNode = ViewModel;
                 }
             }
             else
             {
                 // Execute data commands (Create, Add, Delete)
-                this.ExecuteViewModelCommand(action);
+                ExecuteViewModelCommand(action);
 
                 // Refresh UI state to handle collapse and button visibility
-                this.InitializeState();
+               // this.InitializeState();
 
                 // AUTO-EXPAND Logic:
                 // Automatically expand the card after creating an instance or adding an element.
                 // This only triggers if we are within the allowed depth limits.
-                if ((action == EditorAction.Create || action == EditorAction.Add) && this._state.CanRenderChildren == true)
+                if ((action == EditorAction.Create || action == EditorAction.Add) && ViewModel.EditorState.CanRenderChildren == true)
                 {
-                    this._state.IsExpanded = true;
+                    //ViewModel.EditorState. IsExpanded = true;
                 }
             }
         }

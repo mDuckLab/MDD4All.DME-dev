@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components;
 using MDD4All.DME.ViewModels.EditorViewModels;
 using MDD4All.DME.ViewModels.EditorViewModels.Accesses;
 using MDD4All.DME.ViewModels;
+using MDD4All.DME.ViewModels.Editor.EditorTreeViewModels.ObjectEditorViewModels;
 
 namespace MDD4All.DME.Views.EditorView
 {
@@ -9,9 +10,6 @@ namespace MDD4All.DME.Views.EditorView
     {
         [Parameter] 
         public IndexedCollectionEditorViewModel ViewModel { get; set; } = null!;
-
-        [Parameter] 
-        public EditorState State { get; set; } = null!;
 
         [Parameter] 
         public int MaxDepth { get; set; }

@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MDD4All.DME.Analyzers;
+using MDD4All.DME.ViewModels.Editor.EditorTreeViewModels.ObjectEditorViewModels;
+using MDD4All.DME.ViewModels.EditorViewModels;
 using MDD4All.DME.ViewModels.EditorViewModels.Accesses;
 using MDD4All.UI.DataModels.Tree;
 using System;
@@ -19,6 +21,8 @@ namespace MDD4All.DME.ViewModels
             this.Tree = tree;
             this.Parent = parent;
             this.Children = new ObservableCollection<ITreeNode>();
+
+            EditorState = new EditorState(this);
 
             /* * NOTE: The following TypeAnalyzer initialization logic is technically redundant when 
              * this ViewModel is created via ReferenceEditorViewModel.CreateChildViewModel, 
@@ -71,6 +75,13 @@ namespace MDD4All.DME.ViewModels
         #endregion
 
         #region properties
+
+        public EditorState EditorState { get; private set; }
+
+        
+
+        
+
 
         private object? _item;
 
@@ -211,7 +222,27 @@ namespace MDD4All.DME.ViewModels
 
         public int Index
         {
-            get;
+            get
+            {
+                int result = 0;
+
+                if (Parent != null)
+                {
+                    int counter = 0;
+                    foreach (ITreeNode child in Parent.Children)
+                    {
+                        if (child == this)
+                        {
+                            result = counter;
+                            break;
+                        }
+                        counter++;
+                    }
+
+                }
+
+                return result;
+            }
         }
 
         public bool HasChildNodes
@@ -245,6 +276,26 @@ namespace MDD4All.DME.ViewModels
             get
             {
                 return false;
+            }
+        }
+
+        public string Level
+        {
+            get
+            {
+                string result = "";
+
+                result = "" + (Index + 1);
+
+                ITreeNode item = this;
+
+                while (item.Parent != null)
+                {
+                    result = (item.Parent.Index + 1) + "." + result;
+                    item = item.Parent;
+                }
+
+                return result;
             }
         }
 
