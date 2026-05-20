@@ -1,9 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MDD4All.UI.DataModels.Tree;
-using System.ComponentModel;
-using System;
+using CommunityToolkit.Mvvm.Input;
+using MDD4All.AssemblyLoading.Contracts;
+using MDD4All.Configuration;
+using MDD4All.Configuration.Contracts;
+using MDD4All.DME.AssemblyTree.ViewModels;
+using MDD4All.DME.Configurations;
 using MDD4All.DME.Services;
 using MDD4All.DME.Services.Save_Load_Services.SaveServices.Interface;
+using MDD4All.FileAccess.Contracts;
+using MDD4All.UI.DataModels.Tree;
+using System;
+using System.ComponentModel;
+using System.Configuration;
+using System.Windows.Input;
 
 namespace MDD4All.DME.ViewModels
 {
@@ -11,11 +20,54 @@ namespace MDD4All.DME.ViewModels
     {
         private ObjectTreeViewModel? _treeViewModel;
 
-        public MainViewModel(ObjectJsonManager dataManager, IFileSaveService saveService, IFileImportService importService)
+        private IConfigurationReaderWriter<DmeConfiguration> _configurationReaderWriter;
+
+        private IFileLoader _fileLoader;
+        private IFileSaver _fileSaver;
+        private IAssemblyProvider _assemblyProvider;
+
+        public MainViewModel(ObjectJsonManager dataManager, 
+                             IFileSaveService saveService, 
+                             IFileImportService importService,
+                             IFileLoader fileLoader,
+                             IFileSaver fileSaver,
+                             IAssemblyProvider assemblyProvider)
         {
-            this.DataManagerViewModel = new DataManagerViewModel(dataManager, saveService/*, importService*/);
-            this.DataManagerViewModel.PropertyChanged += OnDataManagerViewModelPropertyChanged;
+            DataManagerViewModel = new DataManagerViewModel(dataManager, saveService/*, importService*/);
+            DataManagerViewModel.PropertyChanged += OnDataManagerViewModelPropertyChanged;
+
+            _fileLoader = fileLoader;
+            _fileSaver = fileSaver;
+            _assemblyProvider = assemblyProvider;
+
+            _configurationReaderWriter = new FileConfigurationReaderWriter<DmeConfiguration>("DME");
+
+            _configuration = _configurationReaderWriter.GetConfiguration();
+
+            if (_configuration == null)
+            {
+                _configuration = new DmeConfiguration();
+            }
+
+            InitializeCommands();
         }
+
+        private void InitializeCommands()
+        {
+            OpenDataModelCommand = new RelayCommand(ExeecuteOpenDataModel);
+            ConfirmOpenDataModelCommand = new RelayCommand<DataModelDescriptor>(ExecuteConfirmOpenDataModelCommand);
+        }
+
+        
+
+        private DmeConfiguration _configuration;
+
+        public DmeConfiguration Configuration
+        {
+            get { return _configuration; }
+            set { _configuration = value; }
+        }
+
 
         public DataManagerViewModel DataManagerViewModel { get; private set; }
 
@@ -33,6 +85,19 @@ namespace MDD4All.DME.ViewModels
                     OnPropertyChanged(nameof(TreeViewModel));
                     OnPropertyChanged(nameof(SelectedEditorViewModel));
                 }
+            }
+        }
+
+        private EViewState _viewState = EViewState.ShowStartPage;
+
+        public EViewState ViewState
+        {
+            get { return _viewState; }
+
+            set
+            {
+                _viewState = value;
+                OnPropertyChanged(nameof(ViewState));
             }
         }
 
@@ -56,6 +121,22 @@ namespace MDD4All.DME.ViewModels
                 return result;
             }
         }
+
+        public AssemblyTreeViewModel? AssemblyTreeViewModel { get; private set; }
+
+        public ICommand OpenDataModelCommand { get; private set; } = null!;
+
+        public ICommand ConfirmOpenDataModelCommand { get; private set; } = null!;
+
+        public ICommand NewDataFileCommand { get; private set; } = null!;
+
+        public ICommand OpenDataFileCommand { get; private set; } = null!;
+
+        public ICommand OpenRecentDataModelCommand { get; private set; } = null!;
+
+        public ICommand OpenRecentDataFileCommand { get; private set; } = null!;
+
+
 
         private void OnDataManagerViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
@@ -100,5 +181,44 @@ namespace MDD4All.DME.ViewModels
                 OnPropertyChanged(nameof(SelectedEditorViewModel));
             }
         }
+
+        #region COMMAND_IMPLEMENTATIONS
+
+        private void ExeecuteOpenDataModel()
+        {
+            string filename = "";
+            bool openResult = _fileLoader.ShowOpenFileDialog(out filename,
+                                                             filter: "DLL Files (*.dll)|*.dll",
+                                                             title: "Open Data Model library file...");
+
+            if (openResult == true)
+            {
+                AssemblyTreeViewModel = new AssemblyTreeViewModel(filename, _assemblyProvider);
+                ViewState = EViewState.ShowTypeSelectionView;
+            }
+        }
+
+        private void ExecuteConfirmOpenDataModelCommand(DataModelDescriptor? descriptor)
+        {
+            if(descriptor != null)
+            {
+                Configuration.CurrentDataModel = descriptor;
+
+                if(Configuration.RecentDataModels.Count == 5)
+                {
+                    Configuration.RecentDataModels.RemoveAt(4);
+                    
+                }
+                Configuration.RecentDataModels.Insert(0, descriptor);
+
+                _configurationReaderWriter.StoreConfiguration(Configuration);
+            }
+
+            ViewState = EViewState.ShowStartPage;
+        }
+
+        #endregion
+
+
     }
 }

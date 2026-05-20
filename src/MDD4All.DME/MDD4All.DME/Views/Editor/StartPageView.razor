@@ -1,0 +1,57 @@
+﻿<div class="mainGrid">
+    <div class="logo">
+        Data Model Editor
+    </div>
+    <div class="curentDataModel">
+        Current Data Model:
+        @if(DataContext.Configuration.CurrentDataModel == null)
+        {
+            <span>Nothing selected.</span>
+        }
+        else
+        {
+            @DataContext.Configuration.CurrentDataModel.FullTypeName
+        }
+
+    </div>
+    <div class="dataModelMainHeader">
+        Data Model
+    </div>
+    <div class="dataModelSubHeader">
+        Open a data model
+    </div>
+    <div class="dataModelCommands">
+        <div class="commandLink"
+             @onclick="OnSelectDataModel">Open a data model</div>
+    </div>
+    <div class="dataModelRecentHeader">
+        Recent Data Models
+    </div>
+    <div class="dataModelRecentEntries">
+        @foreach(var dataModelDescriptor in DataContext.Configuration.RecentDataModels)
+        {
+            <div>@dataModelDescriptor.FullTypeName</div>
+        }
+    </div>
+
+    <div class="dataFileMainHeader">
+        Data Editor
+    </div>
+    <div class="dataFileSubHeader">
+        Edit a data file
+    </div>
+    <div class="dataFileCommands">
+        <div class="commandLink">Create a new file</div>
+        <div class="commandLink">Open an existing file</div>
+    </div>
+    <div class="dataFileRecentHeader">
+        Recent Data Files
+    </div>
+    <div class="dataFileRecentEntries">
+
+    </div>
+
+
+</div>
+
+

@@ -1,0 +1,65 @@
+﻿@using MDD4All.DME.ViewModels
+@using MDD4All.DME.Views.Editor
+@using MDD4All.DME.Views.EditorView
+@using MDD4All.DME.Views.Tree
+@using MDD4All.UI.BlazorComponents.Tree
+@using MDD4All.UI.DataModels.Tree
+
+<div class="workbench-grid">
+
+    @* --- TOP TOOLBAR --- *@
+    <header class="top-toolbar">
+        <div class="tool-group">
+            <DataManagerView ViewModel="MainViewModel.DataManagerViewModel" />
+        </div>
+
+        @* <TreeDisplayToggle @bind-Active="_showTreeIcons" /> *@
+
+        <EditorDepthStepperView @bind-Value="_maxDepth" Limit="9" />
+    </header>
+
+    @* --- BREADCRUMB AREA --- *@
+    <section class="breadcrumb-area">
+        @if (MainViewModel.TreeViewModel?.SelectedNodeParentList != null)
+        {
+            <BreadcrumbView Path="MainViewModel.TreeViewModel.SelectedNodeParentList" />
+        }
+    </section>
+
+    @* --- EXPLORER SIDEBAR --- *@
+    <aside class="explorer-area">
+        <div class="panel-header">Explorer</div>
+        <div class="explorer-content">
+            @if (MainViewModel.TreeViewModel != null)
+            {
+                <MvvmTree TNode="ObjectEditorViewModel"
+                          DataContext="@MainViewModel.TreeViewModel"
+                          SelectedNodeChanged="OnTreeSelectionChange">
+                    <TitleTemplate Context="node">@node.Level <EditorTreeIcon DataContext="node" />@node.Title</TitleTemplate>
+                </MvvmTree>
+            }
+        </div>
+    </aside>
+
+    @* --- INTERACTIVE RESIZER --- *@
+    <div class="resizer-handle" @onmousedown="StartResizing"></div>
+
+    @* --- MAIN EDITOR AREA --- *@
+    <main class="editor-area">
+        <div class="panel-header">Editor</div>
+        <div class="editor-body">
+            @if (MainViewModel.SelectedEditorViewModel != null)
+            {
+                <ObjectEditorView ViewModel="@((ObjectEditorViewModel)MainViewModel.SelectedEditorViewModel)"
+                                  MaxDepth="@_maxDepth"
+                                  CurrentDepth="1" />
+            }
+            else
+            {
+                <div class="p-5 text-center text-muted">
+                    Please select an item from the explorer to begin editing.
+                </div>
+            }
+        </div>
+    </main>
+</div>

@@ -5,3 +5,22 @@
 	path = src/MDD4All.UI.BlazorComponents
 	url = https://github.com/MrDucky0815/MDD4All.UI.BlazorComponents.git
 	branch = dev
+[submodule "src/MDD4All.DME.AssemblyTree"]
+	path = src/MDD4All.DME.AssemblyTree
+	url = https://github.com/oalt/MDD4All.DME.AssemblyTree.git
+	branch = dev
+[submodule "src/MDD4All.Configuration"]
+	path = src/MDD4All.Configuration
+	url = https://github.com/oalt/MDD4All.Configuration.git
+[submodule "src/MDD4All.FileAccess.Contracts"]
+	path = src/MDD4All.FileAccess.Contracts
+	url = https://github.com/oalt/MDD4All.FileAccess.Contracts.git
+	branch = dev
+[submodule "src/MDD4All.FileAccess.WPF"]
+	path = src/MDD4All.FileAccess.WPF
+	url = https://github.com/oalt/MDD4All.FileAccess.WPF.git
+	branch = dev
+[submodule "src/MDD4All.AssemblyLoading.Contracts"]
+	path = src/MDD4All.AssemblyLoading.Contracts
+	url = https://github.com/oalt/MDD4All.AssemblyLoading.Contracts.git
+	branch = dev
