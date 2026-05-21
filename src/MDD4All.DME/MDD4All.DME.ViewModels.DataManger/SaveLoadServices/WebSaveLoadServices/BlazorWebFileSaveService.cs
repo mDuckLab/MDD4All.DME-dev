@@ -1,7 +1,7 @@
 ﻿using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
-namespace MDD4All.DME.Services
+namespace MDD4All.DME.ViewModels
 {
     public class BlazorWebFileSaveService : IFileSaveService
     {

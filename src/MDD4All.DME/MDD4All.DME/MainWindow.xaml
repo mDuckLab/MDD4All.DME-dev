@@ -8,7 +8,7 @@
         xmlns:blazor="clr-namespace:Microsoft.AspNetCore.Components.WebView.Wpf;assembly=Microsoft.AspNetCore.Components.WebView.Wpf"
         xmlns:views="clr-namespace:MDD4All.DME.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1400"
+        Title="Synorvia" Height="900" Width="1400"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <blazor:BlazorWebView HostPage="wwwroot\index.html"

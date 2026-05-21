@@ -30,6 +30,7 @@ namespace MDD4All.DME.ViewModels
                 root.IsExpanded = true;
                 root.Tree = this;
                 this.TreeRootNodes.Add(root);
+                SelectedNode = root;
             }
         }
 

@@ -1,51 +1,64 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Windows.Input;
 
-namespace MDD4All.DME.Services
+namespace MDD4All.DME.ViewModels
 {
-    public class ObjectJsonManager : ObservableObject
+    public class DataEditorViewModel : ObservableObject
     {
-        public ObjectJsonManager()
+        public DataEditorViewModel(string fileName, Type dataModelRootType)
         {
-            this.SerializerSettings = new JsonSerializerSettings
+            _fileName = fileName;
+            _selectedType = dataModelRootType;
+
+            SerializerSettings = new JsonSerializerSettings
             {
                 // Includes the full C# type name in the JSON (as $type). 
                 // This is vital for deserializing inherited classes correctly.
-                TypeNameHandling = TypeNameHandling.All,
+                TypeNameHandling = TypeNameHandling.Auto,
                 // Forces the reader to look for metadata (like $type or $id) at the beginning.
-                MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead,
-                // Ensures that the same object isn't saved twice; instead, it uses references ($id/$ref).
-                PreserveReferencesHandling = PreserveReferencesHandling.Objects,
-                // Prevents the serializer from crashing if objects point to each other in a circle.
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                //MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead,
+                //// Ensures that the same object isn't saved twice; instead, it uses references ($id/$ref).
+                //PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                //// Prevents the serializer from crashing if objects point to each other in a circle.
+                //ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 // Explicitly writes 'null' into the JSON file instead of skipping the property.
-                NullValueHandling = NullValueHandling.Include,
+                NullValueHandling = NullValueHandling.Ignore,
                 // Ensures a "fresh start" by replacing existing collections and objects instead of 
                 // appending new data to them. This prevents data pollution and duplicate entries.
                 // Example: If a list currently has 3 items and you load a file containing 2 items, 
                 // 'Replace' ensures the list has exactly 2 items. Without this, the list would 
                 // incorrectly grow to 5 items due to default 'Append' behavior.
-                ObjectCreationHandling = ObjectCreationHandling.Replace,
-                // Allows the use of private or internal constructors when creating objects from JSON.
-                ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-                // Uses a simplified assembly name in the $type metadata for better compatibility.
-                TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,
+                //ObjectCreationHandling = ObjectCreationHandling.Replace,
+                //// Allows the use of private or internal constructors when creating objects from JSON.
+                //ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
+                //// Uses a simplified assembly name in the $type metadata for better compatibility.
+                //TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple,
                 // Formats the resulting JSON string with indentation and line breaks for human readability.
                 Formatting = Formatting.Indented,
                 // Adds a custom converter to handle Dictionary structures correctly during conversion.
                 // This converter handles the transformation of IDictionary objects.
                 // It solves the problem that standard JSON only allows strings as keys, 
                 // whereas C# dictionaries can use complex objects as keys.
-                Converters = new List<JsonConverter> { new DictionaryJsonConverter() }
+                //Converters = new List<JsonConverter> { new DictionaryJsonConverter() }
             };
+
+            InitializeCommands();
         }
 
+        private void InitializeCommands()
+        {
+            SaveDataFileCommand = new RelayCommand(ExecuteSaveDataFile);
+        }
+
+        public ICommand SaveDataFileCommand { get; private set; } = null!;
+
+
         private object? _activeObject;
+
         public object? ActiveObject
         {
             get
@@ -63,6 +76,7 @@ namespace MDD4All.DME.Services
         }
 
         private Type? _selectedType;
+
         public Type? SelectedType
         {
             get
@@ -78,6 +92,15 @@ namespace MDD4All.DME.Services
                 }
             }
         }
+
+        private string _fileName = "";
+
+        public string FileName
+        {
+            get { return _fileName; }
+            set { _fileName = value; }
+        }
+
 
         private bool _isNamespaceFilterActive = true;
         public bool IsNamespaceFilterActive
@@ -108,7 +131,7 @@ namespace MDD4All.DME.Services
 
                 if (ActiveObject != null && SelectedType != null)
                 {
-                    result = JsonConvert.SerializeObject(ActiveObject, this.SerializerSettings);
+                    result = JsonConvert.SerializeObject(ActiveObject, SerializerSettings);
                 }
 
                 return result;
@@ -120,7 +143,7 @@ namespace MDD4All.DME.Services
             if (SelectedType != null)
             {
                 // Assigning to the property triggers OnPropertyChanged
-                this.ActiveObject = Activator.CreateInstance(SelectedType);
+                ActiveObject = Activator.CreateInstance(SelectedType);
             }
         }
 
@@ -228,6 +251,27 @@ namespace MDD4All.DME.Services
         }
 
 
+        public void LoadFromFile()
+        {
+            if (FileName.ToLower().EndsWith("json"))
+            {
+                try
+                {
+                    string json = File.ReadAllText(FileName);
+
+                    object? deserializedJson = JsonConvert.DeserializeObject(json, SelectedType, SerializerSettings);
+
+                    if (deserializedJson != null)
+                    {
+                        ActiveObject = deserializedJson;
+                    }
+                }
+                catch (Exception exception)
+                {
+                }
+            }
+        }
+
         public object? LoadFromContent(string jsonContent)
         {
             object? result = null;
@@ -285,5 +329,10 @@ namespace MDD4All.DME.Services
             return result;
         }
 
+
+        private void ExecuteSaveDataFile()
+        {
+            File.WriteAllText(FileName, ActiveObjectJsonString);
+        }
     }
 }

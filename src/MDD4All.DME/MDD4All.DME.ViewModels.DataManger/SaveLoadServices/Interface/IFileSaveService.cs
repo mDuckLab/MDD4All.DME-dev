@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace MDD4All.DME.Services
+namespace MDD4All.DME.ViewModels
 {
     public interface IFileSaveService
     {

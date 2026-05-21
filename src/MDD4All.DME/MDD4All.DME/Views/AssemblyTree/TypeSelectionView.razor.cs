@@ -13,6 +13,8 @@ namespace MDD4All.DME.Views.AssemblyTree
 
         private void OnSelectionDialogClose(bool args)
         {
+            Configurations.DataModelDescriptor? descriptor = null;
+
             if (args == true)
             {
                 AssemblyTreeViewModel? treeViewModel = DataContext.AssemblyTreeViewModel;
@@ -23,17 +25,19 @@ namespace MDD4All.DME.Views.AssemblyTree
                     {
                         AssemblyElementNodeViewModel assemblyElementNode = (AssemblyElementNodeViewModel)treeViewModel.SelectedNode;
 
-                        Configurations.DataModelDescriptor descriptor = new Configurations.DataModelDescriptor()
+                        descriptor = new Configurations.DataModelDescriptor()
                         {
                             DllPath = assemblyElementNode.Path,
                             FullTypeName = assemblyElementNode.TypeNameWithNamespace
                         };
 
-                        DataContext.ConfirmOpenDataModelCommand.Execute(descriptor);
+                        
                     }
 
                 }
             }
+
+            DataContext.ConfirmOpenDataModelCommand.Execute(descriptor);
         }
     }
 }

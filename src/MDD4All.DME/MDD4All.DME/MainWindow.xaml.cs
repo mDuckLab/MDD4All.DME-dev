@@ -1,7 +1,7 @@
 ﻿using MDD4All.AssemblyLoading.Contracts;
 using MDD4All.DME.DataAccess.Assemblies;
-using MDD4All.DME.Services;
-using MDD4All.DME.Services.Save_Load_Services.SaveServices.Interface;
+using MDD4All.DME.ViewModels;
+using MDD4All.DME.ViewModels.Save_Load_Services.SaveServices.Interface;
 using MDD4All.DME.ViewModels;
 using MDD4All.FileAccess.Contracts;
 using MDD4All.FileAccess.WPF;
@@ -52,7 +52,7 @@ namespace MDD4All.DME
             });
 
             _services.AddScoped<DragDropDataProvider>();
-            _services.AddScoped<ObjectJsonManager>();
+            //_services.AddScoped<DataEditorViewModel>();
             _services.AddScoped<IFileSaveService, BlazorWebFileSaveService>();
             _services.AddScoped<IFileImportService, BlazorWebFileImportService>();
             

@@ -1,6 +1,8 @@
 ﻿@using MDD4All.DME.ViewModels
 @using MDD4All.DME.Views.Editor
 @using MDD4All.DME.Views.EditorView
+@using MDD4All.DME.Views.RawData
+@using MDD4All.DME.Views.StatusBar
 @using MDD4All.DME.Views.Tree
 @using MDD4All.UI.BlazorComponents.Tree
 @using MDD4All.UI.DataModels.Tree
@@ -10,7 +12,8 @@
     @* --- TOP TOOLBAR --- *@
     <header class="top-toolbar">
         <div class="tool-group">
-            <DataManagerView ViewModel="MainViewModel.DataManagerViewModel" />
+            <EditorMainToolbar DataContext="MainViewModel" />
+            @* <DataManagerView ViewModel="MainViewModel.DataManagerViewModel" /> *@
         </div>
 
         @* <TreeDisplayToggle @bind-Active="_showTreeIcons" /> *@
@@ -46,20 +49,34 @@
 
     @* --- MAIN EDITOR AREA --- *@
     <main class="editor-area">
-        <div class="panel-header">Editor</div>
-        <div class="editor-body">
-            @if (MainViewModel.SelectedEditorViewModel != null)
-            {
-                <ObjectEditorView ViewModel="@((ObjectEditorViewModel)MainViewModel.SelectedEditorViewModel)"
-                                  MaxDepth="@_maxDepth"
-                                  CurrentDepth="1" />
-            }
-            else
-            {
-                <div class="p-5 text-center text-muted">
-                    Please select an item from the explorer to begin editing.
-                </div>
-            }
-        </div>
+        @if (MainViewModel.ShowRawData)
+        {
+            <div class="panel-header">Raw Data</div>
+            <div class="editor-body">
+                <RawDataView DataContext="MainViewModel.DataEditorViewModel" />
+            </div>
+        }
+        else
+        {
+            <div class="panel-header">Editor</div>
+            <div class="editor-body">
+                @if (MainViewModel.SelectedEditorViewModel != null)
+                {
+                    <ObjectEditorView ViewModel="@((ObjectEditorViewModel)MainViewModel.SelectedEditorViewModel)"
+                                      MaxDepth="@_maxDepth"
+                                      CurrentDepth="1" />
+                }
+                else
+                {
+                    <div class="p-5 text-center text-muted">
+                        Please select an item from the explorer to begin editing.
+                    </div>
+                }
+            </div>
+        }
     </main>
+
+    <div class="status-bar-area">
+        <StatusBarView DataContext="MainViewModel" />
+    </div>
 </div>

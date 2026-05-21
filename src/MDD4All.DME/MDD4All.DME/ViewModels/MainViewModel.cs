@@ -5,13 +5,13 @@ using MDD4All.Configuration;
 using MDD4All.Configuration.Contracts;
 using MDD4All.DME.AssemblyTree.ViewModels;
 using MDD4All.DME.Configurations;
-using MDD4All.DME.Services;
-using MDD4All.DME.Services.Save_Load_Services.SaveServices.Interface;
+using MDD4All.DME.ViewModels;
+using MDD4All.DME.ViewModels.Save_Load_Services.SaveServices.Interface;
 using MDD4All.FileAccess.Contracts;
 using MDD4All.UI.DataModels.Tree;
 using System;
 using System.ComponentModel;
-using System.Configuration;
+using System.Reflection;
 using System.Windows.Input;
 
 namespace MDD4All.DME.ViewModels
@@ -26,15 +26,14 @@ namespace MDD4All.DME.ViewModels
         private IFileSaver _fileSaver;
         private IAssemblyProvider _assemblyProvider;
 
-        public MainViewModel(ObjectJsonManager dataManager, 
-                             IFileSaveService saveService, 
+        public MainViewModel(IFileSaveService saveService, 
                              IFileImportService importService,
                              IFileLoader fileLoader,
                              IFileSaver fileSaver,
                              IAssemblyProvider assemblyProvider)
         {
-            DataManagerViewModel = new DataManagerViewModel(dataManager, saveService/*, importService*/);
-            DataManagerViewModel.PropertyChanged += OnDataManagerViewModelPropertyChanged;
+            //DataEditorViewModel = new DataManagerViewModel(dataManager, saveService/*, importService*/);
+            //DataEditorViewModel.PropertyChanged += OnDataManagerViewModelPropertyChanged;
 
             _fileLoader = fileLoader;
             _fileSaver = fileSaver;
@@ -56,6 +55,10 @@ namespace MDD4All.DME.ViewModels
         {
             OpenDataModelCommand = new RelayCommand(ExeecuteOpenDataModel);
             ConfirmOpenDataModelCommand = new RelayCommand<DataModelDescriptor>(ExecuteConfirmOpenDataModelCommand);
+            SetDataModelFromRecentListCommand = new RelayCommand<int>(ExecuteSetDataModelFromRecentList);
+            NewDataFileCommand = new RelayCommand(ExecuteNewDataFile);
+            ShowStartPageCommand = new RelayCommand(ExecuteShowStartPage);
+            OpenRecentDataFileCommand = new RelayCommand<int>(ExecuteOpenRecentDataFile);
         }
 
         
@@ -69,7 +72,7 @@ namespace MDD4All.DME.ViewModels
         }
 
 
-        public DataManagerViewModel DataManagerViewModel { get; private set; }
+        public DataEditorViewModel? DataEditorViewModel { get; private set; }
 
         public ObjectTreeViewModel? TreeViewModel
         {
@@ -101,24 +104,51 @@ namespace MDD4All.DME.ViewModels
             }
         }
 
-        public object? DataContext
-        {
-            get
-            {
-                return DataManagerViewModel.ActiveObject;
-            }
-        }
-
         public ITreeNode? SelectedEditorViewModel
         {
             get
             {
                 ITreeNode? result = null;
-                if (this.TreeViewModel != null)
+                if (TreeViewModel != null)
                 {
-                    result = this.TreeViewModel.SelectedNode;
+                    if(TreeViewModel.SelectedNode is ObjectEditorViewModel)
+                    {
+                        ObjectEditorViewModel objectEditorViewModel = (ObjectEditorViewModel)TreeViewModel.SelectedNode;
+                        objectEditorViewModel.EditorState.IsExpanded = true;
+                    }
+                    result = TreeViewModel.SelectedNode;
                 }
                 return result;
+            }
+        }
+
+        public string StatusText
+        {
+            get
+            {
+                string result = "";
+                if(DataEditorViewModel != null)
+                {
+                    result = "Filename: " + DataEditorViewModel.FileName;
+                    result += " ● Data Model: " + Configuration.CurrentDataModel!.FullTypeName;
+                }
+                return result;
+            }
+        }
+
+        private bool _showRawData = false;
+
+        public bool ShowRawData
+        {
+            get
+            {
+                return _showRawData;
+            }
+
+            set
+            {
+                _showRawData = value;
+                OnPropertyChanged(nameof(ShowRawData));
             }
         }
 
@@ -136,15 +166,19 @@ namespace MDD4All.DME.ViewModels
 
         public ICommand OpenRecentDataFileCommand { get; private set; } = null!;
 
+        public ICommand SetDataModelFromRecentListCommand {  get; private set; } = null!;
 
+        public ICommand ShowStartPageCommand { get; private set; } = null!;
 
-        private void OnDataManagerViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "ActiveObject" || e.PropertyName == "SelectedType")
-            {
-                RebuildTree();
-            }
-        }
+        
+
+        //private void OnDataManagerViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        //{
+        //    if (e.PropertyName == "ActiveObject" || e.PropertyName == "SelectedType")
+        //    {
+        //        RebuildTree();
+        //    }
+        //}
 
         private void RebuildTree()
         {
@@ -153,21 +187,21 @@ namespace MDD4All.DME.ViewModels
                 this.TreeViewModel.PropertyChanged -= this.OnTreePropertyChanged;
             }
 
-            object? activeObject = DataManagerViewModel.ActiveObject;
-            Type? selectedType = DataManagerViewModel.SelectedType;
+            object? activeObject = DataEditorViewModel?.ActiveObject;
+            Type? selectedType = DataEditorViewModel?.SelectedType;
 
             if (activeObject != null || selectedType != null)
             {
                 ObjectTreeViewModel newTree = new ObjectTreeViewModel(activeObject, selectedType);
                 newTree.PropertyChanged += this.OnTreePropertyChanged;
-                this.TreeViewModel = newTree;
+                TreeViewModel = newTree;
             }
             else
             {
-                this.TreeViewModel = null;
+                TreeViewModel = null;
             }
 
-            OnPropertyChanged(nameof(DataContext));
+            OnPropertyChanged(nameof(DataEditorViewModel.ActiveObject));
         }
 
         private void OnTreePropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -216,6 +250,102 @@ namespace MDD4All.DME.ViewModels
 
             ViewState = EViewState.ShowStartPage;
         }
+
+        private void ExecuteSetDataModelFromRecentList(int index)
+        {
+            DataModelDescriptor descriptor = Configuration.RecentDataModels[index];
+
+            Configuration.CurrentDataModel = descriptor;
+
+            Configuration.RecentDataModels.RemoveAt(index);
+            Configuration.RecentDataModels.Insert(0, descriptor);
+            _configurationReaderWriter.StoreConfiguration(Configuration);
+        }
+
+        private void ExecuteNewDataFile()
+        {
+            string fileName = "";
+
+            bool dialogResult = _fileSaver.ShowFileSaveDialog(out fileName, 
+                                                              title: "New data file...",
+                                                              filter: "JSON file (*.json)|*.json|XML file (*.xml)|*.xml|All files (*.*)|*.*",
+                                                              defaultFileExtension: "json");
+
+            if (dialogResult == true)
+            {
+                DataModelDescriptor? currentType = Configuration.CurrentDataModel;
+
+                if (currentType != null)
+                {
+                    Assembly assembly = _assemblyProvider.GetAssemblyByPath(currentType.DllPath);
+
+                    Type? type = assembly.GetType(currentType.FullTypeName);
+
+                    if (type != null)
+                    {
+                        DataEditorViewModel = new DataEditorViewModel(fileName, type);
+
+                        DataEditorViewModel.CreateNewInstance();
+
+                        DataEditorViewModel.SaveDataFileCommand.Execute(null);
+
+                        DataFileDescriptor dataFileDescriptor = new DataFileDescriptor
+                        {
+                            FilePath = fileName,
+                            DataModelDescription = new DataModelDescriptor
+                            {
+                                DllPath = Configuration.CurrentDataModel!.DllPath,
+                                FullTypeName = Configuration.CurrentDataModel.FullTypeName
+                            }
+                        };
+
+                        if(Configuration.RecentDataFiles.Count == 5)
+                        {
+                            Configuration.RecentDataFiles.RemoveAt(4);
+                        }
+
+                        Configuration.RecentDataFiles.Insert(0, dataFileDescriptor);
+
+                        _configurationReaderWriter.StoreConfiguration(Configuration);
+
+                        RebuildTree();
+                        ViewState = EViewState.ShowEditor;
+                    }
+                }
+                
+            }
+        }
+
+        private void ExecuteOpenRecentDataFile(int index)
+        {
+            DataFileDescriptor descriptor = Configuration.RecentDataFiles[index];
+
+            if (descriptor != null)
+            {
+                Assembly assembly = _assemblyProvider.GetAssemblyByPath(descriptor.DataModelDescription.DllPath);
+
+                Type? type = assembly.GetType(descriptor.DataModelDescription.FullTypeName);
+
+                if (type != null)
+                {
+                    DataEditorViewModel = new DataEditorViewModel(descriptor.FilePath, type);
+
+                    DataEditorViewModel.LoadFromFile();
+
+                    RebuildTree();
+                    ViewState = EViewState.ShowEditor;
+                }
+            }
+        }
+
+
+        private void ExecuteShowStartPage()
+        {
+            // TODO save changes
+            ViewState = EViewState.ShowStartPage;
+        }
+
+        
 
         #endregion
 

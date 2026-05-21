@@ -1,16 +1,16 @@
 ﻿<div class="mainGrid">
     <div class="logo">
-        Data Model Editor
+        <img src="images/Synorvia_logo.png" width="200" style="margin-left: -20px;margin-top:-50px;"/>
     </div>
     <div class="curentDataModel">
-        Current Data Model:
+        Current Data Model:<br/>
         @if(DataContext.Configuration.CurrentDataModel == null)
         {
-            <span>Nothing selected.</span>
+            <span class="currentDataModelTitle">Nothing selected.</span>
         }
         else
         {
-            @DataContext.Configuration.CurrentDataModel.FullTypeName
+            <span class="currentDataModelTitle"><i class="bi bi-x-diamond-fill"></i> @DataContext.Configuration.CurrentDataModel.FullTypeName</span>
         }
 
     </div>
@@ -28,9 +28,12 @@
         Recent Data Models
     </div>
     <div class="dataModelRecentEntries">
-        @foreach(var dataModelDescriptor in DataContext.Configuration.RecentDataModels)
+        @for(int counter = 0; counter < DataContext.Configuration.RecentDataModels.Count(); counter++)
         {
-            <div>@dataModelDescriptor.FullTypeName</div>
+            int index = counter;
+            Configurations.DataModelDescriptor descriptor = DataContext.Configuration.RecentDataModels[index];
+            <div class="commandLink"
+                 @onclick="() => OnClickRecentDataModelLink(index)">@descriptor.FullTypeName</div>
         }
     </div>
 
@@ -41,14 +44,24 @@
         Edit a data file
     </div>
     <div class="dataFileCommands">
-        <div class="commandLink">Create a new file</div>
+        <div class="commandLink"
+             @onclick="() => OnCreateNewFileClick()">Create a new file</div>
+
         <div class="commandLink">Open an existing file</div>
     </div>
     <div class="dataFileRecentHeader">
         Recent Data Files
     </div>
     <div class="dataFileRecentEntries">
-
+        @for (int counter = 0; counter < DataContext.Configuration.RecentDataFiles.Count(); counter++)
+        {
+            int index = counter;
+            Configurations.DataFileDescriptor descriptor = DataContext.Configuration.RecentDataFiles[index];
+            <div class="commandLink"
+                 @onclick="() => OnClickRecentDataFileLink(index)">
+                @descriptor.FilePath
+            </div>
+        }
     </div>
 
 

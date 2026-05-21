@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MDD4All.DME.Services;
+using MDD4All.DME.ViewModels;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
@@ -11,11 +11,11 @@ namespace MDD4All.DME.ViewModels
 {
     public class DataManagerViewModel : ObservableObject
     {
-        private readonly ObjectJsonManager _objectJsonManager;
+        private readonly DataEditorViewModel _objectJsonManager;
         private readonly IFileSaveService _fileSaveService;
         //private readonly IFileImportService _fileImportService;
 
-        public DataManagerViewModel(ObjectJsonManager dataManager, IFileSaveService fileSaveService/*, IFileImportService fileImportService*/)
+        public DataManagerViewModel(DataEditorViewModel dataManager, IFileSaveService fileSaveService/*, IFileImportService fileImportService*/)
         {
             _objectJsonManager = dataManager;
             _fileSaveService = fileSaveService;

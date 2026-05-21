@@ -1,17 +1,20 @@
 using Microsoft.AspNetCore.Components;
 using MDD4All.DME.ViewModels;
 using MDD4All.DME.ViewModels.EditorViewModels;
-using MDD4All.DME.ViewModels.EditorViewModels.Accesses;
 using MDD4All.DME.Analyzers;
-using MDD4All.DME.ViewModels.Editor.EditorTreeViewModels.ObjectEditorViewModels;
 
 namespace MDD4All.DME.Views.EditorView
 {
     public partial class ObjectEditorView : ComponentBase
     {
-        [Parameter] public ObjectEditorViewModel ViewModel { get; set; } = null!;
-        [Parameter] public int MaxDepth { get; set; } = 0;
-        [Parameter] public int CurrentDepth { get; set; } = 1;
+        [Parameter] 
+        public ObjectEditorViewModel ViewModel { get; set; } = null!;
+        
+        [Parameter] 
+        public int MaxDepth { get; set; } = 0;
+        
+        [Parameter] 
+        public int CurrentDepth { get; set; } = 1;
 
         private bool IsReferenceType
         {
