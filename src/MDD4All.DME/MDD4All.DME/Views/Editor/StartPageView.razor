@@ -22,7 +22,7 @@
     </div>
     <div class="dataModelCommands">
         <div class="commandLink"
-             @onclick="OnSelectDataModel">Open a data model</div>
+             @onclick="() => DataContext.OpenDataModelCommand.Execute(null)">Open a data model</div>
     </div>
     <div class="dataModelRecentHeader">
         Recent Data Models
@@ -33,7 +33,7 @@
             int index = counter;
             Configurations.DataModelDescriptor descriptor = DataContext.Configuration.RecentDataModels[index];
             <div class="commandLink"
-                 @onclick="() => OnClickRecentDataModelLink(index)">@descriptor.FullTypeName</div>
+                 @onclick="() => DataContext.SetDataModelFromRecentListCommand.Execute(index)">@descriptor.FullTypeName</div>
         }
     </div>
 
@@ -45,9 +45,10 @@
     </div>
     <div class="dataFileCommands">
         <div class="commandLink"
-             @onclick="() => OnCreateNewFileClick()">Create a new file</div>
+             @onclick="() => DataContext.NewDataFileCommand.Execute(null)">Create a new file</div>
 
-        <div class="commandLink">Open an existing file</div>
+        <div class="commandLink"
+             @onclick="() => DataContext.OpenDataFileCommand.Execute(null)">Open an existing file</div>
     </div>
     <div class="dataFileRecentHeader">
         Recent Data Files
@@ -58,7 +59,7 @@
             int index = counter;
             Configurations.DataFileDescriptor descriptor = DataContext.Configuration.RecentDataFiles[index];
             <div class="commandLink"
-                 @onclick="() => OnClickRecentDataFileLink(index)">
+                 @onclick="() => DataContext.OpenRecentDataFileCommand.Execute(index)">
                 @descriptor.FilePath
             </div>
         }

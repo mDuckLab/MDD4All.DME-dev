@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/bootstrap-icons/bootstrap-icons.min.css" />
     <link href="css/site.css" rel="stylesheet" />
     <link href="MDD4All.DME.styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
 </head>
 <body>
     <div id="app">Loading...</div>
@@ -18,9 +19,18 @@
         <a class="dismiss">🗙</a>
     </div>
 
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script>
+        window.highlightSnippet = function () {
+            document.querySelectorAll('pre code').forEach((el) => {
+                hljs.highlightBlock(el);
+            });
+        }
+    </script>
 
     <script src="_framework/blazor.webview.js"></script>
     <script src="js/fileUtil.js?v=2"></script>
+
+
 </body>
 </html>

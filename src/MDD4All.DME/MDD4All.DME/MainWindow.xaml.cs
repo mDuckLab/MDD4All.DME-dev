@@ -58,7 +58,7 @@ namespace MDD4All.DME
             
             _services.AddSingleton<IFileLoader, WpfFileLoader>();
             _services.AddSingleton<IFileSaver, WpfFileSaver>();
-            _services.AddSingleton<IAssemblyProvider, AssemblyPovider>();
+            _services.AddScoped<IAssemblyProvider, AssemblyPovider>();
             _services.AddScoped<MainViewModel>();
 
             Resources.Add("services", _services.BuildServiceProvider());

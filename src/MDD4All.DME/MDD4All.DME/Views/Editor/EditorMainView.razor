@@ -51,7 +51,15 @@
     <main class="editor-area">
         @if (MainViewModel.ShowRawData)
         {
-            <div class="panel-header">Raw Data</div>
+            <div class="panel-header">
+                Raw Data &nbsp;&nbsp;
+
+                    JSON &nbsp;<div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" 
+                               @bind="MainViewModel.DataEditorViewModel!.ShowXml"/> </div>
+                    XML
+
+            </div>
             <div class="editor-body">
                 <RawDataView DataContext="MainViewModel.DataEditorViewModel" />
             </div>

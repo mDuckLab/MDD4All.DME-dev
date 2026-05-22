@@ -4,6 +4,7 @@ using MDD4All.DME.ViewModels.EditorViewModels.Accesses;
 using MDD4All.UI.DataModels.Tree;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
@@ -48,26 +49,32 @@ namespace MDD4All.DME.ViewModels.EditorViewModels
                 PropertyInfo[] properties = this.Type!.GetProperties();
                 foreach (PropertyInfo property in properties)
                 {
-                    object? rawValue = null;
-
-                    if (this.Item != null)
+                    try
                     {
-                        rawValue = property.GetValue(Item);
+                        object? rawValue = null;
+
+                        if (this.Item != null)
+                        {
+                            rawValue = property.GetValue(Item);
+                        }
+                        Type propertyType = property.PropertyType;
+
+                        PropertyAccess propertyAccess = new PropertyAccess(property);
+
+                        ObjectEditorViewModel? childViewModel = ReferenceEditorViewModel.CreateChildViewModel(this.Tree!,
+                                                                                                                propertyAccess,
+                                                                                                                rawValue,
+                                                                                                                propertyType,
+                                                                                                                null,
+                                                                                                                this);
+
+                        if (childViewModel != null)
+                        {
+                            this.Children.Add(childViewModel);
+                        }
                     }
-                    Type propertyType = property.PropertyType;
-
-                    PropertyAccess propertyAccess = new PropertyAccess(property);
-
-                    ObjectEditorViewModel? childViewModel = ReferenceEditorViewModel.CreateChildViewModel(this.Tree!,
-                                                                                                            propertyAccess,
-                                                                                                            rawValue,
-                                                                                                            propertyType,
-                                                                                                            null,
-                                                                                                            this);
-
-                    if (childViewModel != null)
+                    catch (Exception ex)
                     {
-                        this.Children.Add(childViewModel);
                     }
                 }
 

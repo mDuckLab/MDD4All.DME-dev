@@ -1,18 +1,24 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MDD4All.FileAccess.Contracts;
 using Newtonsoft.Json;
 using System.Reflection;
 using System.Text;
-using System.Windows.Input;
+using System.Xml.Serialization;
 
 namespace MDD4All.DME.ViewModels
 {
     public class DataEditorViewModel : ObservableObject
     {
-        public DataEditorViewModel(string fileName, Type dataModelRootType)
+        private IFileSaver _fileSaver;
+
+        public DataEditorViewModel(string fileName,
+                                   Type dataModelRootType,
+                                   IFileSaver fileSaver)
         {
             _fileName = fileName;
             _selectedType = dataModelRootType;
+            _fileSaver = fileSaver;
 
             SerializerSettings = new JsonSerializerSettings
             {
@@ -45,16 +51,7 @@ namespace MDD4All.DME.ViewModels
                 // whereas C# dictionaries can use complex objects as keys.
                 //Converters = new List<JsonConverter> { new DictionaryJsonConverter() }
             };
-
-            InitializeCommands();
         }
-
-        private void InitializeCommands()
-        {
-            SaveDataFileCommand = new RelayCommand(ExecuteSaveDataFile);
-        }
-
-        public ICommand SaveDataFileCommand { get; private set; } = null!;
 
 
         private object? _activeObject;
@@ -123,6 +120,8 @@ namespace MDD4All.DME.ViewModels
 
         public JsonSerializerSettings SerializerSettings { get; private set; }
 
+        public bool ShowXml { get; set; }
+
         public string ActiveObjectJsonString
         {
             get
@@ -132,6 +131,25 @@ namespace MDD4All.DME.ViewModels
                 if (ActiveObject != null && SelectedType != null)
                 {
                     result = JsonConvert.SerializeObject(ActiveObject, SerializerSettings);
+                }
+
+                return result;
+            }
+        }
+
+        public string ActiveObjectXmlString
+        {
+            get
+            {
+                string result = string.Empty;
+
+                if (ActiveObject != null && SelectedType != null)
+                {
+                    StringWriter stringwriter = new StringWriter();
+                    XmlSerializer serializer = new XmlSerializer(SelectedType);
+                    serializer.Serialize(stringwriter, ActiveObject);
+
+                    result = stringwriter.ToString();
                 }
 
                 return result;
@@ -270,6 +288,23 @@ namespace MDD4All.DME.ViewModels
                 {
                 }
             }
+            else if(FileName.ToLower().EndsWith("xml"))
+            {
+                try
+                {
+                    XmlSerializer xmlSerializer = new XmlSerializer(SelectedType);
+                    
+                    FileStream fileStream = new FileStream(FileName, FileMode.Open);
+                    // Call the Deserialize method and cast to the object type.
+                    ActiveObject = xmlSerializer.Deserialize(fileStream);
+                    fileStream.Flush();
+                    fileStream.Close();
+                }
+                catch(Exception exception)
+                {
+
+                }
+            }
         }
 
         public object? LoadFromContent(string jsonContent)
@@ -330,9 +365,8 @@ namespace MDD4All.DME.ViewModels
         }
 
 
-        private void ExecuteSaveDataFile()
-        {
-            File.WriteAllText(FileName, ActiveObjectJsonString);
-        }
+        
+
+        
     }
 }
