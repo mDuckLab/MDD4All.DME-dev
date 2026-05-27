@@ -1,7 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using MDD4All.DME.DynamicInvocations;
 using MDD4All.FileAccess.Contracts;
 using Newtonsoft.Json;
+using System.Diagnostics;
 using System.Reflection;
 using System.Text;
 using System.Xml.Serialization;
@@ -130,7 +131,7 @@ namespace MDD4All.DME.ViewModels
 
                 if (ActiveObject != null && SelectedType != null)
                 {
-                    result = JsonConvert.SerializeObject(ActiveObject, SerializerSettings);
+                    result = DynamicInvoker.SerializeJson(ActiveObject);
                 }
 
                 return result;
@@ -145,11 +146,14 @@ namespace MDD4All.DME.ViewModels
 
                 if (ActiveObject != null && SelectedType != null)
                 {
-                    StringWriter stringwriter = new StringWriter();
-                    XmlSerializer serializer = new XmlSerializer(SelectedType);
-                    serializer.Serialize(stringwriter, ActiveObject);
-
-                    result = stringwriter.ToString();
+                    try
+                    {
+                        result = DynamicInvoker.SerializeXml(ActiveObject);
+                    }
+                    catch (Exception exception)
+                    {
+                        Debug.WriteLine(exception);
+                    }
                 }
 
                 return result;

@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net6.0-windows</TargetFramework>
+        <TargetFramework>net9.0-windows7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
         <Nullable>enable</Nullable>
@@ -25,7 +25,7 @@
 
     <ItemGroup>
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="6.0.553" />
+      <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="9.0.120" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 

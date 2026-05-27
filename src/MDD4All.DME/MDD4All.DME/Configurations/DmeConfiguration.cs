@@ -9,5 +9,9 @@ namespace MDD4All.DME.Configurations
         public List<DataModelDescriptor> RecentDataModels { get; set; } = new List<DataModelDescriptor>();
 
         public List<DataFileDescriptor> RecentDataFiles { get; set; } = new List<DataFileDescriptor>();
+
+        public string LastUsedDataFilePath { get; set; } = string.Empty;
+
+        public string LastUsedDataModelPath {  get; set; } = string.Empty;
     }
 }

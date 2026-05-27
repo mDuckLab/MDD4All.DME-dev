@@ -29,7 +29,7 @@ namespace MDD4All.DME.ViewModels
         private IFileSaver _fileSaver;
         private IAssemblyProvider _assemblyProvider;
 
-        public MainViewModel(IFileSaveService saveService, 
+        public MainViewModel(IFileSaveService saveService,
                              IFileImportService importService,
                              IFileLoader fileLoader,
                              IFileSaver fileSaver,
@@ -56,7 +56,7 @@ namespace MDD4All.DME.ViewModels
 
         private void InitializeCommands()
         {
-            OpenDataModelCommand = new RelayCommand(ExeecuteOpenDataModel);
+            OpenDataModelCommand = new RelayCommand(ExecuteOpenDataModel);
             ConfirmOpenDataModelCommand = new RelayCommand<DataModelDescriptor>(ExecuteConfirmOpenDataModelCommand);
             SetDataModelFromRecentListCommand = new RelayCommand<int>(ExecuteSetDataModelFromRecentList);
             NewDataFileCommand = new RelayCommand(ExecuteNewDataFile);
@@ -68,7 +68,7 @@ namespace MDD4All.DME.ViewModels
             SaveDataFileAsCommand = new RelayCommand(ExecuteSaveDataFileAs);
         }
 
-        
+
 
         private DmeConfiguration _configuration;
 
@@ -118,7 +118,7 @@ namespace MDD4All.DME.ViewModels
                 ITreeNode? result = null;
                 if (TreeViewModel != null)
                 {
-                    if(TreeViewModel.SelectedNode is ObjectEditorViewModel)
+                    if (TreeViewModel.SelectedNode is ObjectEditorViewModel)
                     {
                         ObjectEditorViewModel objectEditorViewModel = (ObjectEditorViewModel)TreeViewModel.SelectedNode;
                         objectEditorViewModel.EditorState.IsExpanded = true;
@@ -134,7 +134,7 @@ namespace MDD4All.DME.ViewModels
             get
             {
                 string result = "";
-                if(DataEditorViewModel != null)
+                if (DataEditorViewModel != null)
                 {
                     result = "Filename: " + DataEditorViewModel.FileName;
                     result += " ● Data Model: " + Configuration.CurrentDataModel!.FullTypeName;
@@ -173,7 +173,7 @@ namespace MDD4All.DME.ViewModels
 
         public ICommand OpenRecentDataFileCommand { get; private set; } = null!;
 
-        public ICommand SetDataModelFromRecentListCommand {  get; private set; } = null!;
+        public ICommand SetDataModelFromRecentListCommand { get; private set; } = null!;
 
         public ICommand ShowStartPageCommand { get; private set; } = null!;
 
@@ -227,14 +227,16 @@ namespace MDD4All.DME.ViewModels
 
         #region COMMAND_IMPLEMENTATIONS
 
-        private void ExeecuteOpenDataModel()
+        private void ExecuteOpenDataModel()
         {
             SynchronizationContext.Current?.Post((_) =>
             {
                 string filename = "";
                 bool openResult = _fileLoader.ShowOpenFileDialog(out filename,
                                                                  filter: "DLL Files (*.dll)|*.dll",
-                                                                 title: "Open Data Model library file...");
+                                                                 title: "Open Data Model library file...",
+                                                                 initialDirectory: Configuration.LastUsedDataModelPath
+                                                                 );
 
                 if (openResult == true)
                 {
@@ -246,18 +248,28 @@ namespace MDD4All.DME.ViewModels
 
         private void ExecuteConfirmOpenDataModelCommand(DataModelDescriptor? descriptor)
         {
-            if(descriptor != null)
+            if (descriptor != null)
             {
                 Configuration.CurrentDataModel = descriptor;
 
-                if(Configuration.RecentDataModels.Count == 5)
+                if (Configuration.RecentDataModels.Find(dm => dm.DllPath == descriptor.DllPath && dm.FullTypeName == descriptor.FullTypeName) == null)
                 {
-                    Configuration.RecentDataModels.RemoveAt(4);
+                    if (Configuration.RecentDataModels.Count == 5)
+                    {
+                        Configuration.RecentDataModels.RemoveAt(4);
+
+                    }
+                    Configuration.RecentDataModels.Insert(0, descriptor);
+
                     
                 }
-                Configuration.RecentDataModels.Insert(0, descriptor);
 
-                _configurationReaderWriter.StoreConfiguration(Configuration);
+                FileInfo fileInfo = new FileInfo(descriptor.DllPath);
+
+                if (fileInfo.DirectoryName != null)
+                {
+                    Configuration.LastUsedDataModelPath = fileInfo.DirectoryName;
+                }
             }
 
             ViewState = EViewState.ShowStartPage;
@@ -281,6 +293,7 @@ namespace MDD4All.DME.ViewModels
                 string fileName = "";
 
                 bool dialogResult = _fileSaver.ShowFileSaveDialog(out fileName,
+                                                                  initialDirectory: Configuration.LastUsedDataFilePath,
                                                                   title: "New data file...",
                                                                   filter: "JSON file (*.json)|*.json|XML file (*.xml)|*.xml|All files (*.*)|*.*",
                                                                   defaultFileExtension: "json");
@@ -301,7 +314,7 @@ namespace MDD4All.DME.ViewModels
 
                             DataEditorViewModel.CreateNewInstance();
 
-                            //SaveDataFileCommand.Execute(null);
+                            SaveDataFileCommand.Execute(null);
 
                             DataFileDescriptor dataFileDescriptor = new DataFileDescriptor
                             {
@@ -371,6 +384,7 @@ namespace MDD4All.DME.ViewModels
                 {
                     string filename = "";
                     bool openResult = _fileLoader.ShowOpenFileDialog(out filename,
+                                                                     initialDirectory: Configuration.LastUsedDataFilePath,
                                                                      filter: "JSON file (*.json)|*.json|XML file (*.xml)|*.xml|All files (*.*)|*.*",
                                                                      title: "Open data file...",
                                                                      defaultFileExtension: "json");
@@ -418,10 +432,17 @@ namespace MDD4All.DME.ViewModels
         {
             throw new NotImplementedException();
         }
+
         private void ExecuteSaveDataFile()
         {
             FileInfo fileInfo = new FileInfo(DataEditorViewModel!.FileName);
 
+            if (fileInfo.DirectoryName != null)
+            {
+                Configuration.LastUsedDataFilePath = fileInfo.DirectoryName;
+                _configurationReaderWriter.StoreConfiguration(Configuration);
+            }
+            
             if (fileInfo.Extension.ToLower() == ".xml")
             {
                 SerializeToXml();
@@ -439,6 +460,7 @@ namespace MDD4All.DME.ViewModels
                 string fileName = "";
 
                 bool dialogResult = _fileSaver.ShowFileSaveDialog(out fileName,
+                                                                  initialDirectory: Configuration.LastUsedDataFilePath,
                                                                   title: "Save data file as...",
                                                                   filter: "JSON file (*.json)|*.json|XML file (*.xml)|*.xml|All files (*.*)|*.*");
 
@@ -465,6 +487,11 @@ namespace MDD4All.DME.ViewModels
 
                     AddNewRecentDataFile(dataFileDescriptor);
 
+                    if (fileInfo.DirectoryName != null)
+                    {
+                        Configuration.LastUsedDataFilePath = fileInfo.DirectoryName;
+                    }
+
                     _configurationReaderWriter.StoreConfiguration(Configuration);
 
                     OnPropertyChanged(nameof(StatusText));
@@ -477,7 +504,7 @@ namespace MDD4All.DME.ViewModels
 
         private void SerializeToXml()
         {
-            
+
             // Insert code to set properties and fields of the object.
             XmlSerializer mySerializer = new
             XmlSerializer(DataEditorViewModel!.SelectedType!);
@@ -490,12 +517,37 @@ namespace MDD4All.DME.ViewModels
 
         private void SetTopRecentDataModel(DataModelDescriptor modelDescriptor)
         {
-            if(Configuration.RecentDataModels.Count == 5)
+            if (Configuration.RecentDataModels.Find(dm => dm.DllPath == modelDescriptor.DllPath && 
+                                                          dm.FullTypeName == modelDescriptor.FullTypeName) == null)
             {
-                Configuration.RecentDataModels.RemoveAt(4);
-            }
+                if (Configuration.RecentDataModels.Count == 5)
+                {
+                    Configuration.RecentDataModels.RemoveAt(4);
+                }
 
-            Configuration.RecentDataModels.Insert(0, modelDescriptor);
+                Configuration.RecentDataModels.Insert(0, modelDescriptor);
+            }
+            else
+            {
+                int searchIndex = -1;
+                for (int index = 0; index < Configuration.RecentDataModels.Count; index++)
+                {
+                    DataModelDescriptor currentDescriptor = Configuration.RecentDataModels[index];
+                    if (currentDescriptor.FullTypeName == modelDescriptor.FullTypeName &&
+                       currentDescriptor.DllPath == modelDescriptor.DllPath)
+                    {
+                        searchIndex = index;
+                        break;
+                    }
+                }
+
+                if (searchIndex >= 0)
+                {
+                    DataModelDescriptor existingDescriptor = Configuration.RecentDataModels[searchIndex];
+                    Configuration.RecentDataModels.RemoveAt(searchIndex);
+                    Configuration.RecentDataModels.Insert(0, existingDescriptor);
+                }
+            }
         }
 
         private void SetRecentDataFileToTop(int index)
@@ -508,7 +560,7 @@ namespace MDD4All.DME.ViewModels
 
         private void AddNewRecentDataFile(DataFileDescriptor dataFileDescriptor)
         {
-            if(Configuration.RecentDataFiles.Count == 5)
+            if (Configuration.RecentDataFiles.Count == 5)
             {
                 Configuration.RecentDataFiles.RemoveAt(4);
 

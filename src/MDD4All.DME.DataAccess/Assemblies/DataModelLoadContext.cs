@@ -1,5 +1,5 @@
-﻿using MDD4All.AssemblyLoading.Contracts;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
@@ -10,32 +10,82 @@ namespace MDD4All.DME.DataAccess.Assemblies
     {
         private AssemblyDependencyResolver _resolver;
 
-        public DataModelLoadContext(string dllPath)
+        private string _mainDllPath;
+        private string? _proxiesDllPath;
+
+        public DataModelLoadContext(string dllPath, string? proxiesDllPath = null)
         {
             FileInfo dllFileInfo = new FileInfo(dllPath);
-            
-            string pluginPath = "";
+
+            _mainDllPath = dllPath;
+            _proxiesDllPath = proxiesDllPath;
 
             if (dllFileInfo != null && dllFileInfo.Directory != null)
             {
-                pluginPath = dllFileInfo.Directory.FullName;
-                _resolver = new AssemblyDependencyResolver(pluginPath);
+                _resolver = new AssemblyDependencyResolver(_mainDllPath);
             }
             else
             {
                 throw new Exception("Wrong dll path.");
             }
+
+            if (_proxiesDllPath != null)
+            {
+                LoadFromAssemblyPath(_proxiesDllPath);
+            }
         }
 
         protected override Assembly? Load(AssemblyName assemblyName)
         {
+            Assembly? result = null;
+
+            #region DEBUG_CODE
+            //Debug.WriteLine($"Load requested: {assemblyName}");
+            //Debug.WriteLine(Environment.StackTrace);
+
+            //try
+            //{
+            //    string assemblyFileName = _assemblyPath + "\\" + assemblyName.Name + ".dll";
+
+            //    Assembly assembly = Assembly.LoadFrom(assemblyFileName);
+
+            //    Version version = assembly.GetName().Version;
+
+            //    ;
+            //}
+            //catch (Exception ex)
+            //{
+            //    ;
+            //}
+            #endregion
+
             string? assemblyPath = _resolver.ResolveAssemblyToPath(assemblyName);
             if (assemblyPath != null)
             {
-                return LoadFromAssemblyPath(assemblyPath);
+                result = LoadFromAssemblyPath(assemblyPath);
+            }
+            else // try to load from proxy directory
+            {
+                if (_proxiesDllPath != null)
+                {
+                    FileInfo proxyDllFileInfo = new FileInfo(_proxiesDllPath);
+
+                    string? proxiesDllFolder = proxyDllFileInfo.Directory?.FullName;
+
+                    if (proxiesDllFolder != null)
+                    {
+                        string proxyAssemblyPath = Path.Combine(proxiesDllFolder, assemblyName.Name + ".dll");
+
+                        if (File.Exists(proxyAssemblyPath))
+                        {
+                            result = LoadFromAssemblyPath(proxyAssemblyPath);
+                        }
+                    }
+                }
             }
 
-            return null;
+            return result;
+
         }
 
         protected override IntPtr LoadUnmanagedDll(string unmanagedDllName)
@@ -48,5 +98,28 @@ namespace MDD4All.DME.DataAccess.Assemblies
 
             return IntPtr.Zero;
         }
+
+        public List<string> AssemblyNames
+        {
+            get
+            {
+                List<string> result = new List<string>();
+
+                foreach (Assembly? assembly in Assemblies)
+                {
+                    if (assembly != null)
+                    {
+                        string? assemblyName = assembly.GetName().Name;
+                        if (assemblyName != null)
+                        {
+                            result.Add(assemblyName);
+                        }
+                    }
+                }
+
+                return result;
+            }
+        }
+
     }
 }

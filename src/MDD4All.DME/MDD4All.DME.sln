@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.DME.DataAccess-dev"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.AssemblyLoading.Contracts-dev", "..\MDD4All.AssemblyLoading.Contracts\src\MDD4All.AssemblyLoading.Contracts\MDD4All.AssemblyLoading.Contracts-dev.csproj", "{FDF17A1D-EE01-806A-B3B2-3754F2150FEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.DME.Proxies", "..\MDD4All.DME.Proxies\MDD4All.DME.Proxies.csproj", "{0DCFB3F0-FDCC-4FA9-903B-519145D40474}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{FDF17A1D-EE01-806A-B3B2-3754F2150FEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDF17A1D-EE01-806A-B3B2-3754F2150FEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDF17A1D-EE01-806A-B3B2-3754F2150FEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DCFB3F0-FDCC-4FA9-903B-519145D40474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DCFB3F0-FDCC-4FA9-903B-519145D40474}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DCFB3F0-FDCC-4FA9-903B-519145D40474}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DCFB3F0-FDCC-4FA9-903B-519145D40474}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -110,6 +116,7 @@ Global
 		{2421D71A-B12A-4C6B-56DA-8F9AF54F24E3} = {E0831017-D48F-4AAC-B040-989FD93C6A42}
 		{E518B35C-C909-B0CE-5178-E0BA54564823} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{FDF17A1D-EE01-806A-B3B2-3754F2150FEE} = {E0831017-D48F-4AAC-B040-989FD93C6A42}
+		{0DCFB3F0-FDCC-4FA9-903B-519145D40474} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E10887EE-EE21-486C-84E9-AA20A9DC1146}

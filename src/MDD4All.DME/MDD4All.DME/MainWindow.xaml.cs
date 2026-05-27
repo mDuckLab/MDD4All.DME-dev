@@ -1,11 +1,12 @@
 ﻿using MDD4All.AssemblyLoading.Contracts;
 using MDD4All.DME.DataAccess.Assemblies;
 using MDD4All.DME.ViewModels;
-using MDD4All.DME.ViewModels.Save_Load_Services.SaveServices.Interface;
 using MDD4All.DME.ViewModels;
+using MDD4All.DME.ViewModels.Save_Load_Services.SaveServices.Interface;
 using MDD4All.FileAccess.Contracts;
 using MDD4All.FileAccess.WPF;
 using MDD4All.UI.BlazorComponents.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -30,38 +31,10 @@ namespace MDD4All.DME
     {
         private ServiceCollection _services = new ServiceCollection();
 
-        public MainWindow()
+        public MainWindow(IServiceProvider serviceProvider)
         {
             InitializeComponent();
-
-            InitializeServices();
-        }
-
-        private void InitializeServices()
-        {
-            _services.AddWpfBlazorWebView();
-
-            _services.AddBlazorWebViewDeveloperTools();
-
-            _services.AddRazorPages();
-
-            _services.AddLocalization(options =>
-            {
-
-                options.ResourcesPath = "Resources";
-            });
-
-            _services.AddScoped<DragDropDataProvider>();
-            //_services.AddScoped<DataEditorViewModel>();
-            _services.AddScoped<IFileSaveService, BlazorWebFileSaveService>();
-            _services.AddScoped<IFileImportService, BlazorWebFileImportService>();
-            
-            _services.AddSingleton<IFileLoader, WpfFileLoader>();
-            _services.AddSingleton<IFileSaver, WpfFileSaver>();
-            _services.AddScoped<IAssemblyProvider, AssemblyPovider>();
-            _services.AddScoped<MainViewModel>();
-
-            Resources.Add("services", _services.BuildServiceProvider());
+            blazorWebView.Services = serviceProvider;
         }
     }
 }
