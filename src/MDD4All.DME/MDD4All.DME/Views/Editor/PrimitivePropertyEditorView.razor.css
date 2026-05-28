@@ -23,6 +23,10 @@
     width: 100%;
 }
 
+.multiline {
+    height: 4.5rem;
+}
+
 /* Kompakt-Modus: Wird in der List-Kachel verwendet */
 .property-row.compact-mode {
     display: flex;

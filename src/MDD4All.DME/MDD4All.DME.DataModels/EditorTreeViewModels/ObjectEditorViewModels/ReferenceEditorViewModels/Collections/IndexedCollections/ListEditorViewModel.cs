@@ -115,6 +115,7 @@ namespace MDD4All.DME.ViewModels.EditorViewModels
             if (this.ItemAsList == null)
             {
                 this.CreateListInstance();
+                EditorState.IsExpanded = true;
             }
 
             if (this.ItemAsList != null)
@@ -146,6 +147,7 @@ namespace MDD4All.DME.ViewModels.EditorViewModels
 
                     if (childViewModel != null)
                     {
+                        childViewModel.EditorState.IsExpanded = true;
                         this.Children.Add(childViewModel);
                         if (this.Tree is ObjectTreeViewModel objectTree)
                         {

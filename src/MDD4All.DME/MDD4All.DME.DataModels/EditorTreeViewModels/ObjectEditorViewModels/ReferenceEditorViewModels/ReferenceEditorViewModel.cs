@@ -104,13 +104,13 @@ namespace MDD4All.DME.ViewModels.EditorViewModels
         {
             get
             {
-                string result;
+                string result = "";
 
                 // Check if it's an indexed access (List or Array)
                 if (Access is IndexedAccess indexedAccess)
                 {
                     string typeName = Type?.Name ?? "object";
-                    result = $"{indexedAccess.Index+1}. {typeName}";
+                    result = $"{indexedAccess.Index + 1}. {base.DefaultTitle}";
                 }
                 // Fallback to the base logic (e.g., for PropertyAccess)
                 else

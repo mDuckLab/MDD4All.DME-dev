@@ -108,6 +108,7 @@ namespace MDD4All.DME.ViewModels.EditorViewModels
             if (this.ItemAsArray == null)
             {
                 this.CreateArrayInstance();
+                EditorState.IsExpanded = true;
             }
 
             if (this.ItemAsArray != null)
@@ -154,6 +155,8 @@ namespace MDD4All.DME.ViewModels.EditorViewModels
 
                     if (childViewModel != null)
                     {
+                        childViewModel.EditorState.IsExpanded = true;
+
                         this.Children.Add(childViewModel);
 
                         if (this.Tree is ObjectTreeViewModel objectTree)

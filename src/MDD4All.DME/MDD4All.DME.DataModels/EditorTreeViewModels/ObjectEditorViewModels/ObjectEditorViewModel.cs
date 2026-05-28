@@ -6,6 +6,8 @@ using MDD4All.DME.ViewModels.EditorViewModels.Accesses;
 using MDD4All.UI.DataModels.Tree;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 namespace MDD4All.DME.ViewModels
 {
@@ -78,9 +80,9 @@ namespace MDD4All.DME.ViewModels
 
         public EditorState EditorState { get; private set; }
 
-        
 
-        
+
+
 
 
         private object? _item;
@@ -175,17 +177,142 @@ namespace MDD4All.DME.ViewModels
         {
             get
             {
-                string result;
+                string result = "";
 
                 if (Access is PropertyAccess propertyAccess)
                 {
-                    result = propertyAccess.PropertyInfo.Name;
+                    try
+                    {
+                        PropertyInfo propertyInfo = propertyAccess.PropertyInfo;
+
+
+                        foreach (object attr in propertyInfo.GetCustomAttributes(false))
+                        {
+                            Type type = attr.GetType();
+
+                            if (type.Name == "DisplayAttribute")
+                            {
+                                MethodInfo? method = type.GetMethod("GetName");
+                                if (method != null)
+                                {
+                                    object? value = method.Invoke(attr, null);
+
+                                    if (value != null)
+                                    {
+                                        string? stringValue = value.ToString();
+
+                                        if (stringValue != null)
+                                        {
+                                            result = stringValue;
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        result = string.Empty;
+                    }
+
+
+                    if (result == "")
+                    {
+                        result = propertyAccess.PropertyInfo.Name;
+                    }
                 }
                 else
                 {
-                    result = Type?.Name ?? "Object";
+                    if (Type != null)
+                    {
+                        try
+                        {
+
+                            foreach (object attr in Type.GetCustomAttributes(false))
+                            {
+                                Type type = attr.GetType();
+
+                                if (type.Name == "DisplayAttribute")
+                                {
+                                    MethodInfo? method = type.GetMethod("GetName");
+                                    if (method != null)
+                                    {
+                                        object? value = method.Invoke(attr, null);
+
+                                        if (value != null)
+                                        {
+                                            string? stringValue = value.ToString();
+
+                                            if (stringValue != null)
+                                            {
+                                                result = stringValue;
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            result = string.Empty;
+                        }
+                    }
+
+                    if (result == string.Empty)
+                    {
+                        result = Type?.Name ?? "Object";
+                    }
                 }
 
+                return result;
+            }
+        }
+
+        public string? DataTypeAnnotation
+        {
+            get
+            {
+                string? result = null;
+
+                if (Access is PropertyAccess propertyAccess)
+                {
+                    try
+                    {
+                        PropertyInfo propertyInfo = propertyAccess.PropertyInfo;
+
+
+                        foreach (object attr in propertyInfo.GetCustomAttributes(false))
+                        {
+                            Type type = attr.GetType();
+
+                            if (type.Name == "DataTypeAttribute")
+                            {
+                                MethodInfo? method = type.GetMethod("GetDataTypeName");
+                                if (method != null)
+                                {
+                                    object? value = method.Invoke(attr, null);
+
+                                    if (value != null)
+                                    {
+                                        string? stringValue = value.ToString();
+
+                                        if (stringValue != null)
+                                        {
+                                            result = stringValue;
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        result = string.Empty;
+                    }
+                }
                 return result;
             }
         }
