@@ -25,8 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4_DataAccess", "4_DataAcces
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektmappenelemente", "Projektmappenelemente", "{84D27F74-D2BA-6C25-2661-968F101900D9}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\.github\workflows\frontend-publish-snapshot.yml = ..\..\.github\workflows\frontend-publish-snapshot.yml
-		..\..\.github\workflows\integration-dev-build.yml = ..\..\.github\workflows\integration-dev-build.yml
+		..\.github\workflows\frontend-publish-snapshot.yml = ..\.github\workflows\frontend-publish-snapshot.yml
+		..\.github\workflows\integration-dev-build.yml = ..\.github\workflows\integration-dev-build.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.DME.AssemblyTree-dev", "MDD4All.DME.AssemblyTree\src\MDD4All.DME.AssemblyTree\MDD4All.DME.AssemblyTree-dev.csproj", "{B3EF10F4-22B3-7F3D-D11B-231B74697AEA}"
