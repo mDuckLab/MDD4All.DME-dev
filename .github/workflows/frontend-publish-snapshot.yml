@@ -54,14 +54,14 @@ jobs:
     - name: Zip Synorvia files
       uses: thedoctor0/zip-release@0.7.1
       with:
-        directory: output\framework\
+        directory: output\Synorvia\
         filename: Synorvia_${{env.VERSION}}.zip
 
     - name: Copy Synorvia zip file to dist directory
-      run: xcopy /y .\output\framework\Synorvia_${{env.VERSION}}.zip .\artifacts\
+      run: xcopy /y .\output\Synorvia\Synorvia_${{env.VERSION}}.zip .\artifacts\
 
     - name: Upload SpecIFicator artifact
       uses: actions/upload-artifact@v3
       with:
-        name: SpecIFicator_${{env.VERSION}}
+        name: Synorvia_${{env.VERSION}}
         path: artifacts\*.zip
