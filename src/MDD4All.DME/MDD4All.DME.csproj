@@ -30,15 +30,15 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\MDD4All.Configuration\src\MDD4All.Configuration\MDD4All.Configuration-dev.csproj" />
-      <ProjectReference Include="..\..\MDD4All.DME.AssemblyTree\src\MDD4All.DME.AssemblyTree\MDD4All.DME.AssemblyTree-dev.csproj" />
-      <ProjectReference Include="..\..\MDD4All.DME.DataAccess\MDD4All.DME.DataAccess-dev.csproj" />
-      <ProjectReference Include="..\..\MDD4All.FileAccess.WPF\src\MDD4All.FileAccess.WPF\MDD4All.FileAccess.WPF-dev.csproj" />
-      <ProjectReference Include="..\..\MDD4All.UI.BlazorComponents\src\MDD4All.UI.BlazorComponents\MDD4All.UI.BlazorComponents-dev.csproj" />
-      <ProjectReference Include="..\..\MDD4All.UI.DataModels\src\MDD4All.UI.DataModels\MDD4All.UI.DataModels-dev.csproj" />
+      <ProjectReference Include="..\MDD4All.Configuration\src\MDD4All.Configuration\MDD4All.Configuration-dev.csproj" />
+      <ProjectReference Include="..\MDD4All.DME.AssemblyTree\src\MDD4All.DME.AssemblyTree\MDD4All.DME.AssemblyTree-dev.csproj" />
+      <ProjectReference Include="..\MDD4All.DME.DataAccess\MDD4All.DME.DataAccess-dev.csproj" />
       <ProjectReference Include="..\MDD4All.DME.DataModels\MDD4All.DME.ViewModels.Editor.csproj" />
       <ProjectReference Include="..\MDD4All.DME.Services\MDD4All.DME.Services.csproj" />
       <ProjectReference Include="..\MDD4All.DME.ViewModels.DataManger\MDD4All.DME.ViewModels.DataManager.csproj" />
+      <ProjectReference Include="..\MDD4All.FileAccess.WPF\src\MDD4All.FileAccess.WPF\MDD4All.FileAccess.WPF-dev.csproj" />
+      <ProjectReference Include="..\MDD4All.UI.BlazorComponents\src\MDD4All.UI.BlazorComponents\MDD4All.UI.BlazorComponents-dev.csproj" />
+      <ProjectReference Include="..\MDD4All.UI.DataModels\src\MDD4All.UI.DataModels\MDD4All.UI.DataModels-dev.csproj" />
     </ItemGroup>
 
     <ItemGroup>
