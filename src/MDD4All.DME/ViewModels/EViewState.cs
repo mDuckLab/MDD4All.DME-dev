@@ -8,6 +8,7 @@
         ShowNewDataFile,
         ShowOpenDataFile,
         ShowSaveChanges,
-        ShowTypeSelectionView
+        ShowTypeSelectionView,
+        NewCultureRequested
     }
 }

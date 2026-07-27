@@ -15,6 +15,11 @@ namespace MDD4All.DME
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+
+            
+
+
+
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
 

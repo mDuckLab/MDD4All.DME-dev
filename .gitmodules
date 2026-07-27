@@ -24,3 +24,7 @@
 	path = src/MDD4All.AssemblyLoading.Contracts
 	url = https://github.com/oalt/MDD4All.AssemblyLoading.Contracts.git
 	branch = dev
+[submodule "src/MDD4All.Localization"]
+	path = src/MDD4All.Localization
+	url = https://github.com/oalt/MDD4All.Localization.git
+	branch = dev

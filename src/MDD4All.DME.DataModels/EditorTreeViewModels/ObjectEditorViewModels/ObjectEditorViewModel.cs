@@ -7,6 +7,7 @@ using MDD4All.UI.DataModels.Tree;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Reflection;
 
 namespace MDD4All.DME.ViewModels
@@ -238,6 +239,10 @@ namespace MDD4All.DME.ViewModels
                                     MethodInfo? method = type.GetMethod("GetName");
                                     if (method != null)
                                     {
+                                        CultureInfo currentUiCulture = CultureInfo.CurrentUICulture;
+
+                                        ;
+
                                         object? value = method.Invoke(attr, null);
 
                                         if (value != null)

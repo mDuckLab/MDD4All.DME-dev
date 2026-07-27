@@ -13,5 +13,7 @@ namespace MDD4All.DME.Configurations
         public string LastUsedDataFilePath { get; set; } = string.Empty;
 
         public string LastUsedDataModelPath {  get; set; } = string.Empty;
+
+        public string DesiredLanguage {  get; set; } = "en-US";
     }
 }
