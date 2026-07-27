@@ -1,0 +1,56 @@
+﻿/* Container-Setup */
+.dictionary-table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: #fff;
+}
+
+/* Gemeinsames Grid für Header und Datenzeilen */
+.dict-header-row, .dict-data-row {
+    display: grid;
+    /* 40px für den Button, dann zwei gleich große Spalten */
+    grid-template-columns: 40px 1fr 1fr;
+    align-items: center;
+}
+
+.dict-header-row {
+    background-color: var(--bg-panel-header);
+    border-bottom: 1px solid var(--border-color);
+    height: 1.8rem;
+}
+
+.header-cell {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #888;
+    padding: 0 8px;
+    letter-spacing: 0.05rem;
+}
+
+.dict-data-row {
+    border-bottom: 1px solid #f0f0f0;
+    min-height: 2.65rem;
+}
+
+    .dict-data-row:last-child {
+        border-bottom: none;
+    }
+
+.action-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.data-cell {
+    padding: 4px 8px;
+    overflow: hidden;
+}
+
+/* Optische Trennung der Spalten */
+.key-column {
+    border-right: 1px solid #f9f9f9;
+}

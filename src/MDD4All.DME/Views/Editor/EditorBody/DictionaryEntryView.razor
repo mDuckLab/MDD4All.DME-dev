@@ -1,0 +1,44 @@
+﻿@namespace MDD4All.DME.Views.EditorView
+@using MDD4All.DME.ViewModels.EditorViewModels
+
+<div class="dict-row">
+    @* 1. Action Bereich (Mülleimer) *@
+    <div class="action-cell">
+        @if (DeleteMode)
+        {
+            <ToolbarButton Action="ToolbarButton.ToolbarAction.DeleteChild" 
+                           OnActionTriggered="OnDeleteEntry" />
+        }
+    </div>
+
+    @* 2. Key Spalte mit Trennstrich *@
+    <div class="data-cell key-column">
+        @if (DataContext.KeyEditor is PrimitivePropertyViewModel pKey)
+        {
+            <PrimitivePropertyEditorView ViewModel="@pKey" IsCompact="true" />
+        }
+        else if (DataContext.KeyEditor != null)
+        {
+            @* Falls der Key mal ein komplexes Objekt ist *@
+            <ObjectEditorView ViewModel="@DataContext.KeyEditor" 
+                              MaxDepth="@MaxDepth" 
+                              CurrentDepth="@(CurrentDepth + 1)" 
+                              IsCompact="true" />
+        }
+    </div>
+
+    @* 3. Value Spalte *@
+    <div class="data-cell value-column">
+        @if (DataContext.ValueEditor is PrimitivePropertyViewModel pValue)
+        {
+            <PrimitivePropertyEditorView ViewModel="@pValue" IsCompact="true" />
+        }
+        else if (DataContext.ValueEditor != null)
+        {
+            <ObjectEditorView ViewModel="@DataContext.ValueEditor" 
+                              MaxDepth="@MaxDepth" 
+                              CurrentDepth="@(CurrentDepth + 1)" 
+                              IsCompact="true" />
+        }
+    </div>
+</div>

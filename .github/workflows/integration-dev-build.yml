@@ -1,0 +1,48 @@
+name: Development Integration Build
+
+on:
+  push:
+    branches: 
+      - main
+      - dev
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-2025
+    env:
+      SOLUTION_NAME: MDD4All.DME.sln
+
+    steps:
+    - name: Checkout repository and submodules
+      uses: actions/checkout@v3
+      with:
+        #token: ${{secrets.ACCESS_TOKEN}}
+        submodules: true
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 9.0.x
+
+    - name: Set version number from date using PS
+      uses: Amadevus/pwsh-script@v2
+      id: date-version
+      with:
+        script: |
+            ([datetime]::now).tostring("yyyy.M.d")
+
+    - name: Set version variable from date and build number
+      env: 
+        DATE_VERSION: ${{steps.date-version.outputs.result}}
+      run: echo ("VERSION=" + $env:DATE_VERSION + "." + $env:GITHUB_RUN_NUMBER) >> $env:GITHUB_ENV
+
+    - name: Echo version number
+      run: echo $env:VERSION
+
+    - name: Restore dependencies
+      run: dotnet restore ./src/${{env.SOLUTION_NAME}}
+
+    - name: Build frontend
+      run: dotnet build --no-restore -c Release /p:Version=${{env.VERSION}} ./src/${{env.SOLUTION_NAME}}

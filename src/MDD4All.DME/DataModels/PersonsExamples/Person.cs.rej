@@ -1,0 +1,14 @@
+diff a/src/MDD4All.DME/MDD4All.DME/DataModels/PersonsExamples/Person.cs b/src/MDD4All.DME/MDD4All.DME/DataModels/PersonsExamples/Person.cs	(rejected hunks)
+@@ -67,9 +67,9 @@
+         public int[]? myIntArray { get; set; } = null;
+         public Address? WorkAddress { get; set; } = null;
+ 
+-        public Dictionary<string, string> ContactDetails { get; set; }
+-        public Dictionary<string, Address> NamedAddresses { get; set; }
+-        public Dictionary<Address, Address> RouteMap { get; set; }
++        //public Dictionary<string, string> ContactDetails { get; set; }
++        //public Dictionary<string, Address> NamedAddresses { get; set; }
++        //public Dictionary<Address, Address> RouteMap { get; set; }
+ 
+         public override string ToString()
+         {

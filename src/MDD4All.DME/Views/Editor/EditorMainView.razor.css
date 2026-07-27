@@ -1,0 +1,236 @@
+﻿/* --- 2. GRID SYSTEM --- */
+.workbench-grid {
+    display: grid !important;
+    height: 100vh;
+    /* Rows: Toolbar, Breadcrumb, and Content Area */
+    grid-template-rows: var(--header-height) 2.4rem 1fr 30px;
+    /* Columns: Sidebar, Resizer (0px width for "Zen" look), and Editor */
+    grid-template-columns: var(--explorer-width) 0px 1fr;
+    /* Headers span all columns for a clean T-junction */
+    grid-template-areas:
+        "toolbar toolbar toolbar"
+        "breadcrumb breadcrumb breadcrumb"
+        "explorer resizer editor"
+        "statusbar statusbar statusbar";
+}
+
+/* --- 3. LAYOUT COMPONENTS --- */
+
+/* Top Toolbar: Sticky header with toolbar background */
+.top-toolbar {
+    grid-area: toolbar;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--ui-gutter);
+    /*background: var(--bg-toolbar) !important;*/
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Breadcrumb Nav Area */
+.breadcrumb-area {
+    grid-area: breadcrumb;
+    display: flex;
+    align-items: center;
+    padding: 0 !important;
+    border-bottom: 1px solid var(--border-color);
+    background: #ffffff;
+    height: 2.4rem;
+}
+
+/* Content Area Foundations */
+.explorer-area, .editor-area {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 0;
+    height: 100%;
+}
+
+.explorer-area {
+    grid-area: explorer;
+    /* The single, clean vertical line is now part of the explorer */
+    border-right: 1px solid var(--border-color);
+    background: white;
+    z-index: 1;
+}
+
+/* ZEN RESIZER: Invisible hit area sitting exactly on the border */
+.resizer-handle {
+    grid-area: resizer;
+    cursor: col-resize;
+    z-index: 100;
+    background-color: transparent; /* Removes the "gray block" distraction */
+    /* Wider hit area for better ergonomics, centered on the line */
+    width: 10px;
+    margin-left: -5px;
+    transition: background-color 0.2s;
+}
+
+    .resizer-handle:hover, .resizer-handle:active {
+        /* Subtle highlight when dragging */
+        background-color: var(--accent-color) !important;
+        opacity: 0.4;
+    }
+
+.editor-area {
+    grid-area: editor;
+    background: var(--bg-editor-area);
+}
+
+/* Containers with Scroll support */
+.explorer-content {
+    flex: 1;
+    overflow: auto !important;
+    min-height: 0;
+    margin: 10px;
+}
+
+.editor-body {
+    flex: 1;
+    overflow: auto !important;
+    min-height: 0;
+}
+
+/* Panel Header: Labels for sidebar/editor sections */
+.panel-header {
+    height: var(--panel-header-height);
+    background: var(--bg-panel-header) !important;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--ui-gutter) !important;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #666;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Editor Cards Alignment */
+.editor-body > .editor-card {
+    margin: 0 3px 0 0 !important;
+    border-radius: 0 !important;
+    border: none !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+/* --- 4. HOVER ENGINE (Icon Buttons) --- */
+.tool-group {
+    display: flex;
+    gap: 2px !important;
+    align-items: center;
+}
+
+.status-bar-area {
+    grid-area: statusbar;
+}
+
+/* TOP TOOLBAR
+   The main command center of the workbench. 
+   Uses a subtle gray-blue background to distinguish the global actions 
+   from the white workspace areas.
+*/
+.top-toolbar {
+    grid-area: toolbar;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--ui-gutter);
+    /*background: var(--bg-toolbar) !important;*/
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* BREADCRUMB AREA
+   Indicates the current navigation path. 
+   Zero padding on the container ensures the home icon aligns perfectly 
+   with the Explorer sidebar's vertical line.
+*/
+.breadcrumb-area {
+    grid-area: breadcrumb;
+    display: flex;
+    align-items: center;
+    padding: 0 !important;
+    border-bottom: 1px solid var(--border-color);
+    background: #ffffff;
+    height: 2.4rem;
+}
+
+/* PANEL HEADERS
+   Used for section labels like "Explorer" or "Editor".
+   The bold uppercase style mimics a professional IDE feel (Visual Studio style).
+*/
+.panel-header {
+    height: var(--panel-header-height);
+    background: var(--bg-panel-header) !important;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--ui-gutter) !important;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #666;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* DEPTH STEPPER
+   A specialized tool to control how deep nested object structures are rendered.
+   The left border acts as a visual separator from the tree icons toggle.
+*/
+.depth-stepper-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-left: 1px solid var(--border-color);
+    padding-left: 1rem;
+    height: 100%;
+}
+
+/* STEPPER CONTROLS
+   Capsule-shaped container for the + and - buttons.
+   Uses a light gray background to group the buttons haptically.
+*/
+.stepper-controls {
+    display: flex;
+    align-items: center;
+    background: #f0f0f0;
+    border-radius: 4px;
+    padding: 2px;
+    gap: 4px;
+}
+
+/* DEPTH DISPLAY
+   The numeric readout for the current depth. 
+   White background and dark border make the number pop for easy readability.
+*/
+.depth-display {
+    min-width: 2.2rem;
+    text-align: center;
+    font-weight: 700;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    font-size: 0.85rem;
+    padding: 1px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* TOGGLE SYSTEM
+   Ensures custom checkboxes (like the tree icon toggle) match 
+   the application's primary accent color when active.
+*/
+.form-check-input:checked {
+    background-color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+}
+
+/* TOGGLE CONTAINER
+   Provides consistent spacing and a vertical divider for toggle switches 
+   inside the toolbar's tool groups.
+*/
+.toggle-container {
+    padding-left: 1rem !important;
+    margin-left: 1rem !important;
+    border-left: 1px solid var(--border-color);
+    height: 100%;
+}

@@ -1,0 +1,33 @@
+﻿@namespace MDD4All.DME.Views.EditorView
+@using MDD4All.DME.ViewModels
+
+<li class="breadcrumb-item @(IsLast ? "is-active" : "")">
+    @if (IsLast)
+    {
+        <div class="breadcrumb-label">
+            @if (TreeNode.Parent == null)
+            {
+                <span class="breadcrumb-icon-box">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                </span>
+            }
+            <span class="node-title">@TreeNode.Title</span>
+        </div>
+    }
+    else
+    {
+        <button type="button" class="breadcrumb-btn" @onclick="OnSelectNode">
+            @if (TreeNode.Parent == null)
+            {
+                <span class="breadcrumb-icon-box">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                </span>
+            }
+            <span class="node-title">@TreeNode.Title</span>
+        </button>
+    }
+</li>

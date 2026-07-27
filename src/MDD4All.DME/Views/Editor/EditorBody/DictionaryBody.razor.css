@@ -1,0 +1,28 @@
+﻿.dictionary-table {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: white;
+    margin-top: 5px;
+}
+
+.dict-header {
+    display: grid;
+    grid-template-columns: 40px 1fr 1fr;
+    align-items: center;
+    background-color: var(--bg-panel-header);
+    border-bottom: 1px solid var(--border-color);
+    padding: 4px 0;
+}
+
+.header-cell {
+    padding: 0 8px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #888;
+}
+
+.action-placeholder {
+    width: 40px;
+}

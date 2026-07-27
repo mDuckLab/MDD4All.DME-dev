@@ -1,0 +1,18 @@
+﻿@page "/"
+@using MDD4All.DME.Views.AssemblyTree
+@using MDD4All.DME.Views.Editor
+
+@switch(DataContext.ViewState)
+{
+    case ViewModels.EViewState.ShowStartPage:
+        <StartPageView DataContext="DataContext" />
+        break;
+
+    case ViewModels.EViewState.ShowEditor:
+        <EditorMainView />
+        break;
+
+    case ViewModels.EViewState.ShowTypeSelectionView:
+        <TypeSelectionView DataContext="DataContext" />
+        break;
+}

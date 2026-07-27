@@ -1,0 +1,42 @@
+﻿/* --- EINFACHE TYPEN: Vertikaler Fluss --- */
+.vertical-column-flow {
+    display: block;
+    column-count: 3;
+    column-gap: 30px;
+    width: 100%;
+    /* DYNAMISCHE HÖHE: 
+       Berechnet sich aus der Anzahl der benötigten Zeilen.
+       Eine Zeile ist 2.65rem hoch + 8px Abstand. */
+    max-height: calc(var(--max-rows) * (2.65rem + 8px));
+    column-fill: auto; /* Füllt Spalten nacheinander auf  */
+}
+
+.show-dividers {
+    column-rule: 1px solid var(--border-color); /* Trennstrich aus site.css  */
+}
+
+.simple-line-item {
+    height: 2.65rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    break-inside: avoid; /* Verhindert das Zerschneiden von Zeilen  */
+    width: 100%;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.delete-action-area {
+    width: var(--btn-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-right: 8px;
+}
+
+/* --- KOMPLEXE TYPEN --- */
+.stack-mode-complex {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
