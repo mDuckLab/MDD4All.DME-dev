@@ -35,6 +35,7 @@
       <ProjectReference Include="..\MDD4All.DME.DataAccess\MDD4All.DME.DataAccess-dev.csproj" />
       <ProjectReference Include="..\MDD4All.DME.Proxies\MDD4All.DME.Proxies.csproj" />
       <ProjectReference Include="..\MDD4All.DME.ViewModels.Editor\MDD4All.DME.ViewModels.Editor.csproj" />
+      <ProjectReference Include="..\MDD4All.DME.Views.Editor\MDD4All.DME.Views.Editor.csproj" />
       <ProjectReference Include="..\MDD4All.Reflection.TypeAnalyzer\src\MDD4All.Reflection.TypeAnalyzer\MDD4All.Reflection.TypeAnalyzer.csproj" />
       <ProjectReference Include="..\MDD4All.UI.Buttons\src\MDD4All.UI.Buttons\MDD4All.UI.Buttons.csproj" />
       <ProjectReference Include="..\MDD4All.UI.Breadcrumb\src\MDD4All.UI.Breadcrumb\MDD4All.UI.Breadcrumb.csproj" />

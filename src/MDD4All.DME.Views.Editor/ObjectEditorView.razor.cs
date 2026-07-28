@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 using MDD4All.DME.ViewModels.Editor;
 using MDD4All.Reflection;
 
-namespace MDD4All.DME.Views.EditorView
+namespace MDD4All.DME.Views.Editor
 {
     public partial class ObjectEditorView : ComponentBase
     {

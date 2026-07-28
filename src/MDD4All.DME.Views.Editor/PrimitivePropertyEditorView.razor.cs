@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.ComponentModel;
 
-namespace MDD4All.DME.Views.EditorView
+namespace MDD4All.DME.Views.Editor
 {
     public partial class PrimitivePropertyEditorView : IDisposable
     {

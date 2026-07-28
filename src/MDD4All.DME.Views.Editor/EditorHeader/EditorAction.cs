@@ -1,4 +1,4 @@
-﻿namespace MDD4All.DME.Views.EditorView
+﻿namespace MDD4All.DME.Views.Editor
 {
     public enum EditorAction
     {

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.25" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MDD4All.DME.ViewModels.Editor\MDD4All.DME.ViewModels.Editor.csproj" />
+    <ProjectReference Include="..\MDD4All.UI.Buttons\src\MDD4All.UI.Buttons\MDD4All.UI.Buttons.csproj" />
+    <ProjectReference Include="..\MDD4All.ObjectGraph.Access\src\MDD4All.ObjectGraph.Access\MDD4All.ObjectGraph.Access.csproj" />
+    <ProjectReference Include="..\MDD4All.Reflection.TypeAnalyzer\src\MDD4All.Reflection.TypeAnalyzer\MDD4All.Reflection.TypeAnalyzer.csproj" />
+  </ItemGroup>
+
+</Project>

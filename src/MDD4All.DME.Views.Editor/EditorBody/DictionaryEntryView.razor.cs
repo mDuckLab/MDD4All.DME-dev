@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using MDD4All.DME.ViewModels.Editor;
 
-namespace MDD4All.DME.Views.EditorView
+namespace MDD4All.DME.Views.Editor
 {
     public partial class DictionaryEntryView : ComponentBase
     {
