@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         Title="Synorvia" Height="900" Width="1400"
         WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid x:Name="WebViewContainer">
         <blazor:BlazorWebView HostPage="wwwroot\index.html"
                               Services="{Binding Services}"
                               x:Name="blazorWebView">

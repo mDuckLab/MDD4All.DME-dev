@@ -4,9 +4,14 @@ using MDD4All.DME.ViewModels;
 using MDD4All.DME.ViewModels.Save_Load_Services.SaveServices.Interface;
 using MDD4All.FileAccess.Contracts;
 using MDD4All.FileAccess.WPF;
+using MDD4All.Localization;
+using MDD4All.Localization.Contracts;
 using MDD4All.UI.BlazorComponents.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Globalization;
 using System.Windows;
 
 namespace MDD4All.DME
@@ -17,6 +22,14 @@ namespace MDD4All.DME
     public partial class App : Application
     {
         public static IHost Host { get; private set; } = null!;
+
+        
+
+        public App()
+        {
+        }
+
+        
 
         private void OnStartup(object sender, StartupEventArgs e)
         {
@@ -39,10 +52,37 @@ namespace MDD4All.DME
                         options.ResourcesPath = "Resources";
                     });
 
+
+                    // Supported Cultures definieren
+                    CultureInfo[] supportedCultures = new[]
+                    {
+                        new CultureInfo("de-DE"),
+                        new CultureInfo("en-US")
+                    };
+
+                    // Optionen erstellen
+                    RequestLocalizationOptions localizationOptions = new RequestLocalizationOptions
+                    {
+                        DefaultRequestCulture = new RequestCulture("en-US"),
+                        SupportedCultures = supportedCultures,
+                        SupportedUICultures = supportedCultures
+                    };
+
+                    // Optional registrieren (für DI verfügbar)
+                    services.Configure<RequestLocalizationOptions>(options =>
+                    {
+                        options.DefaultRequestCulture = localizationOptions.DefaultRequestCulture;
+                        options.SupportedCultures = supportedCultures;
+                        options.SupportedUICultures = supportedCultures;
+                    });
+
+
                     services.AddScoped<DragDropDataProvider>();
                     //_services.AddScoped<DataEditorViewModel>();
                     services.AddScoped<IFileSaveService, BlazorWebFileSaveService>();
                     services.AddScoped<IFileImportService, BlazorWebFileImportService>();
+
+                    services.AddSingleton<ILanguageSetter>(setter => new LanguageSetter());
 
                     services.AddSingleton<IFileLoader, WpfFileLoader>();
                     services.AddSingleton<IFileSaver, WpfFileSaver>();
@@ -51,7 +91,7 @@ namespace MDD4All.DME
                         assemblyPovider.ProxiesDllPath = @"c:\work\DME_fork\src\MDD4All.DME.Proxies\bin\Debug\netstandard2.0\MDD4All.DME.Proxies.dll";
                         return assemblyPovider;
                     });
-                    services.AddScoped<MainViewModel>();
+                    services.AddSingleton<MainViewModel>();
 
                     //Resources.Add("services", _services.BuildServiceProvider());
 

@@ -1,26 +1,11 @@
-﻿using MDD4All.AssemblyLoading.Contracts;
-using MDD4All.DME.DataAccess.Assemblies;
-using MDD4All.DME.ViewModels;
-using MDD4All.DME.ViewModels;
-using MDD4All.DME.ViewModels.Save_Load_Services.SaveServices.Interface;
-using MDD4All.FileAccess.Contracts;
-using MDD4All.FileAccess.WPF;
-using MDD4All.UI.BlazorComponents.Services;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using MDD4All.DME.Pages;
+using MDD4All.Localization;
+using MDD4All.Localization.Contracts;
+using Microsoft.AspNetCore.Components.WebView.Wpf;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
+using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MDD4All.DME
 {
@@ -29,12 +14,53 @@ namespace MDD4All.DME
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ServiceCollection _services = new ServiceCollection();
+        private IServiceProvider _services;
+        private ILanguageSetter _languageSetter = null!;
 
         public MainWindow(IServiceProvider serviceProvider)
         {
             InitializeComponent();
+            _services = serviceProvider;
             blazorWebView.Services = serviceProvider;
+
+            var languageSetter = serviceProvider.GetService(typeof(ILanguageSetter));
+
+            if (languageSetter != null)
+            {
+                _languageSetter = (ILanguageSetter)languageSetter;
+            }
+
+            if (_languageSetter != null)
+            {
+                _languageSetter.CultureChanged += OnCultureChanged;
+
+                //SetCulture(_languageSetter.CurrentCulture, true);
+            }
+
+            SetCulture(new CultureInfo("de-DE"));
         }
+
+        private void OnCultureChanged(object? sender, System.EventArgs e)
+        {
+            //SetCulture(_languageSetter.CurrentCulture);
+
+        }
+
+        private void SetCulture(CultureInfo culture)
+        {
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
+
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+
+            Application.Current.Dispatcher.Thread.CurrentCulture = culture;
+            Application.Current.Dispatcher.Thread.CurrentUICulture = culture;
+
+            CultureInfo.CurrentCulture = culture;
+            CultureInfo.CurrentUICulture = culture;
+        }
+
+
     }
 }

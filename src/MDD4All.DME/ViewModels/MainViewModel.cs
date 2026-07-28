@@ -8,6 +8,7 @@ using MDD4All.DME.Configurations;
 using MDD4All.DME.ViewModels.Save_Load_Services.SaveServices.Interface;
 using MDD4All.DME.Views;
 using MDD4All.FileAccess.Contracts;
+using MDD4All.Localization.Contracts;
 using MDD4All.UI.DataModels.Tree;
 using System;
 using System.ComponentModel;
@@ -28,12 +29,14 @@ namespace MDD4All.DME.ViewModels
         private IFileLoader _fileLoader;
         private IFileSaver _fileSaver;
         private IAssemblyProvider _assemblyProvider;
+        private ILanguageSetter _languageSetter;
 
         public MainViewModel(IFileSaveService saveService,
                              IFileImportService importService,
                              IFileLoader fileLoader,
                              IFileSaver fileSaver,
-                             IAssemblyProvider assemblyProvider)
+                             IAssemblyProvider assemblyProvider,
+                             ILanguageSetter languageSetter)
         {
             //DataEditorViewModel = new DataManagerViewModel(dataManager, saveService/*, importService*/);
             //DataEditorViewModel.PropertyChanged += OnDataManagerViewModelPropertyChanged;
@@ -41,6 +44,9 @@ namespace MDD4All.DME.ViewModels
             _fileLoader = fileLoader;
             _fileSaver = fileSaver;
             _assemblyProvider = assemblyProvider;
+            _languageSetter = languageSetter;
+
+            _languageSetter.CultureChanged += OnCultureChanged;
 
             _configurationReaderWriter = new FileConfigurationReaderWriter<DmeConfiguration>("DME");
 
@@ -52,6 +58,11 @@ namespace MDD4All.DME.ViewModels
             }
 
             InitializeCommands();
+        }
+
+        private void OnCultureChanged(object? sender, EventArgs e)
+        {
+            ViewState = EViewState.NewCultureRequested;
         }
 
         private void InitializeCommands()

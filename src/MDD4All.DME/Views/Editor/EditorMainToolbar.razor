@@ -1,4 +1,5 @@
-﻿<div>
+﻿@using MDD4All.UI.BlazorComponents.Localization
+<div>
 
     <img src="images/Synorvia_icon.png"
         class="btn btn-outline-secondary startButton" 
@@ -25,6 +26,8 @@
                @onclick="() => DataContext.ShowRawData = true">
         <label class="btn btn-outline-dark btn-sm" for="btnradio3">Raw data</label>
     </div>
+
+    <LanguageSelection />
 </div>
 
 
