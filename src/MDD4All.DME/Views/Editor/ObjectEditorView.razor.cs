@@ -53,7 +53,6 @@ namespace MDD4All.DME.Views.EditorView
 
         private void HandleAction(EditorAction action)
         {
-            System.Console.WriteLine("[DEBUG] HandleAction: action=" + action + ", ViewModel type=" + ViewModel.GetType().FullName + ", is ReferenceEditorViewModel=" + (ViewModel is ReferenceEditorViewModel) + ", TypeCategory=" + ViewModel.TypeCategory);
             if (action == EditorAction.ToggleExpand)
             {
                 ViewModel.EditorState.IsExpanded = !ViewModel.EditorState.IsExpanded;
