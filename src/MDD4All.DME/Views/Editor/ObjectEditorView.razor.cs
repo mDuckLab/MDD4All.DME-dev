@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Components;
-using MDD4All.DME.ViewModels;
-using MDD4All.DME.ViewModels.EditorViewModels;
+using MDD4All.DME.ViewModels.Editor;
 using MDD4All.Reflection;
-using MDD4All.DME.ViewModels.Editor.EditorTreeViewModels.ObjectEditorViewModels;
 
 namespace MDD4All.DME.Views.EditorView
 {

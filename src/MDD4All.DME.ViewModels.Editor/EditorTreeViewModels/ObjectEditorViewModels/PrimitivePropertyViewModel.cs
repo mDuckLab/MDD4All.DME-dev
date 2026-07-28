@@ -5,7 +5,7 @@ using MDD4All.UI.DataModels.Tree;
 using System;
 using MDD4All.Reflection;
 
-namespace MDD4All.DME.ViewModels.EditorViewModels
+namespace MDD4All.DME.ViewModels.Editor
 {
     public class PrimitivePropertyViewModel : ObjectEditorViewModel
     {

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 
-namespace MDD4All.DME.ViewModels.EditorViewModels
+namespace MDD4All.DME.ViewModels.Editor
 {
     public class DictionaryEditorViewModel : ReferenceEditorViewModel
     {

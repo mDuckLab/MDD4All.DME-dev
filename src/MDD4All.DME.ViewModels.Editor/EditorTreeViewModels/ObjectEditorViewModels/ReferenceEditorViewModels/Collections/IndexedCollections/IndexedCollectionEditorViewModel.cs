@@ -6,7 +6,7 @@ using System;
 using System.ComponentModel;
 using System.Windows.Input;
 
-namespace MDD4All.DME.ViewModels.EditorViewModels
+namespace MDD4All.DME.ViewModels.Editor
 {
     public abstract class IndexedCollectionEditorViewModel : ReferenceEditorViewModel, INotifyPropertyChanged
     {

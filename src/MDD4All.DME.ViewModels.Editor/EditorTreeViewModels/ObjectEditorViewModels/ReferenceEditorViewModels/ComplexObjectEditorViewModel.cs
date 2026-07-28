@@ -9,7 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 
-namespace MDD4All.DME.ViewModels.EditorViewModels
+namespace MDD4All.DME.ViewModels.Editor
 {
     public class ComplexObjectEditorViewModel : ReferenceEditorViewModel
     {

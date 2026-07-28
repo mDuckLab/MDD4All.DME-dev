@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace MDD4All.DME.ViewModels.EditorViewModels
+namespace MDD4All.DME.ViewModels.Editor
 {
     public class ListEditorViewModel : IndexedCollectionEditorViewModel
     {

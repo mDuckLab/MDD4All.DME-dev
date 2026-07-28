@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Components;
-using MDD4All.DME.ViewModels.EditorViewModels;
+using MDD4All.DME.ViewModels.Editor;
 using MDD4All.ObjectGraph.Access;
-using MDD4All.DME.ViewModels;
-using MDD4All.DME.ViewModels.Editor.EditorTreeViewModels.ObjectEditorViewModels;
 
 namespace MDD4All.DME.Views.EditorView
 {
@@ -32,7 +30,7 @@ namespace MDD4All.DME.Views.EditorView
                 index = arrayAccess.Index;
             }
 
-            // Wenn ein gültiger Index gefunden wurde, den Löschbefehl ausführen
+            // Wenn ein gï¿½ltiger Index gefunden wurde, den Lï¿½schbefehl ausfï¿½hren
             if (index != -1 && ViewModel.DeleteAtIndexCommand.CanExecute(index))
             {
                 ViewModel.DeleteAtIndexCommand.Execute(index);

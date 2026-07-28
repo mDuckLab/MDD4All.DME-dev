@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
-using MDD4All.DME.ViewModels.EditorViewModels;
-using MDD4All.DME.ViewModels;
+using MDD4All.DME.ViewModels.Editor;
 
 namespace MDD4All.DME.Views.EditorView
 {
@@ -18,7 +17,7 @@ namespace MDD4All.DME.Views.EditorView
         [Parameter] public int CurrentDepth { get; set; }
 
         /// <summary>
-        /// Führt den Löschbefehl für diesen spezifischen Dictionary-Eintrag aus.
+        /// Fï¿½hrt den Lï¿½schbefehl fï¿½r diesen spezifischen Dictionary-Eintrag aus.
         /// </summary>
         private void OnDeleteEntry()
         {
@@ -42,7 +41,7 @@ namespace MDD4All.DME.Views.EditorView
             }
             else
             {
-                // Komplexe Typen: Brauchen alles für die Rekursion
+                // Komplexe Typen: Brauchen alles fï¿½r die Rekursion
                 parameters.Add("DataContext", vm);
                 parameters.Add("MaxDepth", MaxDepth);
                 parameters.Add("CurrentDepth", CurrentDepth);

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Components;
-using MDD4All.DME.ViewModels.EditorViewModels;
+using MDD4All.DME.ViewModels.Editor;
 
 namespace MDD4All.DME.Views.EditorView
 {

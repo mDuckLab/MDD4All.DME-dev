@@ -1,13 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MDD4All.Reflection;
-using MDD4All.DME.ViewModels.EditorViewModels;
 using MDD4All.ObjectGraph.Access;
 using MDD4All.UI.DataModels.Tree;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace MDD4All.DME.ViewModels
+namespace MDD4All.DME.ViewModels.Editor
 {
     public class ObjectTreeViewModel : ObservableObject, ITree
     {

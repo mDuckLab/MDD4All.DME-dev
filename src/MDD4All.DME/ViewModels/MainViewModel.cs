@@ -5,6 +5,7 @@ using MDD4All.Configuration;
 using MDD4All.Configuration.Contracts;
 using MDD4All.DME.AssemblyTree.ViewModels;
 using MDD4All.DME.Configurations;
+using MDD4All.DME.ViewModels.Editor;
 using MDD4All.DME.ViewModels.Save_Load_Services.SaveServices.Interface;
 using MDD4All.DME.Views;
 using MDD4All.FileAccess.Contracts;

@@ -3,7 +3,7 @@ using MDD4All.ObjectGraph.Access;
 using MDD4All.UI.DataModels.Tree;
 using System;
 
-namespace MDD4All.DME.ViewModels.EditorViewModels
+namespace MDD4All.DME.ViewModels.Editor
 {
     public class ArrayEditorViewModel : IndexedCollectionEditorViewModel
     {

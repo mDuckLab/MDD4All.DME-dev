@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2_UI_Components", "2_UI_Com
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5_DataModels", "5_DataModels", "{79E485FD-6C93-4864-A01D-F9D626C93597}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.DME.ViewModels.Editor", "MDD4All.DME.DataModels\MDD4All.DME.ViewModels.Editor.csproj", "{874D648A-0878-4B45-8A7D-859430FBB5B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.DME.ViewModels.Editor", "MDD4All.DME.ViewModels.Editor\MDD4All.DME.ViewModels.Editor.csproj", "{874D648A-0878-4B45-8A7D-859430FBB5B6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3_ViewModels", "3_ViewModels", "{2ADF70E6-2F53-4923-931E-358B21E08C63}"
 EndProject

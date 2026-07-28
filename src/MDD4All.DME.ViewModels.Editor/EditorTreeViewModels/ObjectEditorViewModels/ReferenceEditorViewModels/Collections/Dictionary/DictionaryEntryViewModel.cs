@@ -4,7 +4,7 @@ using MDD4All.UI.DataModels.Tree;
 using System;
 using System.Collections;
 
-namespace MDD4All.DME.ViewModels.EditorViewModels
+namespace MDD4All.DME.ViewModels.Editor
 {
     public class DictionaryEntryViewModel : ReferenceEditorViewModel
     {

@@ -1,7 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MDD4All.Reflection;
-using MDD4All.DME.ViewModels.Editor.EditorTreeViewModels.ObjectEditorViewModels;
-using MDD4All.DME.ViewModels.EditorViewModels;
 using MDD4All.ObjectGraph.Access;
 using MDD4All.UI.DataModels.Tree;
 using System;
@@ -10,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Reflection;
 
-namespace MDD4All.DME.ViewModels
+namespace MDD4All.DME.ViewModels.Editor
 {
     public abstract class ObjectEditorViewModel : ObservableObject, ITreeNode
     {
