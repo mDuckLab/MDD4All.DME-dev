@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MDD4All.DME.Analyzers;
+using MDD4All.Reflection;
 using MDD4All.DME.ViewModels.Editor.EditorTreeViewModels.ObjectEditorViewModels;
 using MDD4All.DME.ViewModels.EditorViewModels;
 using MDD4All.DME.ViewModels.EditorViewModels.Accesses;

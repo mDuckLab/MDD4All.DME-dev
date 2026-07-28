@@ -1,4 +1,5 @@
 ﻿using MDD4All.DME.ViewModels.EditorViewModels;
+using MDD4All.Reflection;
 
 namespace MDD4All.DME.ViewModels.Editor.EditorTreeViewModels.ObjectEditorViewModels
 {
@@ -38,14 +39,14 @@ namespace MDD4All.DME.ViewModels.Editor.EditorTreeViewModels.ObjectEditorViewMod
             {
                 bool result = false;
 
-                if (_viewModel.TypeCategory == Analyzers.TypeCategory.IList || _viewModel.TypeCategory == Analyzers.TypeCategory.Array)
+                if (_viewModel.TypeCategory == TypeCategory.IList || _viewModel.TypeCategory == TypeCategory.Array)
                 {
                     if (_viewModel is IndexedCollectionEditorViewModel)
                     {
                         result = true;
                     }
                 }
-                else if (_viewModel.TypeCategory == Analyzers.TypeCategory.IDictionary)
+                else if (_viewModel.TypeCategory == TypeCategory.IDictionary)
                 {
                     result = true;
                 }
@@ -60,7 +61,7 @@ namespace MDD4All.DME.ViewModels.Editor.EditorTreeViewModels.ObjectEditorViewMod
             {
                 bool result = false;
 
-                if (_viewModel.TypeCategory == Analyzers.TypeCategory.IList || _viewModel.TypeCategory == Analyzers.TypeCategory.Array)
+                if (_viewModel.TypeCategory == TypeCategory.IList || _viewModel.TypeCategory == TypeCategory.Array)
                 {
                     if (_viewModel is IndexedCollectionEditorViewModel)
                     {
@@ -71,7 +72,7 @@ namespace MDD4All.DME.ViewModels.Editor.EditorTreeViewModels.ObjectEditorViewMod
                         }
                     }
                 }
-                else if (_viewModel.TypeCategory == Analyzers.TypeCategory.IDictionary)
+                else if (_viewModel.TypeCategory == TypeCategory.IDictionary)
                 {
                     result = true;
                 }

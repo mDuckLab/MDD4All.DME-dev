@@ -1,4 +1,4 @@
-﻿using MDD4All.DME.Analyzers;
+﻿using MDD4All.Reflection;
 using System;
 using System.Collections;
 
