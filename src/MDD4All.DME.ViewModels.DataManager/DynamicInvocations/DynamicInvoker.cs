@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Runtime.Loader;
 
-namespace MDD4All.DME.DynamicInvocations
+namespace MDD4All.DME.ViewModels.DataManager
 {
     public static class DynamicInvoker
     {

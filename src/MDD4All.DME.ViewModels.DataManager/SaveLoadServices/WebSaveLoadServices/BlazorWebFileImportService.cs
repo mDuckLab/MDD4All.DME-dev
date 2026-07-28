@@ -1,8 +1,7 @@
-﻿using MDD4All.DME.ViewModels.Save_Load_Services.SaveServices.Interface;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
-namespace MDD4All.DME.ViewModels
+namespace MDD4All.DME.ViewModels.DataManager
 {
     public class BlazorWebFileImportService : IFileImportService
     {

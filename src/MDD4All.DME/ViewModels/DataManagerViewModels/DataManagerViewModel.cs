@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MDD4All.DME.ViewModels;
+using MDD4All.DME.ViewModels.DataManager;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;

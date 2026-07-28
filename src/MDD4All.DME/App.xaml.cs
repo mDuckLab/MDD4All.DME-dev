@@ -1,7 +1,7 @@
 ﻿using MDD4All.AssemblyLoading.Contracts;
 using MDD4All.DME.DataAccess.Assemblies;
 using MDD4All.DME.ViewModels;
-using MDD4All.DME.ViewModels.Save_Load_Services.SaveServices.Interface;
+using MDD4All.DME.ViewModels.DataManager;
 using MDD4All.FileAccess.Contracts;
 using MDD4All.FileAccess.WPF;
 using MDD4All.Localization;

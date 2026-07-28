@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MDD4All.DME.DynamicInvocations;
 using MDD4All.FileAccess.Contracts;
 using Newtonsoft.Json;
 using System.Diagnostics;
@@ -7,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace MDD4All.DME.ViewModels
+namespace MDD4All.DME.ViewModels.DataManager
 {
     public class DataEditorViewModel : ObservableObject
     {

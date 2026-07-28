@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using MDD4All.UI.BlazorComponents.Services;
 using MDD4All.DME.Services;
 using MDD4All.DME.ViewModels;
-using MDD4All.DME.Services.Save_Load_Services.SaveServices.Interface;
+using MDD4All.DME.ViewModels.DataManager;
 using MDD4All.DME.DataAccess;
 
 namespace MDD4All.DME

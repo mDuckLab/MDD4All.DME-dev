@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-namespace MDD4All.DME.ViewModels
+namespace MDD4All.DME.ViewModels.DataManager
 {
     public class DictionaryJsonConverter : JsonConverter
     {

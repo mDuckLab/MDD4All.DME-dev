@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5_Services", "5_Services", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.DME.Services", "MDD4All.DME.Services\MDD4All.DME.Services.csproj", "{EDA8940E-9B98-4F1E-B053-6BC7CD8F51EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.DME.ViewModels.DataManager", "MDD4All.DME.ViewModels.DataManger\MDD4All.DME.ViewModels.DataManager.csproj", "{F3BA56BF-71BA-4F64-B5B0-BABE3A9E7D29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.DME.ViewModels.DataManager", "MDD4All.DME.ViewModels.DataManager\MDD4All.DME.ViewModels.DataManager.csproj", "{F3BA56BF-71BA-4F64-B5B0-BABE3A9E7D29}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4_DataAccess", "4_DataAccess", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
