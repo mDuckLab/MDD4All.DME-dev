@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MDD4All.Reflection;
 using MDD4All.DME.ViewModels.EditorViewModels;
-using MDD4All.DME.ViewModels.EditorViewModels.Accesses;
+using MDD4All.ObjectGraph.Access;
 using MDD4All.UI.DataModels.Tree;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace MDD4All.DME.ViewModels
         {
             this.TreeRootNodes = new ObservableCollection<ITreeNode>();
 
-            Access access = new RootNoteAccess();
+            Access access = new RootNodeAccess();
 
             ObjectEditorViewModel? root = ReferenceEditorViewModel.CreateChildViewModel(this,
                                                                                         access,

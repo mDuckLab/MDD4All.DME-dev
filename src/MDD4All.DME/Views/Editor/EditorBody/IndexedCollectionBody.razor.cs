@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using MDD4All.DME.ViewModels.EditorViewModels;
-using MDD4All.DME.ViewModels.EditorViewModels.Accesses;
+using MDD4All.ObjectGraph.Access;
 using MDD4All.DME.ViewModels;
 using MDD4All.DME.ViewModels.Editor.EditorTreeViewModels.ObjectEditorViewModels;
 

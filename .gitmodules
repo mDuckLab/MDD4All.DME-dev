@@ -40,3 +40,7 @@
 	path = src/MDD4All.UI.Breadcrumb
 	url = https://github.com/mDuckLab/MDD4All.UI.Breadcrumb.git
 	branch = dev
+[submodule "src/MDD4All.ObjectGraph.Access"]
+	path = src/MDD4All.ObjectGraph.Access
+	url = https://github.com/mDuckLab/MDD4All.ObjectGraph.Access.git
+	branch = dev

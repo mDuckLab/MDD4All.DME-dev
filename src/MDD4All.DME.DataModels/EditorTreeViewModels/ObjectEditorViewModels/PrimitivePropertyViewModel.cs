@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Reflection;
-using MDD4All.DME.ViewModels.EditorViewModels.Accesses;
+using MDD4All.ObjectGraph.Access;
 using MDD4All.UI.DataModels.Tree;
 using System;
 using MDD4All.Reflection;
