@@ -16,7 +16,7 @@
             @* <DataManagerView ViewModel="MainViewModel.DataManagerViewModel" /> *@
         </div>
 
-        @* <TreeDisplayToggle @bind-Active="_showTreeIcons" /> *@
+        <TreeDisplayToggle @bind-Active="MainViewModel.ShowTreeIcons" />
 
         <EditorDepthStepperView @bind-Value="_maxDepth" Limit="9" />
     </header>
@@ -38,7 +38,7 @@
                 <MvvmTree TNode="ObjectEditorViewModel"
                           DataContext="@MainViewModel.TreeViewModel"
                           SelectedNodeChanged="OnTreeSelectionChange">
-                    <TitleTemplate Context="node">@node.Level <EditorTreeIcon DataContext="node" />@node.Title</TitleTemplate>
+                    <TitleTemplate Context="node">@node.Level @if (MainViewModel.ShowTreeIcons) { <EditorTreeIcon DataContext="node" /> }@node.Title</TitleTemplate>
                 </MvvmTree>
             }
         </div>

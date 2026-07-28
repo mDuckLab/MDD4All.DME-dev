@@ -159,6 +159,22 @@ namespace MDD4All.DME.ViewModels
             }
         }
 
+        private bool _showTreeIcons = true;
+
+        public bool ShowTreeIcons
+        {
+            get
+            {
+                return _showTreeIcons;
+            }
+
+            set
+            {
+                _showTreeIcons = value;
+                OnPropertyChanged(nameof(ShowTreeIcons));
+            }
+        }
+
         public AssemblyTreeViewModel? AssemblyTreeViewModel { get; private set; }
 
         public ICommand OpenDataModelCommand { get; private set; } = null!;

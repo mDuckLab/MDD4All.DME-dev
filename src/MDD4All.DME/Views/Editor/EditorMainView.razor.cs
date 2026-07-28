@@ -15,7 +15,6 @@ namespace MDD4All.DME.Views.Editor
         [Inject]
         public MainViewModel MainViewModel { get; set; } = null!;
 
-        private bool _showTreeIcons = true;
         private int _maxDepth = 5;
 
         #region Lifecycle
