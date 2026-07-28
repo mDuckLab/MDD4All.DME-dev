@@ -11,7 +11,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.Globalization;
+using System.IO;
 using System.Windows;
 
 namespace MDD4All.DME
@@ -88,7 +90,7 @@ namespace MDD4All.DME
                     services.AddSingleton<IFileSaver, WpfFileSaver>();
                     services.AddTransient<IAssemblyProvider>(provider => {
                         AssemblyPovider assemblyPovider = new AssemblyPovider();
-                        assemblyPovider.ProxiesDllPath = @"c:\work\DME_fork\src\MDD4All.DME.Proxies\bin\Debug\netstandard2.0\MDD4All.DME.Proxies.dll";
+                        assemblyPovider.ProxiesDllPath = Path.Combine(AppContext.BaseDirectory, "MDD4All.DME.Proxies.dll");
                         return assemblyPovider;
                     });
                     services.AddSingleton<MainViewModel>();

@@ -19,6 +19,25 @@
     </ItemGroup>
 
     <ItemGroup>
+      <!-- Orphaned duplicate project copies nested inside this project's folder;
+           the real projects live as siblings and are wired up via ProjectReference below. -->
+      <Compile Remove="MDD4All.DME.DataModels\**" />
+      <Content Remove="MDD4All.DME.DataModels\**" />
+      <EmbeddedResource Remove="MDD4All.DME.DataModels\**" />
+      <None Remove="MDD4All.DME.DataModels\**" />
+
+      <Compile Remove="MDD4All.DME.Services\**" />
+      <Content Remove="MDD4All.DME.Services\**" />
+      <EmbeddedResource Remove="MDD4All.DME.Services\**" />
+      <None Remove="MDD4All.DME.Services\**" />
+
+      <Compile Remove="MDD4All.DME.ViewModels.DataManger\**" />
+      <Content Remove="MDD4All.DME.ViewModels.DataManger\**" />
+      <EmbeddedResource Remove="MDD4All.DME.ViewModels.DataManger\**" />
+      <None Remove="MDD4All.DME.ViewModels.DataManger\**" />
+    </ItemGroup>
+
+    <ItemGroup>
       <Compile Remove="Program.cs" />
     </ItemGroup>
 
@@ -33,6 +52,7 @@
       <ProjectReference Include="..\MDD4All.Configuration\src\MDD4All.Configuration\MDD4All.Configuration-dev.csproj" />
       <ProjectReference Include="..\MDD4All.DME.AssemblyTree\src\MDD4All.DME.AssemblyTree\MDD4All.DME.AssemblyTree-dev.csproj" />
       <ProjectReference Include="..\MDD4All.DME.DataAccess\MDD4All.DME.DataAccess-dev.csproj" />
+      <ProjectReference Include="..\MDD4All.DME.Proxies\MDD4All.DME.Proxies.csproj" />
       <ProjectReference Include="..\MDD4All.DME.DataModels\MDD4All.DME.ViewModels.Editor.csproj" />
       <ProjectReference Include="..\MDD4All.DME.Services\MDD4All.DME.Services.csproj" />
       <ProjectReference Include="..\MDD4All.DME.ViewModels.DataManger\MDD4All.DME.ViewModels.DataManager.csproj" />
