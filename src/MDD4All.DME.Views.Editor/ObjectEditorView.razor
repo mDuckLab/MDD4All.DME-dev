@@ -5,7 +5,7 @@
     RenderFragment content = @<text>
         @if (ViewModel.EditorState.IsExpanded)
         {
-            <div class="card-content" style="@CssBackgroundExtension">
+            <div class="card-content @CssBackgroundExtension">
                 @if (ViewModel.EditorState.CanRenderChildren)
                 {
                     @if (this.ViewModel is ComplexObjectEditorViewModel complex)

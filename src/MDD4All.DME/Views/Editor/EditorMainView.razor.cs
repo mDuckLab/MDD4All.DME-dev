@@ -24,6 +24,8 @@ namespace MDD4All.DME.Views.Editor
         public ILanguageSetter LanguageSetter { get; set; } = null!;
 
         private int _maxDepth = 5;
+        private bool _tintEnabled = true;
+        private bool _showSettings = false;
 
         #region Lifecycle
         protected override void OnInitialized()
@@ -66,6 +68,19 @@ namespace MDD4All.DME.Views.Editor
         private async Task StartResizing(MouseEventArgs e)
         {
             await JSRuntime.InvokeVoidAsync("initResizer", "workbench-container");
+        }
+
+        private async Task OnTintToggled(ChangeEventArgs e)
+        {
+            _tintEnabled = (bool)(e.Value ?? false);
+            string intensity = _tintEnabled ? "6%" : "0%";
+            await JSRuntime.InvokeVoidAsync("eval",
+                $"document.documentElement.style.setProperty('--tint-intensity', '{intensity}')");
+        }
+
+        private void OnSettingsClose(bool confirmed)
+        {
+            _showSettings = false;
         }
         #endregion
     

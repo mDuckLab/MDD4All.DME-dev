@@ -39,6 +39,24 @@
     --ui-gutter: 12px;
     /* Dynamic width for the explorer sidebar */
     --explorer-width: 14.5rem;
+    /* Live-tunable via the slider in EditorMainView (TODO: move into settings) */
+    --tint-intensity: 6%;
+}
+
+/* Collection card backgrounds - mixed live from --tint-intensity, matches
+   EditorTreeIcon's per-type colors. Keep these hex values in sync with
+   EditorTreeIcon.razor whenever those are tuned. */
+.card-content.tint-list {
+    background-color: color-mix(in srgb, white, #82C181 var(--tint-intensity));
+}
+.card-content.tint-array {
+    background-color: color-mix(in srgb, white, #3C8F74 var(--tint-intensity));
+}
+.card-content.tint-dict {
+    background-color: color-mix(in srgb, white, #E2A778 var(--tint-intensity));
+}
+.card-content.tint-object {
+    background-color: color-mix(in srgb, white, #7086C2 var(--tint-intensity));
 }
 
 html, body {

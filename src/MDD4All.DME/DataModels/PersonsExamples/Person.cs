@@ -11,7 +11,8 @@ namespace MDD4All.DME.DataModels.PersonsExamples
             LastName = string.Empty;
             Address = new Address();
             //dateTime = DateTime.Now;
-            //myIntList = new List<int> { 0, 1, 2, 3, 4, 5 };
+            myIntList = new List<int> { 0, 1, 2, 3, 4, 5 };
+            myIntArray = new int[] { 10, 20, 30 };
 
             // 1. Simple-Simple: string -> string
             ContactDetails = new Dictionary<string, string>
@@ -76,8 +77,8 @@ namespace MDD4All.DME.DataModels.PersonsExamples
         public Address? Address { get; set; }
         public DateTime? DayOfBirth { get; set; } = DateTime.Now;
 
-        //public List<int>? myIntList { get; set; }
-        //public int[]? myIntArray { get; set; } = null;
+        public List<int>? myIntList { get; set; }
+        public int[]? myIntArray { get; set; }
         //public Address? WorkAddress { get; set; } = null;
 
         public Dictionary<string, string>? ContactDetails { get; set; }
