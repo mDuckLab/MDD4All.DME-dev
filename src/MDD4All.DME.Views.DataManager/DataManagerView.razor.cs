@@ -1,10 +1,9 @@
 using MDD4All.DME.ViewModels.DataManager;
-using MDD4All.DME.ViewModels;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
-namespace MDD4All.DME.Views
+namespace MDD4All.DME.Views.DataManager
 {
     public partial class DataManagerView
     {

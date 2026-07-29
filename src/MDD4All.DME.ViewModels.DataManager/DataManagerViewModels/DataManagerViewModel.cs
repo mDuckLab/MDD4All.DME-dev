@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MDD4All.DME.ViewModels.DataManager;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace MDD4All.DME.ViewModels
+namespace MDD4All.DME.ViewModels.DataManager
 {
     public class DataManagerViewModel : ObservableObject
     {
