@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
-namespace MDD4All.DME.Views.RawData
+namespace MDD4All.DME.Views.DataManager
 {
     public partial class RawDataView
     {
