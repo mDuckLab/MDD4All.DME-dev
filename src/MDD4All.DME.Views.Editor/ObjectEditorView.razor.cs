@@ -12,8 +12,11 @@ namespace MDD4All.DME.Views.Editor
         [Parameter] 
         public int MaxDepth { get; set; } = 0;
         
-        [Parameter] 
+        [Parameter]
         public int CurrentDepth { get; set; } = 1;
+
+        [Parameter]
+        public bool ShowOwnHeader { get; set; } = true;
 
         private bool IsReferenceType
         {
@@ -53,7 +56,10 @@ namespace MDD4All.DME.Views.Editor
         {
             if (action == EditorAction.ToggleExpand)
             {
-                ViewModel.EditorState.IsExpanded = !ViewModel.EditorState.IsExpanded;
+                if (ViewModel.EditorState.ShowExpander)
+                {
+                    ViewModel.EditorState.IsExpanded = !ViewModel.EditorState.IsExpanded;
+                }
             }
             else if (action == EditorAction.ToggleDeleteMode)
             {

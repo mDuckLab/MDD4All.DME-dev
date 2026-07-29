@@ -1,0 +1,47 @@
+@namespace MDD4All.DME.Views.Editor
+@using MDD4All.DME.ViewModels.Editor
+@using MDD4All.UI.Buttons
+
+<div class="dict-entry-card">
+    <div class="card-header-grid @(!ShowExpander ? "no-toggle" : "")" @onclick="ToggleExpand">
+        <div class="card-title">
+            @if (ShowExpander)
+            {
+                <div class="expander-icon-right" title="@(IsExpanded ? "Collapse" : "Expand")">
+                    @(IsExpanded ? "▼" : "▶")
+                </div>
+            }
+            else
+            {
+                <div class="expander-icon-right"></div>
+            }
+            <small>@DataContext.Level</small>
+            @if (DataContext.ValueEditor != null)
+            {
+                <EditorTreeIcon DataContext="DataContext.ValueEditor" />
+            }
+            <div class="dict-entry-key" @onclick:stopPropagation="true">
+                @if (DataContext.KeyEditor is PrimitivePropertyViewModel pKey)
+                {
+                    <PrimitivePropertyEditorView ViewModel="@pKey" IsCompact="true" ShowTitle="false" />
+                }
+            </div>
+        </div>
+
+        <div class="header-controls-right">
+            <div class="card-actions">
+                <ToolbarButton Action="ToolbarButton.ToolbarAction.Delete"
+                               OnActionTriggered="OnDeleteEntry"
+                               Tooltip="Delete entry" />
+            </div>
+        </div>
+    </div>
+
+    @if (DataContext.ValueEditor != null)
+    {
+        <ObjectEditorView ViewModel="@DataContext.ValueEditor"
+                           ShowOwnHeader="false"
+                           MaxDepth="@MaxDepth"
+                           CurrentDepth="@(CurrentDepth + 1)" />
+    }
+</div>

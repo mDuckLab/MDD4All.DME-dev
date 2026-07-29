@@ -3,7 +3,7 @@
 @using MDD4All.UI.Buttons
 @using MDD4All.UI.Buttons.Icons
 
-<div class="card-header-grid" @onclick="@(() => Notify(EditorAction.ToggleExpand))">
+<div class="card-header-grid @(!DataContext.EditorState.ShowExpander ? "no-toggle" : "")" @onclick="@(() => Notify(EditorAction.ToggleExpand))">
     
 
     <div class="card-title">
@@ -12,6 +12,17 @@
             <div class="expander-icon-right" title="@(DataContext.EditorState.IsExpanded ? "Collapse" : "Expand")">
                 @(DataContext.EditorState.IsExpanded ? "▼" : "▶")
             </div>
+        }
+        else if (DataContext.EditorState.CurrentDepth == 1)
+        {
+            @* Root card: never shows an arrow, so it only needs a small nudge, not the full slot. *@
+            <div class="expander-icon-placeholder"></div>
+        }
+        else
+        {
+            @* Not yet initialized: reserve the same width the arrow will take once it appears,
+               so the title doesn't jump sideways when the object gets created. *@
+            <div class="expander-icon-right"></div>
         }
         <small>@DataContext.Level</small>
         <EditorTreeIcon DataContext="DataContext" />

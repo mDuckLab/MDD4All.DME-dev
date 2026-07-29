@@ -13,9 +13,21 @@ namespace MDD4All.DME.DataModels.PersonsExamples
             //dateTime = DateTime.Now;
             //myIntList = new List<int> { 0, 1, 2, 3, 4, 5 };
 
-            ////Initialisierung für den leeren Fall
-            //ContactDetails = new Dictionary<string, string>();
-            //NamedAddresses = new Dictionary<string, Address>();
+            // 1. Simple-Simple: string -> string
+            ContactDetails = new Dictionary<string, string>
+            {
+                { "Mobile", "0176-1234567" },
+                { "Email", "max.mustermann@example.com" },
+                { "Slack", "@maxmustermann" }
+            };
+
+            // 2. Simple-Complex: string -> Address
+            NamedAddresses = new Dictionary<string, Address>
+            {
+                { "Work", new Address("Business-Park", 10u, 500.0, 12345, "Industriestadt") },
+                { "Home-Office", new Address("Musterweg", 1u, 85.5, 12345, "Musterstadt") }
+            };
+
             //RouteMap = new Dictionary<Address, Address>();
         }
 
@@ -68,8 +80,8 @@ namespace MDD4All.DME.DataModels.PersonsExamples
         //public int[]? myIntArray { get; set; } = null;
         //public Address? WorkAddress { get; set; } = null;
 
-        //public Dictionary<string, string>? ContactDetails { get; set; }
-        //public Dictionary<string, Address>? NamedAddresses { get; set; }
+        public Dictionary<string, string>? ContactDetails { get; set; }
+        public Dictionary<string, Address>? NamedAddresses { get; set; }
         //public Dictionary<Address, Address>? RouteMap { get; set; }
 
         public override string ToString()

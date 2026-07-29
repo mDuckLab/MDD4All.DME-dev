@@ -38,16 +38,20 @@ namespace MDD4All.DME.ViewModels.Editor
             {
                 bool result = false;
 
-                if (_viewModel.TypeCategory == TypeCategory.IList || _viewModel.TypeCategory == TypeCategory.Array)
+                // Nothing to add an element to until the collection/dictionary itself exists.
+                if (_viewModel.Item != null)
                 {
-                    if (_viewModel is IndexedCollectionEditorViewModel)
+                    if (_viewModel.TypeCategory == TypeCategory.IList || _viewModel.TypeCategory == TypeCategory.Array)
+                    {
+                        if (_viewModel is IndexedCollectionEditorViewModel)
+                        {
+                            result = true;
+                        }
+                    }
+                    else if (_viewModel.TypeCategory == TypeCategory.IDictionary)
                     {
                         result = true;
                     }
-                }
-                else if (_viewModel.TypeCategory == TypeCategory.IDictionary)
-                {
-                    result = true;
                 }
 
                 return result;
@@ -60,20 +64,24 @@ namespace MDD4All.DME.ViewModels.Editor
             {
                 bool result = false;
 
-                if (_viewModel.TypeCategory == TypeCategory.IList || _viewModel.TypeCategory == TypeCategory.Array)
+                // Nothing to toggle delete mode for until there's an object with children.
+                if (_viewModel.Item != null && _viewModel.HasChildNodes)
                 {
-                    if (_viewModel is IndexedCollectionEditorViewModel)
+                    if (_viewModel.TypeCategory == TypeCategory.IList || _viewModel.TypeCategory == TypeCategory.Array)
                     {
-                        IndexedCollectionEditorViewModel indexedCollectionEditorViewModel = (IndexedCollectionEditorViewModel)_viewModel;
-                        if (indexedCollectionEditorViewModel.IsUnderlyingTypeSimple)
+                        if (_viewModel is IndexedCollectionEditorViewModel)
                         {
-                            result = true;
+                            IndexedCollectionEditorViewModel indexedCollectionEditorViewModel = (IndexedCollectionEditorViewModel)_viewModel;
+                            if (indexedCollectionEditorViewModel.IsUnderlyingTypeSimple)
+                            {
+                                result = true;
+                            }
                         }
                     }
-                }
-                else if (_viewModel.TypeCategory == TypeCategory.IDictionary)
-                {
-                    result = true;
+                    else if (_viewModel.TypeCategory == TypeCategory.IDictionary)
+                    {
+                        result = true;
+                    }
                 }
 
                 return result;
@@ -87,7 +95,8 @@ namespace MDD4All.DME.ViewModels.Editor
             {
                 bool result = false;
 
-                if (_viewModel.Parent != null)
+                // Can't delete an object that was never created.
+                if (_viewModel.Parent != null && _viewModel.Item != null)
                 {
                     result = true;
                 }
@@ -102,7 +111,8 @@ namespace MDD4All.DME.ViewModels.Editor
             {
                 bool result = false;
 
-                if (_viewModel.HasChildNodes)
+                // The root card has nothing to collapse into, so it's never collapsible.
+                if (_viewModel.HasChildNodes && CurrentDepth > 1)
                 {
                     result = true;
                 }

@@ -33,6 +33,7 @@
     grid-template-columns: none;
     gap: 0.5rem; /* 8px */
     padding: 0;
+    margin-bottom: 0;
     width: auto;
 }
 

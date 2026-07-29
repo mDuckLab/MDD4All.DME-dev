@@ -10,6 +10,7 @@
     --bg-main: #ffffff;
     --bg-toolbar: #f3f5f8;
     --bg-panel-header: #f8f9fa;
+    --bg-header: var(--bg-panel-header);
     --bg-editor-area: #ffffff;
     /* Global Borders & Accents */
     --border-color: #d2d2d2; /* The primary UI divider color */
@@ -215,6 +216,12 @@ html, body {
     overflow: hidden;
 }
 
+    /* The outermost object card sits flush against the editor area,
+       so a rounded corner there looks out of place; nested cards keep it. */
+    .editor-card.card-root {
+        border-radius: 0;
+    }
+
     .card-header, .editor-card > div:first-child {
         background-color: var(--bg-panel-header) !important;
         min-height: var(--card-header-height);
@@ -225,16 +232,88 @@ html, body {
         border-bottom: 1px solid var(--border-color);
     }
 
+/* Card header chrome, shared between EditorHeaderView and DictionaryEntryCardView's
+   own header (a dictionary entry isn't an ObjectEditorView card, so it can't reuse
+   EditorHeaderView directly, but it should look and behave the same). */
+.card-header-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--card-header-height);
+    padding: 0 10px;
+    background: var(--bg-header) !important;
+    border-bottom: 0.0625rem solid var(--border-color);
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+}
+
+    /* Nothing to toggle here (root card, or not yet initialized) -
+       don't suggest the header itself is clickable. */
+    .card-header-grid.no-toggle {
+        cursor: default;
+    }
+
+    /* SMART-HIGHLIGHT:
+   Wird blau im neutralen Bereich ODER auf dem Pfeil.
+   Stoppt bei Titel- oder Button-Hover. */
+    .card-header-grid:hover:not(.no-toggle):not(:has(.selectable-label:hover, .card-actions:hover)) {
+        background-color: #ebf3fb !important;
+    }
+
+        /* PFEIL-SYNCHRONISATION:
+   Leuchtet blau, wenn die Leiste blau markiert ist. */
+        .card-header-grid:hover:not(:has(.selectable-label:hover, .card-actions:hover)) .expander-icon-right {
+            color: var(--accent-color) !important;
+        }
+
+.card-title {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    /* OPTISCHER OFFSET: Verschiebt Titel UND Badge gemeinsam nach unten */
+    transform: translateY(3px);
+}
+
+.header-controls-right {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.card-actions {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    z-index: 2;
+}
+
+.expander-icon-right {
+    width: var(--btn-size);
+    height: var(--btn-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: #444;
+    transition: color 0.1s ease;
+}
+
+/* Smaller nudge for the root card, which has no expander to reserve space for */
+.expander-icon-placeholder {
+    width: 0.5rem;
+}
+
 .card-content {
     padding: 0.6rem 0 0.8rem var(--indent-step);
 }
 
 /* --- 6. DICTIONARY TABLE (Typesafe & Flush) --- */
 
-/* Removes card padding so the table touches the borders */
+/* Removes card padding so the table touches the borders on all sides.
+   Cancels .card-content's padding (0.6rem top, 0.8rem bottom, var(--indent-step) left, 0 right).
+   No border-top needed: this now sits flush against the card header's own border-bottom. */
 .flush-content-wrapper {
-    margin: 0 -0.625rem;
-    border-top: 1px solid var(--border-color);
+    margin: -0.6rem 0 -0.8rem calc(var(--indent-step) * -1);
 }
 
 .dictionary-table {
@@ -245,15 +324,14 @@ html, body {
 
 .dict-header, .dict-row {
     display: grid;
-    /* Grid: 40px (Actions) | Key | Value | 10px (Buffer) */
-    grid-template-columns: 40px 1fr 1fr 10px;
-    align-items: stretch;
+    /* Grid: Key | Value | 40px (Actions) */
+    grid-template-columns: 1fr 1fr 40px;
+    align-items: center;
 }
 
 .dict-header {
     background-color: #fcfcfc;
     border-bottom: 1px solid var(--border-color);
-    margin-top: -1px; /* Prevents double lines against container */
 }
 
 .header-cell {
@@ -265,7 +343,7 @@ html, body {
 }
 
 /* Inner vertical separator line */
-.dict-header .header-cell:nth-child(2),
+.dict-header .header-cell:nth-child(1),
 .dict-row .key-column {
     border-right: 1px solid #eee;
 }
@@ -276,6 +354,7 @@ html, body {
 
     .dict-row:last-child {
         border-bottom: none;
+        padding-bottom: 4px;
     }
 
 .data-cell {
@@ -283,11 +362,24 @@ html, body {
     min-width: 0;
 }
 
+/* PrimitivePropertyEditorView's compact-mode is normally a fixed-width
+   tile input; here it should fill the whole KEY/VALUE column instead.
+   Extra .dict-row/.data-cell qualifiers are needed to outweigh the
+   Blazor CSS-isolation scope attribute on the component's own rule. */
+.dict-row .data-cell .compact-mode {
+    width: 100%;
+}
+
+.dict-row .data-cell .compact-mode .form-control {
+    width: 100%;
+}
+
 .action-cell {
     width: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-right: 6px;
 }
 
 /* --- 7. SCROLLBARS & TOGGLES --- */
