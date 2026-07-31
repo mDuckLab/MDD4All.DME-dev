@@ -24,8 +24,14 @@
                so the title doesn't jump sideways when the object gets created. *@
             <div class="expander-icon-right"></div>
         }
-        <small>@DataContext.Level</small>
-        <EditorTreeIcon DataContext="DataContext" />
+        @if (Settings.ShowIndexNumbers)
+        {
+            <small>@DataContext.Level</small>
+        }
+        @if (Settings.ShowIcons)
+        {
+            <EditorTreeIcon DataContext="DataContext" />
+        }
         @* Nur der Titel bekommt die Ghost-Klasse *@
         <span class="selectable-label @(DataContext.IsNull ? "label-ghost" : "")"
               @onclick="OnSelectLabel"

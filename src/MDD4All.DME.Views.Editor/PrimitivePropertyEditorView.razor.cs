@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using MDD4All.DME.ViewModels.Editor;
+using MDD4All.DME.ViewModels.Editor.Settings;
 using System;
 using System.Globalization;
 using System.Linq;
@@ -20,11 +21,24 @@ namespace MDD4All.DME.Views.Editor
         public bool ShowTitle { get; set; } = true;
         #endregion
 
+        [Inject]
+        public EditorAppearanceSettingsViewModel Settings { get; set; } = null!;
+
         #region Private Fields
         private string? _localValue;
         #endregion
 
         #region Lifecycle and Event Subscription
+        protected override void OnInitialized()
+        {
+            Settings.PropertyChanged += OnSettingsPropertyChanged;
+        }
+
+        private void OnSettingsPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            InvokeAsync(StateHasChanged);
+        }
+
         protected override void OnParametersSet()
         {
             if (this.ViewModel != null)
@@ -44,6 +58,7 @@ namespace MDD4All.DME.Views.Editor
                 // Unsubscribe to avoid memory leaks
                 this.ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
             }
+            Settings.PropertyChanged -= OnSettingsPropertyChanged;
         }
 
         private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

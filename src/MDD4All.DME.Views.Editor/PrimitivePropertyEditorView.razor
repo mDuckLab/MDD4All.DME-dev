@@ -8,7 +8,13 @@
 
     @if (ShowTitle)
     {
-        <label><small>@ViewModel.Level <EditorTreeIcon DataContext="ViewModel" /></small> @ViewModel.Title</label>
+        <label>
+            <small>
+                @if (Settings.ShowIndexNumbers) { @ViewModel.Level }
+                @if (Settings.ShowIcons) { <EditorTreeIcon DataContext="ViewModel" /> }
+            </small>
+            @ViewModel.Title
+        </label>
     }
 
     <div class="property-input-zone" style="@(IsCompact ? "flex-grow: 1; display: flex;" : "")">

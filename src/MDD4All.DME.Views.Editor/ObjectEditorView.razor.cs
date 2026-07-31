@@ -61,7 +61,7 @@ namespace MDD4All.DME.Views.Editor
             }
         }
 
-        protected override void OnInitialized()
+        protected override void OnParametersSet()
         {
             ViewModel.EditorState.CurrentDepth = CurrentDepth;
             ViewModel.EditorState.MaxDepth = MaxDepth;

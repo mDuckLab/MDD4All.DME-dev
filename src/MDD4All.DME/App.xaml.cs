@@ -2,6 +2,7 @@
 using MDD4All.DME.DataAccess.Assemblies;
 using MDD4All.DME.ViewModels;
 using MDD4All.DME.ViewModels.DataManager;
+using MDD4All.DME.ViewModels.Editor.Settings;
 using MDD4All.FileAccess.Contracts;
 using MDD4All.FileAccess.WPF;
 using MDD4All.Localization;
@@ -94,6 +95,8 @@ namespace MDD4All.DME
                         return assemblyPovider;
                     });
                     services.AddSingleton<MainViewModel>();
+                    services.AddSingleton<EditorAppearanceSettingsViewModel>();
+                    services.AddSingleton<ExplorerSettingsViewModel>();
 
                     //Resources.Add("services", _services.BuildServiceProvider());
 

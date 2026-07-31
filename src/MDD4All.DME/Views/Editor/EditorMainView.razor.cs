@@ -1,4 +1,5 @@
 using MDD4All.DME.ViewModels;
+using MDD4All.DME.ViewModels.Editor.Settings;
 using MDD4All.Localization.Contracts;
 using MDD4All.UI.DataModels.Tree;
 using Microsoft.AspNetCore.Components;
@@ -23,8 +24,12 @@ namespace MDD4All.DME.Views.Editor
         [Inject]
         public ILanguageSetter LanguageSetter { get; set; } = null!;
 
-        private int _maxDepth = 5;
-        private bool _tintEnabled = true;
+        [Inject]
+        public EditorAppearanceSettingsViewModel EditorSettings { get; set; } = null!;
+
+        [Inject]
+        public ExplorerSettingsViewModel ExplorerSettings { get; set; } = null!;
+
         private bool _showSettings = false;
 
         #region Lifecycle
@@ -35,6 +40,15 @@ namespace MDD4All.DME.Views.Editor
                 this.MainViewModel.PropertyChanged += this.OnMainViewModelPropertyChanged;
             }
             LanguageSetter.CultureChanged += OnCultureChanged;
+            EditorSettings.PropertyChanged += OnEditorSettingsPropertyChanged;
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await ApplyTintIntensity();
+            }
         }
 
         private void OnCultureChanged(object? sender, System.EventArgs e)
@@ -48,6 +62,7 @@ namespace MDD4All.DME.Views.Editor
             {
                 this.MainViewModel.PropertyChanged -= this.OnMainViewModelPropertyChanged;
             }
+            EditorSettings.PropertyChanged -= OnEditorSettingsPropertyChanged;
         }
         #endregion
 
@@ -70,10 +85,17 @@ namespace MDD4All.DME.Views.Editor
             await JSRuntime.InvokeVoidAsync("initResizer", "workbench-container");
         }
 
-        private async Task OnTintToggled(ChangeEventArgs e)
+        private async void OnEditorSettingsPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            _tintEnabled = (bool)(e.Value ?? false);
-            string intensity = _tintEnabled ? "6%" : "0%";
+            if (e.PropertyName == nameof(EditorAppearanceSettingsViewModel.TintEnabled))
+            {
+                await ApplyTintIntensity();
+            }
+        }
+
+        private async Task ApplyTintIntensity()
+        {
+            string intensity = EditorSettings.TintEnabled ? "6%" : "0%";
             await JSRuntime.InvokeVoidAsync("eval",
                 $"document.documentElement.style.setProperty('--tint-intensity', '{intensity}')");
         }

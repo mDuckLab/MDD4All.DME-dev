@@ -3,9 +3,9 @@
 @using MDD4All.DME.ViewModels.DataManager
 @using MDD4All.UI.Breadcrumb
 @using MDD4All.DME.Views.DataManager
+@using MDD4All.DME.Views.Settings
 @using MDD4All.DME.Views.StatusBar
 @using MDD4All.UI.BlazorComponents.Tree
-@using MDD4All.UI.BlazorComponents.Dialog
 @using MDD4All.UI.DataModels.Tree
 
 <div class="workbench-grid">
@@ -17,9 +17,9 @@
             @* <DataManagerView ViewModel="MainViewModel.DataManagerViewModel" /> *@
         </div>
 
-        <TreeDisplayToggle @bind-Active="MainViewModel.ShowTreeIcons" />
+        <TreeDisplayToggle @bind-Active="ExplorerSettings.ShowIcons" />
 
-        <EditorDepthStepperView @bind-Value="_maxDepth" Limit="9" />
+        <EditorDepthStepperView @bind-Value="EditorSettings.MaxDepth" Limit="9" />
 
         <button class="wb-btn-reset" title="Einstellungen" type="button" @onclick="@(() => _showSettings = true)">
             <i class="bi bi-gear-fill"></i>
@@ -28,14 +28,7 @@
 
     @if (_showSettings)
     {
-        <ModalDialog Title="Einstellungen" DialogType="ModalDialog.ModalDialogType.Ok" OnClose="OnSettingsClose">
-            <div class="form-check form-switch d-flex align-items-center gap-2 m-0 p-0">
-                <label class="stepper-label m-0" for="tintSwitch">Farbe</label>
-                <input class="form-check-input m-0" type="checkbox" role="switch" id="tintSwitch"
-                       checked="@_tintEnabled" @onchange="OnTintToggled"
-                       style="cursor: pointer; width: 2.5rem; height: 1.25rem;" />
-            </div>
-        </ModalDialog>
+        <SettingsDialog OnClose="OnSettingsClose" />
     }
 
     @* --- BREADCRUMB AREA --- *@
@@ -55,8 +48,9 @@
             {
                 <MvvmTree TNode="ObjectEditorViewModel"
                           DataContext="@MainViewModel.TreeViewModel"
-                          SelectedNodeChanged="OnTreeSelectionChange">
-                    <TitleTemplate Context="node">@node.Level @if (MainViewModel.ShowTreeIcons) { <EditorTreeIcon DataContext="node" /> }@node.Title</TitleTemplate>
+                          SelectedNodeChanged="OnTreeSelectionChange"
+                          ShowTreeIcons="@ExplorerSettings.ShowIcons">
+                    <TitleTemplate Context="node">@if (ExplorerSettings.ShowIndexNumbers) { @node.Level } @if (ExplorerSettings.ShowIcons) { <EditorTreeIcon DataContext="node" /> }@node.Title</TitleTemplate>
                 </MvvmTree>
             }
         </div>
@@ -89,7 +83,7 @@
                 @if (MainViewModel.SelectedEditorViewModel != null)
                 {
                     <ObjectEditorView ViewModel="@((ObjectEditorViewModel)MainViewModel.SelectedEditorViewModel)"
-                                      MaxDepth="@_maxDepth"
+                                      MaxDepth="@EditorSettings.MaxDepth"
                                       CurrentDepth="1" />
                 }
                 else
