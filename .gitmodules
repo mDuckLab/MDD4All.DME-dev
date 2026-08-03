@@ -7,7 +7,7 @@
 	branch = dev
 [submodule "src/MDD4All.DME.AssemblyTree"]
 	path = src/MDD4All.DME.AssemblyTree
-	url = https://github.com/oalt/MDD4All.DME.AssemblyTree.git
+	url = https://github.com/mDuckLab/MDD4All.DME.AssemblyTree.git
 	branch = dev
 [submodule "src/MDD4All.Configuration"]
 	path = src/MDD4All.Configuration
