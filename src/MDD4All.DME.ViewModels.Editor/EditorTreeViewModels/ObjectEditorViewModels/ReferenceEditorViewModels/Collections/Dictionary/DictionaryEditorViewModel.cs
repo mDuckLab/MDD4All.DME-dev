@@ -202,6 +202,7 @@ namespace MDD4All.DME.ViewModels.Editor
 
             this.Item = dynamicDict;
             this.Children.Clear();
+            UpdateParentReference();
         }
 
         private object? CreatUniqueKey()
