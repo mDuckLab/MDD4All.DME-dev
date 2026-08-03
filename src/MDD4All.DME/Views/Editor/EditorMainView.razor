@@ -4,7 +4,6 @@
 @using MDD4All.UI.Breadcrumb
 @using MDD4All.DME.Views.DataManager
 @using MDD4All.DME.Views.SettingsDialog
-@using MDD4All.DME.Views.StatusBar
 @using MDD4All.UI.BlazorComponents.Tree
 @using MDD4All.UI.DataModels.Tree
 
@@ -67,13 +66,13 @@
                 Raw Data &nbsp;&nbsp;
 
                     JSON &nbsp;<div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" 
-                               @bind="MainViewModel.DataEditorViewModel!.ShowXml"/> </div>
+                        <input class="form-check-input" type="checkbox"
+                               @bind="DataFileManager.DataEditorViewModel!.ShowXml"/> </div>
                     XML
 
             </div>
             <div class="editor-body">
-                <RawDataView DataContext="MainViewModel.DataEditorViewModel" />
+                <RawDataView DataContext="DataFileManager.DataEditorViewModel" />
             </div>
         }
         else
@@ -97,6 +96,6 @@
     </main>
 
     <div class="status-bar-area">
-        <StatusBarView DataContext="MainViewModel" />
+        <StatusBarView DataContext="DataFileManager" />
     </div>
 </div>

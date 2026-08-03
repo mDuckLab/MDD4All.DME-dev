@@ -6,13 +6,13 @@
         @onclick="() => DataContext.ShowStartPageCommand.Execute(null)" />
 
     <button class="btn btn-outline-primary btn-sm"
-            @onclick="() => DataContext.SaveDataFileCommand.Execute(null)">
+            @onclick="() => DataFileManager.SaveDataFileCommand.Execute(null)">
         <i class="bi bi-save-fill"></i>
         Save
     </button>
 
     <button class="btn btn-outline-secondary btn-sm"
-            @onclick="() => DataContext.SaveDataFileAsCommand.Execute(null)">
+            @onclick="() => DataFileManager.SaveDataFileAsCommand.Execute(null)">
         <i class="bi bi-save"></i>
         Save as...
     </button>

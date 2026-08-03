@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MDD4All.DME.ViewModels.DataManager\MDD4All.DME.ViewModels.DataManager.csproj" />
+    <ProjectReference Include="..\MDD4All.DME.AssemblyTree\src\MDD4All.DME.AssemblyTree\MDD4All.DME.AssemblyTree-dev.csproj" />
+    <ProjectReference Include="..\MDD4All.UI.BlazorComponents\src\MDD4All.UI.BlazorComponents\MDD4All.UI.BlazorComponents-dev.csproj" />
   </ItemGroup>
 
 </Project>

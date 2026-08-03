@@ -1,13 +1,13 @@
-using MDD4All.DME.ViewModels;
+using MDD4All.DME.ViewModels.DataManager;
 using Microsoft.AspNetCore.Components;
 using System.Threading;
 
-namespace MDD4All.DME.Views.Editor
+namespace MDD4All.DME.Views.DataManager
 {
     public partial class StartPageView
     {
         [Parameter]
-        public MainViewModel DataContext { get; set; } = null!;
+        public DataFileManagerViewModel DataContext { get; set; } = null!;
 
         //private void OnSelectDataModel()
         //{

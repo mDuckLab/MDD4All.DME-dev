@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using MDD4All.DME.ViewModels;
+using MDD4All.DME.ViewModels.DataManager;
 
 namespace MDD4All.DME.Views
 {
@@ -7,6 +8,9 @@ namespace MDD4All.DME.Views
     {
         [Inject]
         public MainViewModel DataContext { get; set; } = null!;
+
+        [Inject]
+        public DataFileManagerViewModel DataFileManager { get; set; } = null!;
 
         protected override void OnInitialized()
         {

@@ -15,6 +15,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MDD4All.FileAccess.Contracts\src\MDD4All.FileAccess.Contracts\MDD4All.FileAccess.Contracts-dev.csproj" />
+    <ProjectReference Include="..\MDD4All.Configuration\src\MDD4All.Configuration\MDD4All.Configuration-dev.csproj" />
+    <ProjectReference Include="..\MDD4All.AssemblyLoading.Contracts\src\MDD4All.AssemblyLoading.Contracts\MDD4All.AssemblyLoading.Contracts-dev.csproj" />
+    <ProjectReference Include="..\MDD4All.DME.AssemblyTree\src\MDD4All.DME.AssemblyTree\MDD4All.DME.AssemblyTree-dev.csproj" />
   </ItemGroup>
 
 </Project>
