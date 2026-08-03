@@ -1,7 +1,7 @@
 using MDD4All.DME.ViewModels.Editor.Settings;
 using Microsoft.AspNetCore.Components;
 
-namespace MDD4All.DME.Views.Settings
+namespace MDD4All.DME.Views.SettingsDialog
 {
     public partial class SettingsDialog
     {

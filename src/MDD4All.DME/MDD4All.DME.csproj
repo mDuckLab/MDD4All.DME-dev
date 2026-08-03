@@ -33,10 +33,12 @@
       <ProjectReference Include="..\MDD4All.Configuration\src\MDD4All.Configuration\MDD4All.Configuration-dev.csproj" />
       <ProjectReference Include="..\MDD4All.DME.AssemblyTree\src\MDD4All.DME.AssemblyTree\MDD4All.DME.AssemblyTree-dev.csproj" />
       <ProjectReference Include="..\MDD4All.DME.DataAccess\MDD4All.DME.DataAccess-dev.csproj" />
+      <ProjectReference Include="..\MDD4All.DME.DataModels\MDD4All.DME.DataModels.csproj" />
       <ProjectReference Include="..\MDD4All.DME.Proxies\MDD4All.DME.Proxies.csproj" />
       <ProjectReference Include="..\MDD4All.DME.ViewModels.Editor\MDD4All.DME.ViewModels.Editor.csproj" />
       <ProjectReference Include="..\MDD4All.DME.Views.Editor\MDD4All.DME.Views.Editor.csproj" />
       <ProjectReference Include="..\MDD4All.DME.Views.DataManager\MDD4All.DME.Views.DataManager.csproj" />
+      <ProjectReference Include="..\MDD4All.DME.Views.SettingsDialog\MDD4All.DME.Views.SettingsDialog.csproj" />
       <ProjectReference Include="..\MDD4All.Reflection.TypeAnalyzer\src\MDD4All.Reflection.TypeAnalyzer\MDD4All.Reflection.TypeAnalyzer.csproj" />
       <ProjectReference Include="..\MDD4All.UI.Buttons\src\MDD4All.UI.Buttons\MDD4All.UI.Buttons.csproj" />
       <ProjectReference Include="..\MDD4All.UI.Breadcrumb\src\MDD4All.UI.Breadcrumb\MDD4All.UI.Breadcrumb.csproj" />
