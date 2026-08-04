@@ -99,6 +99,7 @@ namespace MDD4All.DME
                     services.AddSingleton<MainViewModel>();
                     services.AddSingleton<INavigation>(provider => provider.GetRequiredService<MainViewModel>());
                     services.AddSingleton<EditorViewModel>();
+                    services.AddSingleton<IEditorState>(provider => provider.GetRequiredService<EditorViewModel>());
                     services.AddSingleton<EditorAppearanceSettingsViewModel>();
                     services.AddSingleton<ExplorerSettingsViewModel>();
 

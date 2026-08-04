@@ -12,10 +12,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="DataAccess\**" />
       <Compile Remove="Data\**" />
+      <Content Remove="DataAccess\**" />
       <Content Remove="Data\**" />
+      <EmbeddedResource Remove="DataAccess\**" />
       <EmbeddedResource Remove="Data\**" />
+      <None Remove="DataAccess\**" />
       <None Remove="Data\**" />
+      <Page Remove="DataAccess\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -44,7 +49,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="DataAccess\" />
       <Folder Include="wwwroot\css\bootstrap-icons\" />
     </ItemGroup>
 

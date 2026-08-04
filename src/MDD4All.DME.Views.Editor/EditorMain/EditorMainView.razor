@@ -1,4 +1,5 @@
-﻿@using MDD4All.DME.ViewModels
+﻿@namespace MDD4All.DME.Views.Editor
+@using MDD4All.DME.ViewModels
 @using MDD4All.DME.ViewModels.Editor
 @using MDD4All.DME.ViewModels.DataManager
 @using MDD4All.UI.Breadcrumb
@@ -26,9 +27,9 @@
 
     @* --- BREADCRUMB AREA --- *@
     <section class="breadcrumb-area">
-        @if (EditorViewModel.TreeViewModel?.SelectedNodeParentList != null)
+        @if (EditorState.TreeViewModel?.SelectedNodeParentList != null)
         {
-            <BreadcrumbView Path="EditorViewModel.TreeViewModel.SelectedNodeParentList"
+            <BreadcrumbView Path="EditorState.TreeViewModel.SelectedNodeParentList"
                             TitleSelector="@(node => ((ObjectEditorViewModel)node).Title)" />
         }
     </section>
@@ -37,10 +38,10 @@
     <aside class="explorer-area">
         <div class="panel-header">Explorer</div>
         <div class="explorer-content">
-            @if (EditorViewModel.TreeViewModel != null)
+            @if (EditorState.TreeViewModel != null)
             {
                 <MvvmTree TNode="ObjectEditorViewModel"
-                          DataContext="@EditorViewModel.TreeViewModel"
+                          DataContext="@EditorState.TreeViewModel"
                           SelectedNodeChanged="OnTreeSelectionChange"
                           ShowTreeIcons="@ExplorerSettings.ShowIcons">
                     <TitleTemplate Context="node">@if (ExplorerSettings.ShowIndexNumbers) { @node.Level } @if (ExplorerSettings.ShowIcons) { <EditorTreeIcon DataContext="node" /> }@node.Title</TitleTemplate>
@@ -54,7 +55,7 @@
 
     @* --- MAIN EDITOR AREA --- *@
     <main class="editor-area">
-        @if (EditorViewModel.ShowRawData)
+        @if (EditorState.ShowRawData)
         {
             <div class="panel-header">
                 Raw Data &nbsp;&nbsp;
@@ -73,9 +74,9 @@
         {
             <div class="panel-header">Editor</div>
             <div class="editor-body">
-                @if (EditorViewModel.SelectedEditorViewModel != null)
+                @if (EditorState.SelectedEditorViewModel != null)
                 {
-                    <ObjectEditorView ViewModel="@((ObjectEditorViewModel)EditorViewModel.SelectedEditorViewModel)"
+                    <ObjectEditorView ViewModel="@((ObjectEditorViewModel)EditorState.SelectedEditorViewModel)"
                                       MaxDepth="@EditorSettings.MaxDepth"
                                       CurrentDepth="1" />
                 }

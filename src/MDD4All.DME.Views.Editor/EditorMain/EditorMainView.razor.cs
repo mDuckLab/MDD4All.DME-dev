@@ -1,4 +1,3 @@
-using MDD4All.DME.ViewModels;
 using MDD4All.DME.ViewModels.DataManager;
 using MDD4All.DME.ViewModels.Editor;
 using MDD4All.DME.ViewModels.Editor.Settings;
@@ -24,7 +23,7 @@ namespace MDD4All.DME.Views.Editor
         public INavigation Navigation { get; set; } = null!;
 
         [Inject]
-        public EditorViewModel EditorViewModel { get; set; } = null!;
+        public IEditorState EditorState { get; set; } = null!;
 
         [Inject]
         public DataFileManagerViewModel DataFileManager { get; set; } = null!;
@@ -41,7 +40,7 @@ namespace MDD4All.DME.Views.Editor
         #region Lifecycle
         protected override void OnInitialized()
         {
-            this.EditorViewModel.PropertyChanged += this.OnEditorViewModelPropertyChanged;
+            this.EditorState.PropertyChanged += this.OnEditorStatePropertyChanged;
             LanguageSetter.CultureChanged += OnCultureChanged;
             EditorSettings.PropertyChanged += OnEditorSettingsPropertyChanged;
         }
@@ -61,22 +60,22 @@ namespace MDD4All.DME.Views.Editor
 
         public void Dispose()
         {
-            this.EditorViewModel.PropertyChanged -= this.OnEditorViewModelPropertyChanged;
+            this.EditorState.PropertyChanged -= this.OnEditorStatePropertyChanged;
             EditorSettings.PropertyChanged -= OnEditorSettingsPropertyChanged;
         }
         #endregion
 
         #region Event Handlers
-        private void OnEditorViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        private void OnEditorStatePropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             this.InvokeAsync(this.StateHasChanged);
         }
 
         private void OnTreeSelectionChange(ITreeNode node)
         {
-            if (this.EditorViewModel.TreeViewModel != null)
+            if (this.EditorState.TreeViewModel != null)
             {
-                this.EditorViewModel.TreeViewModel.SelectedNode = node;
+                this.EditorState.TreeViewModel.SelectedNode = node;
             }
         }
 
