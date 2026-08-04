@@ -1,5 +1,6 @@
 using MDD4All.DME.ViewModels;
 using MDD4All.DME.ViewModels.DataManager;
+using MDD4All.DME.ViewModels.Editor;
 using Microsoft.AspNetCore.Components;
 
 namespace MDD4All.DME.Views.Editor
@@ -7,7 +8,7 @@ namespace MDD4All.DME.Views.Editor
     public partial class EditorMainToolbar
     {
         [Inject]
-        public MainViewModel DataContext { get; set; } = null!;
+        public INavigation Navigation { get; set; } = null!;
 
         [Inject]
         public EditorViewModel EditorViewModel { get; set; } = null!;

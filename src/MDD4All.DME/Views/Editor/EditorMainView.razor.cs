@@ -1,5 +1,6 @@
 using MDD4All.DME.ViewModels;
 using MDD4All.DME.ViewModels.DataManager;
+using MDD4All.DME.ViewModels.Editor;
 using MDD4All.DME.ViewModels.Editor.Settings;
 using MDD4All.Localization.Contracts;
 using MDD4All.UI.DataModels.Tree;
@@ -20,7 +21,7 @@ namespace MDD4All.DME.Views.Editor
 
 
         [Inject]
-        public MainViewModel MainViewModel { get; set; } = null!;
+        public INavigation Navigation { get; set; } = null!;
 
         [Inject]
         public EditorViewModel EditorViewModel { get; set; } = null!;

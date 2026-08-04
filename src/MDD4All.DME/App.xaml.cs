@@ -2,6 +2,7 @@
 using MDD4All.DME.DataAccess.Assemblies;
 using MDD4All.DME.ViewModels;
 using MDD4All.DME.ViewModels.DataManager;
+using MDD4All.DME.ViewModels.Editor;
 using MDD4All.DME.ViewModels.Editor.Settings;
 using MDD4All.FileAccess.Contracts;
 using MDD4All.FileAccess.WPF;
@@ -96,6 +97,7 @@ namespace MDD4All.DME
                     });
                     services.AddSingleton<DataFileManagerViewModel>();
                     services.AddSingleton<MainViewModel>();
+                    services.AddSingleton<INavigation>(provider => provider.GetRequiredService<MainViewModel>());
                     services.AddSingleton<EditorViewModel>();
                     services.AddSingleton<EditorAppearanceSettingsViewModel>();
                     services.AddSingleton<ExplorerSettingsViewModel>();

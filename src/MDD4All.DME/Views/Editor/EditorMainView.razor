@@ -19,7 +19,7 @@
 
         <EditorDepthStepperView @bind-Value="EditorSettings.MaxDepth" Limit="9" />
 
-        <button class="wb-btn-reset" title="Einstellungen" type="button" @onclick="@(() => MainViewModel.ActiveOverlay = EOverlayState.Settings)">
+        <button class="wb-btn-reset" title="Einstellungen" type="button" @onclick="@(() => Navigation.OpenSettings())">
             <i class="bi bi-gear-fill"></i>
         </button>
     </header>

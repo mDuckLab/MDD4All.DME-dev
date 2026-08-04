@@ -1,14 +1,13 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using MDD4All.DME.ViewModels.DataManager;
+using MDD4All.DME.ViewModels.Editor;
 using MDD4All.Localization.Contracts;
 using System;
 using System.ComponentModel;
-using System.Windows.Input;
 
 namespace MDD4All.DME.ViewModels
 {
-    public class MainViewModel : ObservableObject
+    public class MainViewModel : ObservableObject, INavigation
     {
         #region constructor
         public MainViewModel(ILanguageSetter languageSetter, DataFileManagerViewModel dataFileManager)
@@ -18,8 +17,6 @@ namespace MDD4All.DME.ViewModels
 
             _dataFileManager = dataFileManager;
             _dataFileManager.PropertyChanged += OnDataFileManagerPropertyChanged;
-
-            InitializeCommands();
         }
         #endregion
 
@@ -34,8 +31,8 @@ namespace MDD4All.DME.ViewModels
         public EViewState ViewState
         {
             get
-            { 
-                return _viewState; 
+            {
+                return _viewState;
             }
 
             set
@@ -64,16 +61,14 @@ namespace MDD4All.DME.ViewModels
 
         #endregion
 
-        #region Commands
+        #region INavigation
 
-        public ICommand ShowStartPageCommand { get; private set; } = null!;
-
-        private void InitializeCommands()
+        public void OpenSettings()
         {
-            ShowStartPageCommand = new RelayCommand(ExecuteShowStartPage);
+            ActiveOverlay = EOverlayState.Settings;
         }
 
-        private void ExecuteShowStartPage()
+        public void ShowStartPage()
         {
             // TODO save changes
             ViewState = EViewState.ShowStartPage;

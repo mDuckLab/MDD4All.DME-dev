@@ -3,7 +3,7 @@
 
     <img src="images/Synorvia_icon.png"
         class="btn btn-outline-secondary startButton" 
-        @onclick="() => DataContext.ShowStartPageCommand.Execute(null)" />
+        @onclick="() => Navigation.ShowStartPage()" />
 
     <button class="btn btn-outline-primary btn-sm"
             @onclick="() => DataFileManager.SaveDataFileCommand.Execute(null)">
