@@ -1,58 +1,27 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using MDD4All.DME.ViewModels.DataManager;
 using MDD4All.DME.ViewModels.Editor;
-using MDD4All.Localization.Contracts;
 using MDD4All.UI.DataModels.Tree;
 using System;
 using System.ComponentModel;
-using System.Windows.Input;
 
 namespace MDD4All.DME.ViewModels
 {
-    public class MainViewModel : ObservableObject
+    public class EditorViewModel : ObservableObject
     {
-        private ObjectTreeViewModel? _treeViewModel;
-
-        private ILanguageSetter _languageSetter;
-
-        private DataFileManagerViewModel _dataFileManager;
-
-        public MainViewModel(ILanguageSetter languageSetter, DataFileManagerViewModel dataFileManager)
+        #region constructor
+        public EditorViewModel(DataFileManagerViewModel dataFileManager)
         {
-            _languageSetter = languageSetter;
-            _languageSetter.CultureChanged += OnCultureChanged;
-
             _dataFileManager = dataFileManager;
             _dataFileManager.PropertyChanged += OnDataFileManagerPropertyChanged;
-
-            InitializeCommands();
         }
+        #endregion
 
-        private void OnCultureChanged(object? sender, EventArgs e)
-        {
-            ActiveOverlay = EOverlayState.CultureChange;
-        }
+        #region Properties
 
-        private void OnDataFileManagerPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(DataFileManagerViewModel.DataEditorViewModel))
-            {
-                RebuildTree();
-                ViewState = EViewState.ShowEditor;
-            }
-            else if (e.PropertyName == nameof(DataFileManagerViewModel.AssemblyTreeViewModel))
-            {
-                ActiveOverlay = _dataFileManager.AssemblyTreeViewModel != null
-                    ? EOverlayState.TypeSelection
-                    : EOverlayState.None;
-            }
-        }
+        private ObjectTreeViewModel? _treeViewModel;
 
-        private void InitializeCommands()
-        {
-            ShowStartPageCommand = new RelayCommand(ExecuteShowStartPage);
-        }
+        private DataFileManagerViewModel _dataFileManager;
 
         public ObjectTreeViewModel? TreeViewModel
         {
@@ -60,6 +29,7 @@ namespace MDD4All.DME.ViewModels
             {
                 return _treeViewModel;
             }
+
             private set
             {
                 if (_treeViewModel != value)
@@ -68,19 +38,6 @@ namespace MDD4All.DME.ViewModels
                     OnPropertyChanged(nameof(TreeViewModel));
                     OnPropertyChanged(nameof(SelectedEditorViewModel));
                 }
-            }
-        }
-
-        private EViewState _viewState = EViewState.ShowStartPage;
-
-        public EViewState ViewState
-        {
-            get { return _viewState; }
-
-            set
-            {
-                _viewState = value;
-                OnPropertyChanged(nameof(ViewState));
             }
         }
 
@@ -118,24 +75,17 @@ namespace MDD4All.DME.ViewModels
             }
         }
 
-        // At most one overlay is ever open at once (modals block everything else).
-        private EOverlayState _activeOverlay = EOverlayState.None;
+        #endregion
 
-        public EOverlayState ActiveOverlay
+        #region Event Handlers
+
+        private void OnDataFileManagerPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            get
+            if (e.PropertyName == nameof(DataFileManagerViewModel.DataEditorViewModel))
             {
-                return _activeOverlay;
-            }
-
-            set
-            {
-                _activeOverlay = value;
-                OnPropertyChanged(nameof(ActiveOverlay));
+                RebuildTree();
             }
         }
-
-        public ICommand ShowStartPageCommand { get; private set; } = null!;
 
         private void RebuildTree()
         {
@@ -173,10 +123,6 @@ namespace MDD4All.DME.ViewModels
             }
         }
 
-        private void ExecuteShowStartPage()
-        {
-            // TODO save changes
-            ViewState = EViewState.ShowStartPage;
-        }
+        #endregion
     }
 }

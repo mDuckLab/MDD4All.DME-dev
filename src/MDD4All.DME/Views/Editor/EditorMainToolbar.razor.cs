@@ -6,8 +6,11 @@ namespace MDD4All.DME.Views.Editor
 {
     public partial class EditorMainToolbar
     {
-        [Parameter]
+        [Inject]
         public MainViewModel DataContext { get; set; } = null!;
+
+        [Inject]
+        public EditorViewModel EditorViewModel { get; set; } = null!;
 
         [Inject]
         public DataFileManagerViewModel DataFileManager { get; set; } = null!;

@@ -96,6 +96,7 @@ namespace MDD4All.DME
                     });
                     services.AddSingleton<DataFileManagerViewModel>();
                     services.AddSingleton<MainViewModel>();
+                    services.AddSingleton<EditorViewModel>();
                     services.AddSingleton<EditorAppearanceSettingsViewModel>();
                     services.AddSingleton<ExplorerSettingsViewModel>();
 

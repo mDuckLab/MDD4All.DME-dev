@@ -23,6 +23,9 @@ namespace MDD4All.DME.Views.Editor
         public MainViewModel MainViewModel { get; set; } = null!;
 
         [Inject]
+        public EditorViewModel EditorViewModel { get; set; } = null!;
+
+        [Inject]
         public DataFileManagerViewModel DataFileManager { get; set; } = null!;
 
         [Inject]
@@ -37,10 +40,7 @@ namespace MDD4All.DME.Views.Editor
         #region Lifecycle
         protected override void OnInitialized()
         {
-            if (this.MainViewModel != null)
-            {
-                this.MainViewModel.PropertyChanged += this.OnMainViewModelPropertyChanged;
-            }
+            this.EditorViewModel.PropertyChanged += this.OnEditorViewModelPropertyChanged;
             LanguageSetter.CultureChanged += OnCultureChanged;
             EditorSettings.PropertyChanged += OnEditorSettingsPropertyChanged;
         }
@@ -60,25 +60,22 @@ namespace MDD4All.DME.Views.Editor
 
         public void Dispose()
         {
-            if (this.MainViewModel != null)
-            {
-                this.MainViewModel.PropertyChanged -= this.OnMainViewModelPropertyChanged;
-            }
+            this.EditorViewModel.PropertyChanged -= this.OnEditorViewModelPropertyChanged;
             EditorSettings.PropertyChanged -= OnEditorSettingsPropertyChanged;
         }
         #endregion
 
         #region Event Handlers
-        private void OnMainViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        private void OnEditorViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             this.InvokeAsync(this.StateHasChanged);
         }
 
         private void OnTreeSelectionChange(ITreeNode node)
         {
-            if (this.MainViewModel.TreeViewModel != null)
+            if (this.EditorViewModel.TreeViewModel != null)
             {
-                this.MainViewModel.TreeViewModel.SelectedNode = node;
+                this.EditorViewModel.TreeViewModel.SelectedNode = node;
             }
         }
 

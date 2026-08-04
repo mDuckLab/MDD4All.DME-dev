@@ -19,11 +19,11 @@
 
     <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-left:20px;">
         <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked
-               @onclick="() => DataContext.ShowRawData = false">
+               @onclick="() => EditorViewModel.ShowRawData = false">
         <label class="btn btn-outline-dark btn-sm" for="btnradio1">Editor</label>
 
         <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"
-               @onclick="() => DataContext.ShowRawData = true">
+               @onclick="() => EditorViewModel.ShowRawData = true">
         <label class="btn btn-outline-dark btn-sm" for="btnradio3">Raw data</label>
     </div>
 

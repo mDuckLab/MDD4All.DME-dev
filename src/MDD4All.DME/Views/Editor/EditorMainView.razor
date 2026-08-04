@@ -11,7 +11,7 @@
     @* --- TOP TOOLBAR --- *@
     <header class="top-toolbar">
         <div class="tool-group">
-            <EditorMainToolbar DataContext="MainViewModel" />
+            <EditorMainToolbar />
             @* <DataManagerView ViewModel="MainViewModel.DataManagerViewModel" /> *@
         </div>
 
@@ -26,9 +26,9 @@
 
     @* --- BREADCRUMB AREA --- *@
     <section class="breadcrumb-area">
-        @if (MainViewModel.TreeViewModel?.SelectedNodeParentList != null)
+        @if (EditorViewModel.TreeViewModel?.SelectedNodeParentList != null)
         {
-            <BreadcrumbView Path="MainViewModel.TreeViewModel.SelectedNodeParentList"
+            <BreadcrumbView Path="EditorViewModel.TreeViewModel.SelectedNodeParentList"
                             TitleSelector="@(node => ((ObjectEditorViewModel)node).Title)" />
         }
     </section>
@@ -37,10 +37,10 @@
     <aside class="explorer-area">
         <div class="panel-header">Explorer</div>
         <div class="explorer-content">
-            @if (MainViewModel.TreeViewModel != null)
+            @if (EditorViewModel.TreeViewModel != null)
             {
                 <MvvmTree TNode="ObjectEditorViewModel"
-                          DataContext="@MainViewModel.TreeViewModel"
+                          DataContext="@EditorViewModel.TreeViewModel"
                           SelectedNodeChanged="OnTreeSelectionChange"
                           ShowTreeIcons="@ExplorerSettings.ShowIcons">
                     <TitleTemplate Context="node">@if (ExplorerSettings.ShowIndexNumbers) { @node.Level } @if (ExplorerSettings.ShowIcons) { <EditorTreeIcon DataContext="node" /> }@node.Title</TitleTemplate>
@@ -54,7 +54,7 @@
 
     @* --- MAIN EDITOR AREA --- *@
     <main class="editor-area">
-        @if (MainViewModel.ShowRawData)
+        @if (EditorViewModel.ShowRawData)
         {
             <div class="panel-header">
                 Raw Data &nbsp;&nbsp;
@@ -73,9 +73,9 @@
         {
             <div class="panel-header">Editor</div>
             <div class="editor-body">
-                @if (MainViewModel.SelectedEditorViewModel != null)
+                @if (EditorViewModel.SelectedEditorViewModel != null)
                 {
-                    <ObjectEditorView ViewModel="@((ObjectEditorViewModel)MainViewModel.SelectedEditorViewModel)"
+                    <ObjectEditorView ViewModel="@((ObjectEditorViewModel)EditorViewModel.SelectedEditorViewModel)"
                                       MaxDepth="@EditorSettings.MaxDepth"
                                       CurrentDepth="1" />
                 }
