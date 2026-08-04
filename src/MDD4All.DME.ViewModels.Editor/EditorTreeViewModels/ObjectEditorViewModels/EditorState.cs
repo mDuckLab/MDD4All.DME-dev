@@ -23,7 +23,7 @@ namespace MDD4All.DME.ViewModels.Editor
             {
                 bool result = false;
 
-                if (_viewModel.Item == null)
+                if (_viewModel.Item == null && _viewModel.Access.CanWrite)
                 {
                     result = true;
                 }
@@ -96,7 +96,7 @@ namespace MDD4All.DME.ViewModels.Editor
                 bool result = false;
 
                 // Can't delete an object that was never created.
-                if (_viewModel.Parent != null && _viewModel.Item != null)
+                if (_viewModel.Parent != null && _viewModel.Item != null && _viewModel.Access.CanWrite)
                 {
                     result = true;
                 }

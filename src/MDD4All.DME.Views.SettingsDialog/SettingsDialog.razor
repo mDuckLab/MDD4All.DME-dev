@@ -39,6 +39,14 @@
                         <label class="settings-toggle-label" for="editorIndex">Indexnummern</label>
                         <input class="form-check-input" type="checkbox" role="switch" id="editorIndex" @bind="EditorSettings.ShowIndexNumbers" />
                     </div>
+                    <div class="settings-toggle">
+                        <label class="settings-toggle-label" for="editorReadOnlyBadges">Readonly-Badges</label>
+                        <input class="form-check-input" type="checkbox" role="switch" id="editorReadOnlyBadges" @bind="EditorSettings.ShowReadOnlyBadges" />
+                    </div>
+                    <div class="settings-toggle">
+                        <label class="settings-toggle-label" for="editorTypeBadges">Typ-Badges</label>
+                        <input class="form-check-input" type="checkbox" role="switch" id="editorTypeBadges" @bind="EditorSettings.ShowTypeBadges" />
+                    </div>
                     break;
 
                 case SettingsCategory.Explorer:

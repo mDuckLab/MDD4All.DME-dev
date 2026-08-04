@@ -148,6 +148,47 @@ namespace MDD4All.DME.ViewModels.Editor
 
         public Access Access { get; set; } = null!;
 
+        public bool IsReadOnly
+        {
+            get
+            {
+                return !Access.CanWrite;
+            }
+        }
+
+        // Short, technical type label ("List"/"Array"/"Dictionary"/"Object") for
+        // readers who want to know the underlying .NET shape at a glance - as
+        // opposed to ReferenceEditorViewModel.BadgeText's friendlier, more
+        // descriptive phrasing ("list of whole numbers").
+        public string? TypeBadgeText
+        {
+            get
+            {
+                string? result = null;
+
+                switch (TypeCategory)
+                {
+                    case TypeCategory.IList:
+                        result = "List";
+                        break;
+
+                    case TypeCategory.Array:
+                        result = "Array";
+                        break;
+
+                    case TypeCategory.IDictionary:
+                        result = "Dictionary";
+                        break;
+
+                    case TypeCategory.None:
+                        result = "Object";
+                        break;
+                }
+
+                return result;
+            }
+        }
+
         private string? _title;
 
         public string Title

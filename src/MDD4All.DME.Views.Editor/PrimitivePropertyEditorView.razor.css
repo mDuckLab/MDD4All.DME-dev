@@ -60,3 +60,16 @@
     padding: 0 1.25rem 0 0.375rem; /* 0 20px 0 6px */
     background-position: right 0.25rem center; /* 4px */
 }
+
+.property-row.readonly {
+    opacity: 0.55;
+}
+
+.property-row.readonly:hover {
+    opacity: 0.85;
+}
+
+.property-row.readonly .form-control,
+.property-row.readonly .form-select {
+    cursor: not-allowed;
+}

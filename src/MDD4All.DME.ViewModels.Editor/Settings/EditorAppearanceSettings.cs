@@ -9,5 +9,9 @@ namespace MDD4All.DME.ViewModels.Editor.Settings
         public bool ShowIcons { get; set; } = true;
 
         public bool ShowIndexNumbers { get; set; } = true;
+
+        public bool ShowReadOnlyBadges { get; set; } = true;
+
+        public bool ShowTypeBadges { get; set; } = true;
     }
 }

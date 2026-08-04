@@ -39,6 +39,16 @@
             @DataContext.Title
         </span>
 
+        @if (DataContext.TypeBadgeText != null && Settings.ShowTypeBadges)
+        {
+            <span class="type-badge">@DataContext.TypeBadgeText</span>
+        }
+
+        @if (DataContext.IsReadOnly && Settings.ShowReadOnlyBadges)
+        {
+            <span class="readonly-badge">readonly</span>
+        }
+
         @* Das Badge bleibt wie es ist *@
         @* @if (!string.IsNullOrEmpty(State.BadgeText))
         {

@@ -65,6 +65,30 @@ namespace MDD4All.DME.ViewModels.Editor.Settings
             }
         }
 
+        public bool ShowReadOnlyBadges
+        {
+            get
+            {
+                return _settings.ShowReadOnlyBadges;
+            }
+            set
+            {
+                SetAndStore(value, _settings.ShowReadOnlyBadges, v => _settings.ShowReadOnlyBadges = v);
+            }
+        }
+
+        public bool ShowTypeBadges
+        {
+            get
+            {
+                return _settings.ShowTypeBadges;
+            }
+            set
+            {
+                SetAndStore(value, _settings.ShowTypeBadges, v => _settings.ShowTypeBadges = v);
+            }
+        }
+
         // T is inferred per call site: bool for the toggles, int for MaxDepth.
         private void SetAndStore<T>(T value, T currentValue, System.Action<T> apply,
             // Compiler auto-fills this with the calling property's name.

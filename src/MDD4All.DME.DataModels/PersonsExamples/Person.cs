@@ -10,6 +10,7 @@ namespace MDD4All.DME.DataModels.PersonsExamples
             FirstName = string.Empty;
             LastName = string.Empty;
             Address = new Address();
+            ReadOnlyAddress = new Address("Konstanterstraße", 5u, 42.0, 54321, "Immerstadt");
             //dateTime = DateTime.Now;
             myIntList = new List<int> { 0, 1, 2, 3, 4, 5 };
             myIntArray = new int[] { 10, 20, 30 };
@@ -84,6 +85,18 @@ namespace MDD4All.DME.DataModels.PersonsExamples
         public Dictionary<string, string>? ContactDetails { get; set; }
         public Dictionary<string, Address>? NamedAddresses { get; set; }
         //public Dictionary<Address, Address>? RouteMap { get; set; }
+
+        // Read-only test properties, no setter at all - used to verify the
+        // editor correctly disables editing/Create instead of throwing.
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
+
+        public Address? ReadOnlyAddress { get; }
 
         public override string ToString()
         {

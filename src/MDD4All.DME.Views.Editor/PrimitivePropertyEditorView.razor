@@ -1,7 +1,8 @@
 ﻿@namespace MDD4All.DME.Views.Editor
 @using System.Globalization
 
-<div class="property-row @(IsCompact ? "compact-mode" : "")">
+<div class="property-row @(IsCompact ? "compact-mode" : "") @(ViewModel.IsReadOnly ? "readonly" : "")"
+     title="@(ViewModel.IsReadOnly ? "Nur lesbar" : null)">
     @*<label class="property-label">@ViewModel.Title</label>*@
 
 
@@ -14,10 +15,15 @@
                 @if (Settings.ShowIcons) { <EditorTreeIcon DataContext="ViewModel" /> }
             </small>
             @ViewModel.Title
+            @if (ViewModel.IsReadOnly && Settings.ShowReadOnlyBadges)
+            {
+                <span class="readonly-badge">readonly</span>
+            }
         </label>
     }
 
     <div class="property-input-zone" style="@(IsCompact ? "flex-grow: 1; display: flex;" : "")">
+    <fieldset disabled="@ViewModel.IsReadOnly" style="border:none; margin:0; padding:0;">
         @if (ViewModel.Type!.IsEnum)
         {
             <select class="form-control form-select"
@@ -99,5 +105,6 @@
                     break;
             }
         }
+    </fieldset>
     </div>
 </div>
