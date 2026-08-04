@@ -19,11 +19,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="Program.cs" />
-    </ItemGroup>
-
-
-    <ItemGroup>
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="9.0.120" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -51,10 +46,6 @@
     <ItemGroup>
       <Folder Include="DataAccess\" />
       <Folder Include="wwwroot\css\bootstrap-icons\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Include="Program.cs" />
     </ItemGroup>
 
     <ItemGroup>
