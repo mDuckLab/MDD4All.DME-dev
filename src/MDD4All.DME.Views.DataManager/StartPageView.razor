@@ -3,6 +3,9 @@
 <div class="mainGrid">
     <div class="logo">
         <img src="images/Synorvia_logo.png" width="200" style="margin-left: -20px;margin-top:-50px;"/>
+        <button class="wb-btn-reset" title="Einstellungen" type="button" @onclick="@(() => OnSettingsRequested.InvokeAsync())">
+            <i class="bi bi-gear-fill"></i>
+        </button>
     </div>
     <div class="curentDataModel">
         Current Data Model:<br/>

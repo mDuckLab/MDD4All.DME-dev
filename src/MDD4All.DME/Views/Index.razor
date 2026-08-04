@@ -1,23 +1,33 @@
-﻿@page "/"
+@page "/"
 @using MDD4All.DME.Views.DataManager
 @using MDD4All.DME.Views.Dialogs
 @using MDD4All.DME.Views.Editor
+@using MDD4All.DME.Views.SettingsDialog
 
+@* Pages: mutually exclusive main content *@
 @switch(DataContext.ViewState)
 {
     case ViewModels.EViewState.ShowStartPage:
-        <StartPageView DataContext="DataFileManager" />
+        <StartPageView OnSettingsRequested="@(() => DataContext.ActiveOverlay = ViewModels.EOverlayState.Settings)" />
         break;
 
     case ViewModels.EViewState.ShowEditor:
         <EditorMainView />
         break;
+}
 
-    case ViewModels.EViewState.ShowTypeSelectionView:
-        <TypeSelectionView DataContext="DataFileManager" />
+@* Overlay: needed on every page *@
+@switch (DataContext.ActiveOverlay)
+{
+    case ViewModels.EOverlayState.Settings:
+        <SettingsDialog OnClose="OnSettingsClose" />
         break;
 
-    case ViewModels.EViewState.NewCultureRequested:
+    case ViewModels.EOverlayState.TypeSelection:
+        <TypeSelectionView />
+        break;
+
+    case ViewModels.EOverlayState.CultureChange:
         <CultureChangeDialog DataContext="DataContext" />
         break;
 }

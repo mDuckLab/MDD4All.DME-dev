@@ -31,7 +31,7 @@ namespace MDD4All.DME.ViewModels
 
         private void OnCultureChanged(object? sender, EventArgs e)
         {
-            ViewState = EViewState.NewCultureRequested;
+            ActiveOverlay = EOverlayState.CultureChange;
         }
 
         private void OnDataFileManagerPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -43,9 +43,9 @@ namespace MDD4All.DME.ViewModels
             }
             else if (e.PropertyName == nameof(DataFileManagerViewModel.AssemblyTreeViewModel))
             {
-                ViewState = _dataFileManager.AssemblyTreeViewModel != null
-                    ? EViewState.ShowTypeSelectionView
-                    : EViewState.ShowStartPage;
+                ActiveOverlay = _dataFileManager.AssemblyTreeViewModel != null
+                    ? EOverlayState.TypeSelection
+                    : EOverlayState.None;
             }
         }
 
@@ -115,6 +115,23 @@ namespace MDD4All.DME.ViewModels
             {
                 _showRawData = value;
                 OnPropertyChanged(nameof(ShowRawData));
+            }
+        }
+
+        // At most one overlay is ever open at once (modals block everything else).
+        private EOverlayState _activeOverlay = EOverlayState.None;
+
+        public EOverlayState ActiveOverlay
+        {
+            get
+            {
+                return _activeOverlay;
+            }
+
+            set
+            {
+                _activeOverlay = value;
+                OnPropertyChanged(nameof(ActiveOverlay));
             }
         }
 

@@ -34,8 +34,6 @@ namespace MDD4All.DME.Views.Editor
         [Inject]
         public ExplorerSettingsViewModel ExplorerSettings { get; set; } = null!;
 
-        private bool _showSettings = false;
-
         #region Lifecycle
         protected override void OnInitialized()
         {
@@ -104,10 +102,6 @@ namespace MDD4All.DME.Views.Editor
                 $"document.documentElement.style.setProperty('--tint-intensity', '{intensity}')");
         }
 
-        private void OnSettingsClose(bool confirmed)
-        {
-            _showSettings = false;
-        }
         #endregion
     
 

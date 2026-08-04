@@ -3,7 +3,6 @@
 @using MDD4All.DME.ViewModels.DataManager
 @using MDD4All.UI.Breadcrumb
 @using MDD4All.DME.Views.DataManager
-@using MDD4All.DME.Views.SettingsDialog
 @using MDD4All.UI.BlazorComponents.Tree
 @using MDD4All.UI.DataModels.Tree
 
@@ -20,15 +19,10 @@
 
         <EditorDepthStepperView @bind-Value="EditorSettings.MaxDepth" Limit="9" />
 
-        <button class="wb-btn-reset" title="Einstellungen" type="button" @onclick="@(() => _showSettings = true)">
+        <button class="wb-btn-reset" title="Einstellungen" type="button" @onclick="@(() => MainViewModel.ActiveOverlay = EOverlayState.Settings)">
             <i class="bi bi-gear-fill"></i>
         </button>
     </header>
-
-    @if (_showSettings)
-    {
-        <SettingsDialog OnClose="OnSettingsClose" />
-    }
 
     @* --- BREADCRUMB AREA --- *@
     <section class="breadcrumb-area">
