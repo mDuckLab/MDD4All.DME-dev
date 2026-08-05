@@ -36,9 +36,10 @@
       <ProjectReference Include="..\MDD4All.DME.DataModels\MDD4All.DME.DataModels.csproj" />
       <ProjectReference Include="..\MDD4All.DME.Proxies\MDD4All.DME.Proxies.csproj" />
       <ProjectReference Include="..\MDD4All.DME.ViewModels.Editor\MDD4All.DME.ViewModels.Editor.csproj" />
+      <ProjectReference Include="..\MDD4All.DME.Views.Dialogs\MDD4All.DME.Views.Dialogs.csproj" />
       <ProjectReference Include="..\MDD4All.DME.Views.Editor\MDD4All.DME.Views.Editor.csproj" />
-      <ProjectReference Include="..\MDD4All.DME.Views.DataManager\MDD4All.DME.Views.DataManager.csproj" />
       <ProjectReference Include="..\MDD4All.DME.Views.SettingsDialog\MDD4All.DME.Views.SettingsDialog.csproj" />
+      <ProjectReference Include="..\MDD4All.DME.Views.StartPage\MDD4All.DME.Views.StartPage.csproj" />
       <ProjectReference Include="..\MDD4All.Reflection.TypeAnalyzer\src\MDD4All.Reflection.TypeAnalyzer\MDD4All.Reflection.TypeAnalyzer.csproj" />
       <ProjectReference Include="..\MDD4All.UI.Buttons\src\MDD4All.UI.Buttons\MDD4All.UI.Buttons.csproj" />
       <ProjectReference Include="..\MDD4All.UI.Breadcrumb\src\MDD4All.UI.Breadcrumb\MDD4All.UI.Breadcrumb.csproj" />

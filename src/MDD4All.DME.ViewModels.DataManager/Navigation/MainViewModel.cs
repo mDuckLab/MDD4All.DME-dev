@@ -1,11 +1,10 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using MDD4All.DME.ViewModels.DataManager;
 using MDD4All.DME.ViewModels.Editor;
 using MDD4All.Localization.Contracts;
 using System;
 using System.ComponentModel;
 
-namespace MDD4All.DME.ViewModels
+namespace MDD4All.DME.ViewModels.DataManager
 {
     public class MainViewModel : ObservableObject, INavigation
     {

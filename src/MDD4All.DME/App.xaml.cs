@@ -1,6 +1,5 @@
 ﻿using MDD4All.AssemblyLoading.Contracts;
 using MDD4All.DME.DataAccess.Assemblies;
-using MDD4All.DME.ViewModels;
 using MDD4All.DME.ViewModels.DataManager;
 using MDD4All.DME.ViewModels.Editor;
 using MDD4All.DME.ViewModels.Editor.Settings;
@@ -82,7 +81,6 @@ namespace MDD4All.DME
 
 
                     services.AddScoped<DragDropDataProvider>();
-                    //_services.AddScoped<DataEditorViewModel>();
                     services.AddScoped<IFileSaveService, BlazorWebFileSaveService>();
                     services.AddScoped<IFileImportService, BlazorWebFileImportService>();
 
@@ -102,9 +100,6 @@ namespace MDD4All.DME
                     services.AddSingleton<IEditorState>(provider => provider.GetRequiredService<EditorViewModel>());
                     services.AddSingleton<EditorAppearanceSettingsViewModel>();
                     services.AddSingleton<ExplorerSettingsViewModel>();
-
-                    //Resources.Add("services", _services.BuildServiceProvider());
-
                 })
                 .Build();
 

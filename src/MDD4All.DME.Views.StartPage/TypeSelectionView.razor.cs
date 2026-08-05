@@ -2,7 +2,7 @@ using MDD4All.DME.AssemblyTree.ViewModels;
 using MDD4All.DME.ViewModels.DataManager;
 using Microsoft.AspNetCore.Components;
 
-namespace MDD4All.DME.Views.DataManager
+namespace MDD4All.DME.Views.StartPage
 {
     public partial class TypeSelectionView
     {

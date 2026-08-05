@@ -1,4 +1,4 @@
-namespace MDD4All.DME.ViewModels
+namespace MDD4All.DME.ViewModels.DataManager
 {
     public enum EViewState
     {

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Components;
-using MDD4All.DME.ViewModels;
+using MDD4All.DME.ViewModels.DataManager;
 
 namespace MDD4All.DME.Views
 {

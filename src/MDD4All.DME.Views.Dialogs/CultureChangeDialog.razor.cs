@@ -1,4 +1,4 @@
-using MDD4All.DME.ViewModels;
+using MDD4All.DME.ViewModels.DataManager;
 using Microsoft.AspNetCore.Components;
 
 namespace MDD4All.DME.Views.Dialogs

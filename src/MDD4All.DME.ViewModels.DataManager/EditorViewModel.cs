@@ -77,7 +77,6 @@ namespace MDD4All.DME.ViewModels.DataManager
         #endregion
 
         #region Event Handlers
-
         private void OnDataFileManagerPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(DataFileManagerViewModel.DataEditorViewModel))
