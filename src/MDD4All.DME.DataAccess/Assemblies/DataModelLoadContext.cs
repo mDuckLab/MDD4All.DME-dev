@@ -39,26 +39,6 @@ namespace MDD4All.DME.DataAccess.Assemblies
         {
             Assembly? result = null;
 
-            #region DEBUG_CODE
-            //Debug.WriteLine($"Load requested: {assemblyName}");
-            //Debug.WriteLine(Environment.StackTrace);
-
-            //try
-            //{
-            //    string assemblyFileName = _assemblyPath + "\\" + assemblyName.Name + ".dll";
-
-            //    Assembly assembly = Assembly.LoadFrom(assemblyFileName);
-
-            //    Version version = assembly.GetName().Version;
-
-            //    ;
-            //}
-            //catch (Exception ex)
-            //{
-            //    ;
-            //}
-            #endregion
-
             string? assemblyPath = _resolver.ResolveAssemblyToPath(assemblyName);
             if (assemblyPath != null)
             {

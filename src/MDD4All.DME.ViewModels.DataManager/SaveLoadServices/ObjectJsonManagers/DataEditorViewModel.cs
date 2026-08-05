@@ -191,38 +191,6 @@ namespace MDD4All.DME.ViewModels.DataManager
             return result;
         }
 
-        //public List<Type> GetAvailableDataModels()
-        //{
-        //    Assembly assembly = Assembly.GetExecutingAssembly();
-
-        //    //Assembly assembly = typeof(SystemReleaseInfo).Assembly;
-
-        //    List<Type> filteredTypes = new List<Type>();
-
-        //    foreach (Type type in assembly.GetTypes())
-        //    {
-        //        if (type.IsClass && type.IsPublic && !type.IsAbstract && type.GetConstructor(Type.EmptyTypes) != null)
-        //        {
-        //            if (IsNamespaceFilterActive)
-        //            {
-        //                if (type.Namespace != null && type.Namespace.Contains("DataModels"))
-        //                {
-        //                    filteredTypes.Add(type);
-        //                }
-        //            }
-        //            else
-        //            {
-        //                if (type.Namespace != null && !type.Namespace.StartsWith("Microsoft") && !type.Namespace.StartsWith("System"))
-        //                {
-        //                    filteredTypes.Add(type);
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return filteredTypes;
-        //}
-
-
         public List<Type> GetAvailableDataModels()
         {
             List<Type> filteredTypes = new List<Type>();
