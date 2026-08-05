@@ -32,13 +32,9 @@
 	path = src/MDD4All.Reflection.TypeAnalyzer
 	url = https://github.com/mDuckLab/MDD4All.Reflection.TypeAnalyzer.git
 	branch = dev
-[submodule "src/MDD4All.UI.Buttons"]
-	path = src/MDD4All.UI.Buttons
-	url = https://github.com/mDuckLab/MDD4All.UI.Buttons.git
-	branch = dev
-[submodule "src/MDD4All.UI.Breadcrumb"]
-	path = src/MDD4All.UI.Breadcrumb
-	url = https://github.com/mDuckLab/MDD4All.UI.Breadcrumb.git
+[submodule "src/MDD4All.UI.Blazor"]
+	path = src/MDD4All.UI.Blazor
+	url = https://github.com/mDuckLab/MDD4All.UI.Blazor.git
 	branch = dev
 [submodule "src/MDD4All.ObjectGraph.Access"]
 	path = src/MDD4All.ObjectGraph.Access
