@@ -3,11 +3,11 @@
 	url = https://github.com/oalt/MDD4All.UI.DataModels.git
 [submodule "src/MDD4All.UI.BlazorComponents"]
 	path = src/MDD4All.UI.BlazorComponents
-	url = https://github.com/mDuckLab/MDD4All.UI.BlazorComponents.git
+	url = https://github.com/mDuckLab/MDD4All.UI.BlazorComponents-dev.git
 	branch = dev
 [submodule "src/MDD4All.DME.AssemblyTree"]
 	path = src/MDD4All.DME.AssemblyTree
-	url = https://github.com/mDuckLab/MDD4All.DME.AssemblyTree.git
+	url = https://github.com/mDuckLab/MDD4All.DME.AssemblyTree-dev.git
 	branch = dev
 [submodule "src/MDD4All.Configuration"]
 	path = src/MDD4All.Configuration
@@ -30,11 +30,11 @@
 	branch = dev
 [submodule "src/MDD4All.Reflection.TypeAnalyzer"]
 	path = src/MDD4All.Reflection.TypeAnalyzer
-	url = https://github.com/mDuckLab/MDD4All.Reflection.TypeAnalyzer.git
+	url = https://github.com/mDuckLab/MDD4All.Reflection.TypeAnalyzer-dev.git
 	branch = dev
 [submodule "src/MDD4All.UI.Blazor"]
 	path = src/MDD4All.UI.Blazor
-	url = https://github.com/mDuckLab/MDD4All.UI.Blazor.git
+	url = https://github.com/mDuckLab/MDD4All.UI.Blazor-dev.git
 	branch = dev
 [submodule "src/MDD4All.DME.Views"]
 	path = src/MDD4All.DME.Views
