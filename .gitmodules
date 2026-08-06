@@ -36,10 +36,6 @@
 	path = src/MDD4All.UI.Blazor
 	url = https://github.com/mDuckLab/MDD4All.UI.Blazor.git
 	branch = dev
-[submodule "src/MDD4All.ObjectGraph.Access"]
-	path = src/MDD4All.ObjectGraph.Access
-	url = https://github.com/mDuckLab/MDD4All.ObjectGraph.Access.git
-	branch = dev
 [submodule "src/MDD4All.DME.Views"]
 	path = src/MDD4All.DME.Views
 	url = https://github.com/mDuckLab/MDD4All.DME.Views-dev.git
