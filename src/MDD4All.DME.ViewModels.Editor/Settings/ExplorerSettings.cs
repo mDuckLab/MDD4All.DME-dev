@@ -1,9 +1,0 @@
-namespace MDD4All.DME.ViewModels.Editor.Settings
-{
-    public class ExplorerSettings
-    {
-        public bool ShowIcons { get; set; } = true;
-
-        public bool ShowIndexNumbers { get; set; } = true;
-    }
-}
