@@ -35,7 +35,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.DME.AssemblyTree-de
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.Reflection.TypeAnalyzer", "MDD4All.Reflection.TypeAnalyzer\src\MDD4All.Reflection.TypeAnalyzer\MDD4All.Reflection.TypeAnalyzer.csproj", "{B2E167A7-7576-4EF7-8BDA-0DC4EB60CE28}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.UI.Blazor", "MDD4All.UI.Blazor\src\MDD4All.UI.Blazor\MDD4All.UI.Blazor.csproj", "{33B8F00C-95CE-4A29-8A1B-0A1C44820C47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.UI.Blazor-dev", "MDD4All.UI.Blazor\src\MDD4All.UI.Blazor\MDD4All.UI.Blazor-dev.csproj", "{33B8F00C-95CE-4A29-8A1B-0A1C44820C47}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.ObjectGraph.Access", "MDD4All.ObjectGraph.Access\src\MDD4All.ObjectGraph.Access\MDD4All.ObjectGraph.Access.csproj", "{2F62B815-A720-49F0-A8EB-EA1C6ADF0CEE}"
 EndProject

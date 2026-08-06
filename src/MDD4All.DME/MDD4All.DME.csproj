@@ -38,7 +38,7 @@
       <ProjectReference Include="..\MDD4All.DME.ViewModels\src\MDD4All.DME.ViewModels-dev\MDD4All.DME.ViewModels-dev.csproj" />
       <ProjectReference Include="..\MDD4All.DME.Views\src\MDD4All.DME.Views-dev\MDD4All.DME.Views-dev.csproj" />
       <ProjectReference Include="..\MDD4All.Reflection.TypeAnalyzer\src\MDD4All.Reflection.TypeAnalyzer\MDD4All.Reflection.TypeAnalyzer.csproj" />
-      <ProjectReference Include="..\MDD4All.UI.Blazor\src\MDD4All.UI.Blazor\MDD4All.UI.Blazor.csproj" />
+      <ProjectReference Include="..\MDD4All.UI.Blazor\src\MDD4All.UI.Blazor\MDD4All.UI.Blazor-dev.csproj" />
       <ProjectReference Include="..\MDD4All.FileAccess.WPF\src\MDD4All.FileAccess.WPF\MDD4All.FileAccess.WPF-dev.csproj" />
       <ProjectReference Include="..\MDD4All.UI.BlazorComponents\src\MDD4All.UI.BlazorComponents\MDD4All.UI.BlazorComponents-dev.csproj" />
       <ProjectReference Include="..\MDD4All.UI.DataModels\src\MDD4All.UI.DataModels\MDD4All.UI.DataModels-dev.csproj" />
