@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using MDD4All.DME.ViewModels.DataManager;
 
-namespace MDD4All.DME.Views
+namespace MDD4All.DME.App.Wpf
 {
     public partial class Index
     {

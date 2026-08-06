@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.DME", "MDD4All.DME\MDD4All.DME.csproj", "{0BC3A119-7D73-448F-AB6A-107ACA8D8E0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.DME.App.Wpf", "MDD4All.DME.App.Wpf\MDD4All.DME.App.Wpf.csproj", "{0BC3A119-7D73-448F-AB6A-107ACA8D8E0D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1_App", "1_App", "{45070021-6E66-4D3F-ACE3-E0AA5CDE03A8}"
 EndProject

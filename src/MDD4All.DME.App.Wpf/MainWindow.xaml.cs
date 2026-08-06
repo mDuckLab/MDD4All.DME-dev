@@ -1,4 +1,4 @@
-﻿using MDD4All.DME.Pages;
+﻿using MDD4All.DME.App.Wpf.Pages;
 using MDD4All.Localization;
 using MDD4All.Localization.Contracts;
 using Microsoft.AspNetCore.Components.WebView.Wpf;
@@ -7,7 +7,7 @@ using System.Globalization;
 using System.Threading;
 using System.Windows;
 
-namespace MDD4All.DME
+namespace MDD4All.DME.App.Wpf
 {
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml

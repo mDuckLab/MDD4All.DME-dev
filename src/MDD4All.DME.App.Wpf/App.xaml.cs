@@ -17,7 +17,7 @@ using System.Globalization;
 using System.IO;
 using System.Windows;
 
-namespace MDD4All.DME
+namespace MDD4All.DME.App.Wpf
 {
     /// <summary>
     /// Interaction logic for App.xaml

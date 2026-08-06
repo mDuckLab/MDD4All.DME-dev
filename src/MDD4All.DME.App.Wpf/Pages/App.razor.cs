@@ -2,7 +2,7 @@ using MDD4All.Localization.Contracts;
 using Microsoft.AspNetCore.Components;
 using System.Globalization;
 
-namespace MDD4All.DME.Pages
+namespace MDD4All.DME.App.Wpf.Pages
 {
     public partial class App
     {
