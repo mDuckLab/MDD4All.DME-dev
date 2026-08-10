@@ -8,6 +8,11 @@ window.saveAsFile = function (filename, bytesBase64) {
     document.body.removeChild(link);
 };
 
+// window.setTintIntensity: For the editor's background tint toggle
+window.setTintIntensity = function (intensity) {
+    document.documentElement.style.setProperty('--tint-intensity', intensity);
+};
+
 // window.initResizer: For the draggable explorer sidebar
 window.initResizer = () => {
     const onMouseMove = (e) => {
