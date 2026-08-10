@@ -92,6 +92,7 @@ namespace MDD4All.DME.App.Wpf
                         assemblyPovider.ProxiesDllPath = Path.Combine(AppContext.BaseDirectory, "MDD4All.DME.Proxies.dll");
                         return assemblyPovider;
                     });
+                    services.AddSingleton<DataManagerSettingsViewModel>();
                     services.AddSingleton<DataManagerViewModel>();
                     services.AddSingleton<MainViewModel>();
                     services.AddSingleton<EditorViewModel>();
