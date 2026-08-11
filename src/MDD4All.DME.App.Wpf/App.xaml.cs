@@ -80,8 +80,6 @@ namespace MDD4All.DME.App.Wpf
 
 
                     services.AddScoped<DragDropDataProvider>();
-                    services.AddScoped<IFileSaveService, BlazorWebFileSaveService>();
-                    services.AddScoped<IFileImportService, BlazorWebFileImportService>();
 
                     services.AddSingleton<ILanguageSetter>(setter => new LanguageSetter());
 
