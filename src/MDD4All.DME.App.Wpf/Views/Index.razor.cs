@@ -20,7 +20,7 @@ namespace MDD4All.DME.App.Wpf
 
         private void OnSettingsClose(bool confirmed)
         {
-            DataContext.ActiveOverlay = EOverlayState.None;
+            DataContext.ActiveOverlay = OverlayState.None;
         }
     }
 }

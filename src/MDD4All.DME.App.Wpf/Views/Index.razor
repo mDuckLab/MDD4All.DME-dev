@@ -9,11 +9,11 @@
 @* Pages: mutually exclusive main content *@
 @switch(DataContext.ViewState)
 {
-    case EViewState.ShowStartPage:
-        <StartPageView OnSettingsRequested="@(() => DataContext.ActiveOverlay = EOverlayState.Settings)" />
+    case ViewState.ShowStartPage:
+        <StartPageView OnSettingsRequested="@(() => DataContext.ActiveOverlay = OverlayState.Settings)" />
         break;
 
-    case EViewState.ShowEditor:
+    case ViewState.ShowEditor:
         <EditorMainView />
         break;
 }
@@ -21,15 +21,15 @@
 @* Overlay: needed on every page *@
 @switch (DataContext.ActiveOverlay)
 {
-    case EOverlayState.Settings:
+    case OverlayState.Settings:
         <SettingsDialog OnClose="OnSettingsClose" />
         break;
 
-    case EOverlayState.TypeSelection:
+    case OverlayState.TypeSelection:
         <TypeSelectionView />
         break;
 
-    case EOverlayState.CultureChange:
+    case OverlayState.CultureChange:
         <CultureChangeDialog DataContext="DataContext" />
         break;
 }
