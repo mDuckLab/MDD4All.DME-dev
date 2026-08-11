@@ -93,6 +93,7 @@ namespace MDD4All.DME.App.Wpf
                         return assemblyPovider;
                     });
                     services.AddSingleton<DataManagerSettingsViewModel>();
+                    services.AddSingleton<DataManagerModelViewModel>();
                     services.AddSingleton<DataManagerViewModel>();
                     services.AddSingleton<MainViewModel>();
                     services.AddSingleton<EditorViewModel>();
