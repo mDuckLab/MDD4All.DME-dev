@@ -3,20 +3,31 @@
 @using MDD4All.DME.ViewModels.DataManager
 @using MDD4All.DME.Views.Dialogs
 @using MDD4All.DME.Views.Editor
+@using MDD4All.DME.Views.Notifications
 @using MDD4All.DME.Views.SettingsDialog
 @using MDD4All.DME.Views.StartPage
 
-@* Pages: mutually exclusive main content *@
-@switch(DataContext.ViewState)
-{
-    case ViewState.ShowStartPage:
-        <StartPageView OnSettingsRequested="@(() => DataContext.ActiveOverlay = OverlayState.Settings)" />
-        break;
+@* Column layout so the notification gets a row of its own instead of covering the content *@
+<div class="appShell">
+    <div class="appContent">
+        @* Pages: mutually exclusive main content *@
+        @switch (DataContext.ViewState)
+        {
+            case ViewState.ShowStartPage:
+                <StartPageView OnSettingsRequested="@(() => DataContext.ActiveOverlay = OverlayState.Settings)" />
+                break;
 
-    case ViewState.ShowEditor:
-        <EditorMainView />
-        break;
-}
+            case ViewState.ShowEditor:
+                <EditorMainView />
+                break;
+        }
+    </div>
+
+    @* Below the content, above nothing - reachable from the start page as well as the editor *@
+    <NotificationToast Message="@DataContext.NotificationMessage"
+                       IsError="@(DataContext.NotificationSeverity == NotificationSeverity.Error)"
+                       OnDismiss="@DataContext.DismissNotification" />
+</div>
 
 @* Overlay: needed on every page *@
 @switch (DataContext.ActiveOverlay)

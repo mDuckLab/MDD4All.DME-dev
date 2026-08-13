@@ -466,3 +466,16 @@ html, body {
         right: 0.75rem;
         top: 0.5rem;
     }
+/* Shell: content fills the window, a notification takes its own row below it
+   instead of floating over whatever happens to be there. */
+.appShell {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.appContent {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+}
