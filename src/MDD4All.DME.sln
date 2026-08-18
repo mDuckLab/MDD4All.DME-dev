@@ -39,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.UI.Blazor-dev", "MD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.UI.BlazorComponents-dev", "MDD4All.UI.BlazorComponents\src\MDD4All.UI.BlazorComponents\MDD4All.UI.BlazorComponents-dev.csproj", "{A59F3DFE-24BE-1CF0-B8A9-38EC3A0B64C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.DME.DataAccess-dev", "MDD4All.DME.DataAccess\MDD4All.DME.DataAccess-dev.csproj", "{BF18D98C-15CF-A59F-ECCC-0871E646FE63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.DME.AssemblyLoading", "MDD4All.DME.AssemblyLoading\MDD4All.DME.AssemblyLoading.csproj", "{BF18D98C-15CF-A59F-ECCC-0871E646FE63}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.DME.Proxies", "MDD4All.DME.Proxies\MDD4All.DME.Proxies.csproj", "{206681C9-01FC-4AEF-1B14-922D83B3ECF4}"
 EndProject

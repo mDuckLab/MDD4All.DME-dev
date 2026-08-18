@@ -1,9 +1,9 @@
 ﻿using MDD4All.AssemblyLoading.Contracts;
 using System.Reflection;
 
-namespace MDD4All.DME.DataAccess.Assemblies
+namespace MDD4All.DME.AssemblyLoading
 {
-    public class AssemblyPovider : IAssemblyProvider
+    public class AssemblyProvider : IAssemblyProvider
     {
         public string? ProxiesDllPath { get; set; }
 

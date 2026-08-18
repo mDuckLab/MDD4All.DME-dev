@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
 
-namespace MDD4All.DME.DataAccess.Assemblies
+namespace MDD4All.DME.AssemblyLoading
 {
     public class DataModelLoadContext : AssemblyLoadContext
     {

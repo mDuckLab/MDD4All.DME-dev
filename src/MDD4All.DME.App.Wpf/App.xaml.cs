@@ -1,5 +1,5 @@
 ﻿using MDD4All.AssemblyLoading.Contracts;
-using MDD4All.DME.DataAccess.Assemblies;
+using MDD4All.DME.AssemblyLoading;
 using MDD4All.DME.ViewModels.DataManager;
 using MDD4All.DME.ViewModels.Editor.Settings;
 using MDD4All.FileAccess.Contracts;
@@ -86,9 +86,9 @@ namespace MDD4All.DME.App.Wpf
                     services.AddSingleton<IFileLoader, WpfFileLoader>();
                     services.AddSingleton<IFileSaver, WpfFileSaver>();
                     services.AddTransient<IAssemblyProvider>(provider => {
-                        AssemblyPovider assemblyPovider = new AssemblyPovider();
-                        assemblyPovider.ProxiesDllPath = Path.Combine(AppContext.BaseDirectory, "MDD4All.DME.Proxies.dll");
-                        return assemblyPovider;
+                        AssemblyProvider assemblyProvider = new AssemblyProvider();
+                        assemblyProvider.ProxiesDllPath = Path.Combine(AppContext.BaseDirectory, "MDD4All.DME.Proxies.dll");
+                        return assemblyProvider;
                     });
                     services.AddSingleton<DictionaryKeyAnalyzer>();
                     services.AddSingleton<DataManagerObjectViewModel>();
