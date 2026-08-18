@@ -1,5 +1,7 @@
 ﻿using MDD4All.AssemblyLoading.Contracts;
 using MDD4All.DME.AssemblyLoading;
+using MDD4All.DME.DataAccess.DataFiles;
+using MDD4All.DME.DataAccess.Serialization;
 using MDD4All.DME.ViewModels.DataManager;
 using MDD4All.DME.ViewModels.Editor.Settings;
 using MDD4All.FileAccess.Contracts;
@@ -90,9 +92,10 @@ namespace MDD4All.DME.App.Wpf
                         assemblyProvider.ProxiesDllPath = Path.Combine(AppContext.BaseDirectory, "MDD4All.DME.Proxies.dll");
                         return assemblyProvider;
                     });
+                    services.AddSingleton<DataSerializer>();
+                    services.AddSingleton<DataFileProvider>();
                     services.AddSingleton<DictionaryKeyAnalyzer>();
                     services.AddSingleton<DataManagerObjectViewModel>();
-                    services.AddSingleton<DataSerializationViewModel>();
                     services.AddSingleton<DataManagerSettingsViewModel>();
                     services.AddSingleton<DataManagerModelViewModel>();
                     services.AddSingleton<DataManagerFileViewModel>();
