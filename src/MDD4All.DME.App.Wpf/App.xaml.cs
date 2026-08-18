@@ -91,6 +91,8 @@ namespace MDD4All.DME.App.Wpf
                         return assemblyPovider;
                     });
                     services.AddSingleton<DictionaryKeyAnalyzer>();
+                    services.AddSingleton<DataManagerObjectViewModel>();
+                    services.AddSingleton<DataSerializationViewModel>();
                     services.AddSingleton<DataManagerSettingsViewModel>();
                     services.AddSingleton<DataManagerModelViewModel>();
                     services.AddSingleton<DataManagerFileViewModel>();
