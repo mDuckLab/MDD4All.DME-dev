@@ -17,26 +17,55 @@ namespace MDD4All.DME.DataAccess.DataModels
             _modelAssembly = modelAssembly;
         }
 
-        // Everything offered when a new file is created. Abstract classes and static classes
-        // cannot be instantiated, so they are left out rather than offered and then failing.
+        // The types a new object can actually be built from. Abstract classes and classes without
+        // a parameterless constructor are left out rather than offered and then failing.
         public List<Type> AvailableTypes
         {
             get
             {
-                List<Type> result = new List<Type>();
+                List<Type> result = CollectTypes(onlyBuildable: true);
 
-                foreach (Type type in _modelAssembly.GetExportedTypes())
+                return result;
+            }
+        }
+
+        // Every public class in the assembly, buildable or not. For looking at what a model
+        // actually contains - New will fail on some of these, and says so when it does.
+        public List<Type> AllTypes
+        {
+            get
+            {
+                List<Type> result = CollectTypes(onlyBuildable: false);
+
+                return result;
+            }
+        }
+
+        public bool CanCreateInstance(Type type)
+        {
+            bool result = (!type.IsAbstract && type.GetConstructor(Type.EmptyTypes) != null);
+
+            return result;
+        }
+
+        private List<Type> CollectTypes(bool onlyBuildable)
+        {
+            List<Type> result = new List<Type>();
+
+            foreach (Type type in _modelAssembly.GetExportedTypes())
+            {
+                if (type.IsClass)
                 {
-                    if (type.IsClass && !type.IsAbstract && type.GetConstructor(Type.EmptyTypes) != null)
+                    if (!onlyBuildable || this.CanCreateInstance(type))
                     {
                         result.Add(type);
                     }
                 }
-
-                result.Sort((left, right) => string.Compare(left.Name, right.Name, StringComparison.Ordinal));
-
-                return result;
             }
+
+            result.Sort((left, right) => string.Compare(left.Name, right.Name, StringComparison.Ordinal));
+
+            return result;
         }
 
         // Turns the "$type" out of a file back into a type. The name is assembly-qualified
