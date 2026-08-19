@@ -94,7 +94,6 @@ namespace MDD4All.DME.App.Wpf
 
                     services.AddSingleton<DataSerializer>();
                     services.AddSingleton<DataFileProvider>();
-                    services.AddSingleton<DictionaryKeyAnalyzer>();
                     services.AddSingleton<DataManagerObjectViewModel>();
                     services.AddSingleton<DataManagerSettingsViewModel>();
                     services.AddSingleton<DataManagerFileViewModel>();
