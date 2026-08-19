@@ -1,7 +1,6 @@
 ﻿using MDD4All.DME.DataAccess.DataFiles;
 using MDD4All.DME.DataAccess.DataModels;
 using MDD4All.DME.DataAccess.Serialization;
-using MDD4All.DME.DataModels.PersonsExamples;
 using MDD4All.DME.ViewModels.DataManager;
 using MDD4All.DME.ViewModels.Editor.Settings;
 using MDD4All.FileAccess.Contracts;
@@ -87,10 +86,7 @@ namespace MDD4All.DME.App.Wpf
 
                     services.AddSingleton<IFileLoader, WpfFileLoader>();
                     services.AddSingleton<IFileSaver, WpfFileSaver>();
-                    // The one place that decides which assembly holds the editable data models.
-                    // Naming it here rather than inside the catalogue keeps the data access layer
-                    // free of any reference to a particular set of models.
-                    services.AddSingleton(provider => new DataModelCatalog(typeof(PersonRepository).Assembly));
+                    services.AddSingleton<DataModelCatalog>();
 
                     services.AddSingleton<DataSerializer>();
                     services.AddSingleton<DataFileProvider>();

@@ -2,40 +2,36 @@ using System.Reflection;
 
 namespace MDD4All.DME.DataAccess.DataModels
 {
-    // The data models the editor can work with: every public class in the assembly it is handed.
+    // The types the editor can be pointed at.
     //
     // On this branch the models are compiled into the solution rather than loaded from a DLL at
-    // runtime, so there is no assembly to resolve, no load context to keep apart, and a type name
-    // out of a file resolves with a plain Type.GetType. Which assembly counts is decided by
-    // whoever constructs this - the application - not in here.
+    // runtime, so there is no assembly to resolve and no load context to keep apart - everything
+    // that matters is already in the process. The catalogue simply reads what is there.
     public class DataModelCatalog
     {
-        private readonly Assembly _modelAssembly;
+        // What a namespace has to contain to count as a data model. Deliberately a substring
+        // rather than an exact name, so DataModels, DME.DataModels and anything similar match.
+        private const string DataModelNamespaceMarker = "datamodel";
 
-        public DataModelCatalog(Assembly modelAssembly)
-        {
-            _modelAssembly = modelAssembly;
-        }
-
-        // The types a new object can actually be built from. Abstract classes and classes without
-        // a parameterless constructor are left out rather than offered and then failing.
+        // The usual list: everything sitting in a namespace that looks like a data model.
         public List<Type> AvailableTypes
         {
             get
             {
-                List<Type> result = CollectTypes(onlyBuildable: true);
+                List<Type> result = CollectTypes(onlyDataModelNamespaces: true);
 
                 return result;
             }
         }
 
-        // Every public class in the assembly, buildable or not. For looking at what a model
-        // actually contains - New will fail on some of these, and says so when it does.
+        // Every public class in every loaded assembly - the editor's own view models, the UI
+        // components, the framework. Thousands of entries, and most of them make no sense to
+        // edit. It exists to show that the editor does not care what it is handed.
         public List<Type> AllTypes
         {
             get
             {
-                List<Type> result = CollectTypes(onlyBuildable: false);
+                List<Type> result = CollectTypes(onlyDataModelNamespaces: false);
 
                 return result;
             }
@@ -43,22 +39,50 @@ namespace MDD4All.DME.DataAccess.DataModels
 
         public bool CanCreateInstance(Type type)
         {
-            bool result = (!type.IsAbstract && type.GetConstructor(Type.EmptyTypes) != null);
+            bool result = !type.IsAbstract && type.GetConstructor(Type.EmptyTypes) != null;
 
             return result;
         }
 
-        private List<Type> CollectTypes(bool onlyBuildable)
+        // Turns the "$type" out of a file back into a type. The name is assembly-qualified
+        // ("Namespace.Type, AssemblyName"), and only the part before the comma is used - a file
+        // written by an older build may well name a different assembly than the one it is in now.
+        public Type? ResolveTypeName(string qualifiedTypeName)
+        {
+            Type? result = null;
+
+            string typeName = qualifiedTypeName.Split(',')[0].Trim();
+
+            if (typeName.Length > 0)
+            {
+                foreach (Assembly assembly in LoadedAssemblies())
+                {
+                    result = assembly.GetType(typeName);
+
+                    if (result != null)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private List<Type> CollectTypes(bool onlyDataModelNamespaces)
         {
             List<Type> result = new List<Type>();
 
-            foreach (Type type in _modelAssembly.GetExportedTypes())
+            foreach (Assembly assembly in LoadedAssemblies())
             {
-                if (type.IsClass)
+                foreach (Type type in ExportedTypesOf(assembly))
                 {
-                    if (!onlyBuildable || this.CanCreateInstance(type))
+                    if (type.IsClass && !type.IsNested)
                     {
-                        result.Add(type);
+                        if (!onlyDataModelNamespaces || IsDataModelNamespace(type.Namespace))
+                        {
+                            result.Add(type);
+                        }
                     }
                 }
             }
@@ -68,18 +92,46 @@ namespace MDD4All.DME.DataAccess.DataModels
             return result;
         }
 
-        // Turns the "$type" out of a file back into a type. The name is assembly-qualified
-        // ("Namespace.Type, AssemblyName"), and only the part before the comma is used: the
-        // assembly is known, and a file written by an older build may well name a different one.
-        public Type? ResolveTypeName(string qualifiedTypeName)
+        private bool IsDataModelNamespace(string? namespaceName)
         {
-            Type? result = null;
+            bool result = false;
 
-            string typeName = qualifiedTypeName.Split(',')[0].Trim();
-
-            if (typeName.Length > 0)
+            if (namespaceName != null)
             {
-                result = _modelAssembly.GetType(typeName);
+                result = namespaceName.ToLowerInvariant().Contains(DataModelNamespaceMarker);
+            }
+
+            return result;
+        }
+
+        private List<Assembly> LoadedAssemblies()
+        {
+            List<Assembly> result = new List<Assembly>();
+
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                if (!assembly.IsDynamic)
+                {
+                    result.Add(assembly);
+                }
+            }
+
+            return result;
+        }
+
+        // An assembly can refuse to list its types - a missing dependency is enough. Skipping it
+        // is the only sensible answer here, since one unreadable assembly must not take the whole
+        // list down.
+        private List<Type> ExportedTypesOf(Assembly assembly)
+        {
+            List<Type> result = new List<Type>();
+
+            try
+            {
+                result.AddRange(assembly.GetExportedTypes());
+            }
+            catch (Exception)
+            {
             }
 
             return result;
