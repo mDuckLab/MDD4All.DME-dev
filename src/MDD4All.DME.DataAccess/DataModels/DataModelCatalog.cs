@@ -9,16 +9,33 @@ namespace MDD4All.DME.DataAccess.DataModels
     // that matters is already in the process. The catalogue simply reads what is there.
     public class DataModelCatalog
     {
-        // What a namespace has to contain to count as a data model. Deliberately a substring
-        // rather than an exact name, so DataModels, DME.DataModels and anything similar match.
-        private const string DataModelNamespaceMarker = "datamodel";
+        private readonly Assembly _dataModelAssembly;
 
-        // The usual list: everything sitting in a namespace that looks like a data model.
+        public DataModelCatalog(Assembly dataModelAssembly)
+        {
+            _dataModelAssembly = dataModelAssembly;
+        }
+
+        // The usual list: the classes written for this application to edit.
+        //
+        // Picked by assembly rather than by namespace. A namespace containing "DataModels" looks
+        // like the obvious test but catches MDD4All.UI.DataModels too, which holds ITreeNode and
+        // friends - library types nobody wants to edit.
         public List<Type> AvailableTypes
         {
             get
             {
-                List<Type> result = CollectTypes(onlyDataModelNamespaces: true);
+                List<Type> result = new List<Type>();
+
+                foreach (Type type in ExportedTypesOf(_dataModelAssembly))
+                {
+                    if (type.IsClass && !type.IsNested)
+                    {
+                        result.Add(type);
+                    }
+                }
+
+                SortByName(result);
 
                 return result;
             }
@@ -31,7 +48,20 @@ namespace MDD4All.DME.DataAccess.DataModels
         {
             get
             {
-                List<Type> result = CollectTypes(onlyDataModelNamespaces: false);
+                List<Type> result = new List<Type>();
+
+                foreach (Assembly assembly in LoadedAssemblies())
+                {
+                    foreach (Type type in ExportedTypesOf(assembly))
+                    {
+                        if (type.IsClass && !type.IsNested)
+                        {
+                            result.Add(type);
+                        }
+                    }
+                }
+
+                SortByName(result);
 
                 return result;
             }
@@ -69,39 +99,11 @@ namespace MDD4All.DME.DataAccess.DataModels
             return result;
         }
 
-        private List<Type> CollectTypes(bool onlyDataModelNamespaces)
+
+
+        private void SortByName(List<Type> types)
         {
-            List<Type> result = new List<Type>();
-
-            foreach (Assembly assembly in LoadedAssemblies())
-            {
-                foreach (Type type in ExportedTypesOf(assembly))
-                {
-                    if (type.IsClass && !type.IsNested)
-                    {
-                        if (!onlyDataModelNamespaces || IsDataModelNamespace(type.Namespace))
-                        {
-                            result.Add(type);
-                        }
-                    }
-                }
-            }
-
-            result.Sort((left, right) => string.Compare(left.Name, right.Name, StringComparison.Ordinal));
-
-            return result;
-        }
-
-        private bool IsDataModelNamespace(string? namespaceName)
-        {
-            bool result = false;
-
-            if (namespaceName != null)
-            {
-                result = namespaceName.ToLowerInvariant().Contains(DataModelNamespaceMarker);
-            }
-
-            return result;
+            types.Sort((left, right) => string.Compare(left.Name, right.Name, StringComparison.Ordinal));
         }
 
         private List<Assembly> LoadedAssemblies()

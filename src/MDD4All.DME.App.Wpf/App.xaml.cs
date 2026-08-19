@@ -1,5 +1,6 @@
 ﻿using MDD4All.DME.DataAccess.DataFiles;
 using MDD4All.DME.DataAccess.DataModels;
+using MDD4All.DME.DataModels.PersonsExamples;
 using MDD4All.DME.DataAccess.Serialization;
 using MDD4All.DME.ViewModels.DataManager;
 using MDD4All.DME.ViewModels.Editor.Settings;
@@ -86,7 +87,9 @@ namespace MDD4All.DME.App.Wpf
 
                     services.AddSingleton<IFileLoader, WpfFileLoader>();
                     services.AddSingleton<IFileSaver, WpfFileSaver>();
-                    services.AddSingleton<DataModelCatalog>();
+                    // The one place that decides which assembly holds the classes written to be
+                    // edited. Everything else the catalogue offers comes from the process itself.
+                    services.AddSingleton(provider => new DataModelCatalog(typeof(PersonRepository).Assembly));
 
                     services.AddSingleton<DataSerializer>();
                     services.AddSingleton<DataFileProvider>();
