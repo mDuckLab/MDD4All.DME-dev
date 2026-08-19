@@ -41,10 +41,6 @@ namespace MDD4All.DME.DataAccess.DataFiles
             {
                 result = LoadResult.FileNotReadable;
             }
-            else if (IsXmlFile(filePath))
-            {
-                result = _dataSerializer.LoadFromXml(content, rootType, out loadedObject);
-            }
             else
             {
                 result = _dataSerializer.LoadFromJson(content, rootType, verifyRootType, out loadedObject);
@@ -56,48 +52,26 @@ namespace MDD4All.DME.DataAccess.DataFiles
         public void Write(string filePath, object rootObject, bool includeTypeInformation,
                           bool writeComplexDictionaryKeys)
         {
-            string content;
-
-            if (IsXmlFile(filePath))
-            {
-                content = _dataSerializer.ToXml(rootObject);
-            }
-            else
-            {
-                content = _dataSerializer.ToJson(rootObject, includeTypeInformation,
-                                                 writeComplexDictionaryKeys);
-            }
+            string content = _dataSerializer.ToJson(rootObject, includeTypeInformation,
+                                                    writeComplexDictionaryKeys);
 
             File.WriteAllText(filePath, content);
         }
 
         // Which data model a file belongs to, read from the file itself without building anything.
-        // Returns null for a file that does not name its type - which is every XML file and every
-        // JSON file written with the type information setting off.
+        // Returns null for a file written with the type information setting off.
         public string? ReadTypeName(string filePath)
         {
             string? result = null;
 
-            if (!IsXmlFile(filePath))
+            try
             {
-                try
-                {
-                    result = DataSerializer.ReadTypeNameFromJson(File.ReadAllText(filePath));
-                }
-                catch (Exception exception)
-                {
-                    Console.WriteLine(exception);
-                }
+                result = DataSerializer.ReadTypeNameFromJson(File.ReadAllText(filePath));
             }
-
-            return result;
-        }
-
-        // The file name is the only thing that says which format to expect - there is no header
-        // to look at, and the content of an unreadable file tells nothing either.
-        private bool IsXmlFile(string filePath)
-        {
-            bool result = filePath.ToLower().EndsWith(".xml");
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
 
             return result;
         }
