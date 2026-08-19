@@ -1,6 +1,7 @@
 @page "/"
 @namespace MDD4All.DME.App.Wpf
 @using MDD4All.DME.ViewModels.DataManager
+@using MDD4All.DME.Views.Dialogs
 @using MDD4All.DME.Views.Editor
 @using MDD4All.DME.Views.SettingsDialog
 
@@ -17,5 +18,9 @@
 {
     case OverlayState.Settings:
         <SettingsDialog OnClose="OnSettingsClose" />
+        break;
+
+    case OverlayState.UnsavedChanges:
+        <UnsavedChangesDialog />
         break;
 }
