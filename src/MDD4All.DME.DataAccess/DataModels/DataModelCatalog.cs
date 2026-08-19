@@ -29,7 +29,7 @@ namespace MDD4All.DME.DataAccess.DataModels
 
                 foreach (Type type in ExportedTypesOf(_dataModelAssembly))
                 {
-                    if (type.IsClass && !type.IsNested)
+                    if (IsEditable(type))
                     {
                         result.Add(type);
                     }
@@ -41,20 +41,20 @@ namespace MDD4All.DME.DataAccess.DataModels
             }
         }
 
-        // Every public class in every loaded assembly - the editor's own view models, the UI
-        // components, the framework. Thousands of entries, and most of them make no sense to
-        // edit. It exists to show that the editor does not care what it is handed.
+        // Every class written for this application, in any of its own assemblies - the view
+        // models, the data access, the models. Not the framework and not the MDD4All libraries:
+        // those are somebody else's code and there is nothing to be learned from editing them.
         public List<Type> AllTypes
         {
             get
             {
                 List<Type> result = new List<Type>();
 
-                foreach (Assembly assembly in LoadedAssemblies())
+                foreach (Assembly assembly in ApplicationAssemblies())
                 {
                     foreach (Type type in ExportedTypesOf(assembly))
                     {
-                        if (type.IsClass && !type.IsNested)
+                        if (IsEditable(type))
                         {
                             result.Add(type);
                         }
@@ -65,6 +65,24 @@ namespace MDD4All.DME.DataAccess.DataModels
 
                 return result;
             }
+        }
+
+        // What can appear in the list at all, before any question of whether New can build it.
+        //
+        // Delegates are excluded although they are classes - Action and its relatives descend
+        // from MulticastDelegate, so IsClass says yes to every one of them. Open generic types
+        // go too: List<T> without a T holds nothing, and those are what produced the names with
+        // a backtick and a number in them.
+        private bool IsEditable(Type type)
+        {
+            bool result = false;
+
+            if (type.IsClass && !type.IsNested && !type.ContainsGenericParameters)
+            {
+                result = !typeof(Delegate).IsAssignableFrom(type);
+            }
+
+            return result;
         }
 
         public bool CanCreateInstance(Type type)
@@ -104,6 +122,26 @@ namespace MDD4All.DME.DataAccess.DataModels
         private void SortByName(List<Type> types)
         {
             types.Sort((left, right) => string.Compare(left.Name, right.Name, StringComparison.Ordinal));
+        }
+
+        // The application's own assemblies, told apart by their name. Everything this solution
+        // builds is called MDD4All.DME.something; the framework, Newtonsoft and the shared
+        // MDD4All libraries are not.
+        private List<Assembly> ApplicationAssemblies()
+        {
+            List<Assembly> result = new List<Assembly>();
+
+            foreach (Assembly assembly in LoadedAssemblies())
+            {
+                string? name = assembly.GetName().Name;
+
+                if (name != null && name.StartsWith("MDD4All.DME.", StringComparison.Ordinal))
+                {
+                    result.Add(assembly);
+                }
+            }
+
+            return result;
         }
 
         private List<Assembly> LoadedAssemblies()
