@@ -72,7 +72,7 @@ namespace MDD4All.DME.App.Wpf
                         SupportedUICultures = supportedCultures
                     };
 
-                    // Optional registrieren (für DI verfügbar)
+                    // Registered optionally, so it is available for DI
                     services.Configure<RequestLocalizationOptions>(options =>
                     {
                         options.DefaultRequestCulture = localizationOptions.DefaultRequestCulture;

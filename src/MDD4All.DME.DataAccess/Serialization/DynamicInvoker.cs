@@ -98,7 +98,7 @@ namespace MDD4All.DME.DataAccess.Serialization
 
             if (result == null)
             {
-                throw new Exception("MDD4All.DME.Proxies ist nicht im gleichen AssemblyLoadContext geladen.");
+                throw new Exception("MDD4All.DME.Proxies is not loaded into the same AssemblyLoadContext.");
             }
 
             return result;
