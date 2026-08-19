@@ -1,6 +1,4 @@
 ﻿using MDD4All.DME.App.Wpf.Pages;
-using MDD4All.Localization;
-using MDD4All.Localization.Contracts;
 using Microsoft.AspNetCore.Components.WebView.Wpf;
 using System;
 using System.Globalization;
@@ -15,7 +13,6 @@ namespace MDD4All.DME.App.Wpf
     public partial class MainWindow : Window
     {
         private IServiceProvider _services;
-        private ILanguageSetter _languageSetter = null!;
 
         public MainWindow(IServiceProvider serviceProvider)
         {
@@ -23,27 +20,10 @@ namespace MDD4All.DME.App.Wpf
             _services = serviceProvider;
             blazorWebView.Services = serviceProvider;
 
-            var languageSetter = serviceProvider.GetService(typeof(ILanguageSetter));
-
-            if (languageSetter != null)
-            {
-                _languageSetter = (ILanguageSetter)languageSetter;
-            }
-
-            if (_languageSetter != null)
-            {
-                _languageSetter.CultureChanged += OnCultureChanged;
-
-                //SetCulture(_languageSetter.CurrentCulture, true);
-            }
-
-            SetCulture(new CultureInfo("de-DE"));
-        }
-
-        private void OnCultureChanged(object? sender, System.EventArgs e)
-        {
-            //SetCulture(_languageSetter.CurrentCulture);
-
+            // One culture for the whole run - the interface is English and there is nothing left
+            // to switch it with. It still matters: the culture decides how numbers and dates are
+            // read and written in the editor's fields.
+            SetCulture(new CultureInfo("en-US"));
         }
 
         private void SetCulture(CultureInfo culture)
