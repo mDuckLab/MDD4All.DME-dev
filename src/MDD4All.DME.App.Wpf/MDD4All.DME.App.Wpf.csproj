@@ -24,6 +24,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <!-- Came in transitively through MDD4All.DME.AssemblyTree until that project was dropped.
+           The Razor pages under Pages/ need it directly. -->
+      <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="9.0.120" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -31,10 +37,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MDD4All.Configuration\src\MDD4All.Configuration\MDD4All.Configuration-dev.csproj" />
-      <ProjectReference Include="..\MDD4All.DME.AssemblyTree\src\MDD4All.DME.AssemblyTree\MDD4All.DME.AssemblyTree-dev.csproj" />
-      <ProjectReference Include="..\MDD4All.DME.AssemblyLoading\MDD4All.DME.AssemblyLoading.csproj" />
       <ProjectReference Include="..\MDD4All.DME.DataModels\MDD4All.DME.DataModels.csproj" />
-      <ProjectReference Include="..\MDD4All.DME.Proxies\MDD4All.DME.Proxies.csproj" />
       <ProjectReference Include="..\MDD4All.DME.ViewModels\src\MDD4All.DME.ViewModels-dev\MDD4All.DME.ViewModels-dev.csproj" />
       <ProjectReference Include="..\MDD4All.DME.Views\src\MDD4All.DME.Views-dev\MDD4All.DME.Views-dev.csproj" />
       <ProjectReference Include="..\MDD4All.Reflection.TypeAnalyzer\src\MDD4All.Reflection.TypeAnalyzer\MDD4All.Reflection.TypeAnalyzer-dev.csproj" />
