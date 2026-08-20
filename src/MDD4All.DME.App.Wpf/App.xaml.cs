@@ -99,6 +99,7 @@ namespace MDD4All.DME.App.Wpf
                     services.AddSingleton<DataManagerSettingsViewModel>();
                     services.AddSingleton<DataManagerModelViewModel>();
                     services.AddSingleton<DataManagerFileViewModel>();
+                    services.AddSingleton<MDD4All.DME.Views.Localization.AppTextProvider>();
                     services.AddSingleton<MainViewModel>();
                     services.AddSingleton<EditorViewModel>();
                     services.AddSingleton<EditorAppearanceSettingsViewModel>();

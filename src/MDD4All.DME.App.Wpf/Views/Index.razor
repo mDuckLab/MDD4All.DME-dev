@@ -8,6 +8,10 @@
 @using MDD4All.DME.Views.StartPage
 
 @* Column layout so the notification gets a row of its own instead of covering the content *@
+@* Redrawing this page is enough to carry a new language everywhere: a parent render walks
+   into its children, and every text is read fresh from the provider on the way. No @key here -
+   that would throw the subtree away and rebuild it, which is both more than is needed and
+   dangerous while a component below is still handling the very click that switched. *@
 <div class="appShell">
     <div class="appContent">
         @* Pages: mutually exclusive main content *@
@@ -38,10 +42,6 @@
 
     case OverlayState.TypeSelection:
         <TypeSelectionView />
-        break;
-
-    case OverlayState.CultureChange:
-        <CultureChangeDialog DataContext="DataContext" />
         break;
 
     case OverlayState.ComplexKeyWarning:
