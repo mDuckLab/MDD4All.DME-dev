@@ -44,3 +44,7 @@
 	path = src/MDD4All.DME.ViewModels
 	url = https://github.com/mDuckLab/MDD4All.DME.ViewModels-dev.git
 	branch = dev
+[submodule "src/MDD4All.Person.DataModels"]
+	path = src/MDD4All.Person.DataModels
+	url = https://github.com/oalt/MDD4All.Person.DataModels.git
+	branch = dev
