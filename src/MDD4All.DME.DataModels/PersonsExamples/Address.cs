@@ -1,33 +1,30 @@
-﻿namespace MDD4All.DME.DataModels.PersonsExamples
+namespace MDD4All.DME.DataModels.PersonsExamples
 {
     public class Address
     {
         public Address()
         {
             Street = string.Empty;
-            City = null; // new City();
+            PostalCode = string.Empty;
+            City = new City();
         }
 
-        public Address(string Street, uint HouseNumber, double Size, int PostCode, string CityName)
+        public Address(string street, string postalCode, City city)
         {
-            this.Street = Street;
-            this.HouseNumber = HouseNumber;
-            this.Size = Size;
-            this.City = null;//new City(PostCode, CityName);
+            Street = street;
+            PostalCode = postalCode;
+            City = city;
         }
 
         public string Street { get; set; }
 
-        public uint HouseNumber { get; set; }    
+        public string PostalCode { get; set; }
 
-        public double Size { get; set; }
-
-        public  City? City { get; set; }
+        public City City { get; set; }
 
         public override string ToString()
         {
-            return $"{Street} {HouseNumber}, {City}";
+            return Street + ", " + PostalCode + " " + City.Name;
         }
-
     }
 }

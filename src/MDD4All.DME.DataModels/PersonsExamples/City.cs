@@ -1,25 +1,26 @@
-﻿namespace MDD4All.DME.DataModels.PersonsExamples
+namespace MDD4All.DME.DataModels.PersonsExamples
 {
     public class City
     {
         public City()
         {
-            CityName = string.Empty;
+            Name = string.Empty;
+            Country = string.Empty;
         }
 
-        public City(int PostCode, string CityName)
+        public City(string name, string country)
         {
-            this.PostCode = PostCode;
-            this.CityName = CityName;
+            Name = name;
+            Country = country;
         }
 
-        public int PostCode { set; get; }
+        public string Name { get; set; }
 
-        public string CityName { set; get; }
+        public string Country { get; set; }
 
         public override string ToString()
         {
-            return $"{PostCode} {CityName}";
+            return Name + " (" + Country + ")";
         }
     }
 }
