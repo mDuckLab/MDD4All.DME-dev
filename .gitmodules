@@ -26,7 +26,7 @@
 	branch = dev
 [submodule "src/MDD4All.Localization"]
 	path = src/MDD4All.Localization
-	url = https://github.com/oalt/MDD4All.Localization.git
+	url = https://github.com/mDuckLab/MDD4All.Localization.git
 	branch = dev
 [submodule "src/MDD4All.Reflection.TypeAnalyzer"]
 	path = src/MDD4All.Reflection.TypeAnalyzer

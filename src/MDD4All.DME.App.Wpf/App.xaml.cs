@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Globalization;
 using System.IO;
@@ -84,6 +85,14 @@ namespace MDD4All.DME.App.Wpf
                     services.AddScoped<DragDropDataProvider>();
 
                     services.AddSingleton<ILanguageSetter>(setter => new LanguageSetter());
+
+                    // Registered after AddLocalization on purpose: the last registration of a
+                    // service type wins, so every IStringLocalizer<T> in the app - including the
+                    // ones in components we do not own - now reads the picked language instead
+                    // of CultureInfo.CurrentUICulture, which this host keeps out of reach.
+                    services.AddSingleton<IStringLocalizerFactory>(provider =>
+                        new LanguageSetterStringLocalizerFactory(
+                            provider.GetRequiredService<ILanguageSetter>(), "Resources"));
 
                     services.AddSingleton<IFileLoader, WpfFileLoader>();
                     services.AddSingleton<IFileSaver, WpfFileSaver>();
