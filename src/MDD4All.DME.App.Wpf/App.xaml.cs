@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Windows;
@@ -84,7 +85,27 @@ namespace MDD4All.DME.App.Wpf
 
                     services.AddScoped<DragDropDataProvider>();
 
-                    services.AddSingleton<ILanguageSetter>(setter => new LanguageSetter());
+                    // Start in the language that was picked last time. An entry the app no
+                    // longer knows must not keep it from starting.
+                    services.AddSingleton<ILanguageSetter>(provider =>
+                    {
+                        DataManagerSettingsViewModel settings =
+                            provider.GetRequiredService<DataManagerSettingsViewModel>();
+
+                        CultureInfo storedCulture = supportedCultures[0];
+
+                        foreach (CultureInfo cultureInfo in supportedCultures)
+                        {
+                            if (cultureInfo.Name == settings.DesiredLanguage)
+                            {
+                                storedCulture = cultureInfo;
+                                break;
+                            }
+                        }
+
+                        return new LanguageSetter(new List<CultureInfo>(supportedCultures),
+                                                 storedCulture);
+                    });
 
                     // Registered after AddLocalization on purpose: the last registration of a
                     // service type wins, so every IStringLocalizer<T> in the app - including the

@@ -1,4 +1,5 @@
 ﻿using MDD4All.DME.App.Wpf.Pages;
+using MDD4All.DME.ViewModels.DataManager;
 using MDD4All.Localization;
 using MDD4All.Localization.Contracts;
 using Microsoft.AspNetCore.Components.WebView.Wpf;
@@ -34,14 +35,21 @@ namespace MDD4All.DME.App.Wpf
             {
                 _languageSetter.CultureChanged += OnCultureChanged;
 
-                //SetCulture(_languageSetter.CurrentCulture, true);
+                // Whatever was picked last time - it was read from the configuration when the
+                // setter was built.
+                SetCulture(_languageSetter.CurrentCulture);
             }
-
-            SetCulture(new CultureInfo("de-DE"));
         }
 
         private void OnCultureChanged(object? sender, System.EventArgs e)
         {
+            // Remember the choice, so the next start comes up in the same language.
+            if (_services.GetService(typeof(DataManagerSettingsViewModel))
+                    is DataManagerSettingsViewModel settings)
+            {
+                settings.DesiredLanguage = _languageSetter.CurrentCulture.Name;
+            }
+
             SetCulture(_languageSetter.CurrentCulture);
 
             RebuildWebView();
