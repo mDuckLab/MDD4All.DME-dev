@@ -1,11 +1,7 @@
-﻿using MDD4All.DME.App.Wpf.Pages;
-using MDD4All.DME.ViewModels.DataManager;
-using MDD4All.Localization;
+﻿using MDD4All.DME.ViewModels.DataManager;
 using MDD4All.Localization.Contracts;
-using Microsoft.AspNetCore.Components.WebView.Wpf;
 using System;
 using System.Globalization;
-using System.Threading;
 using System.Windows;
 
 namespace MDD4All.DME.App.Wpf
@@ -51,49 +47,6 @@ namespace MDD4All.DME.App.Wpf
             }
 
             SetCulture(_languageSetter.CurrentCulture);
-
-            RebuildWebView();
-        }
-
-        // Throws the whole component tree away and builds it again, so every text is read afresh.
-        //
-        // This is here for the redraw, not for the culture. Three attempts were made to carry
-        // CurrentUICulture into the renderer and all three were measured to fail: assigning it in
-        // the switching flow, starting a brand new renderer, and starting one with the execution
-        // context suppressed so it could inherit nothing. In this host CurrentUICulture cannot be
-        // reached from outside, which is why the texts are looked up through AppTextProvider with
-        // the picked language handed over explicitly.
-        //
-        // What the rebuild buys is that nothing has to remember anything: no subscriptions in
-        // twenty components, no @key that discards a dialog while its own click is still running.
-        // One white flash, everything current. Switching happens rarely enough for that to be the
-        // cheaper deal.
-        //
-        // The document survives: the view models are singletons in the WPF container, and the web
-        // view is handed that same container. Only the component tree is rebuilt.
-        private void RebuildWebView()
-        {
-            WebViewContainer.Children.Remove(blazorWebView);
-
-            // The control does not advertise IDisposable, so ask before letting go of it.
-            if (blazorWebView is IDisposable disposable)
-            {
-                disposable.Dispose();
-            }
-
-            blazorWebView = new BlazorWebView
-            {
-                HostPage = @"wwwroot\index.html",
-                Services = _services
-            };
-
-            blazorWebView.RootComponents.Add(new RootComponent
-            {
-                Selector = "#app",
-                ComponentType = typeof(Pages.App)
-            });
-
-            WebViewContainer.Children.Add(blazorWebView);
         }
 
         // Only the two static defaults. Assigning CurrentCulture/CurrentUICulture here as well was
@@ -105,7 +58,5 @@ namespace MDD4All.DME.App.Wpf
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
         }
-
-
     }
 }
