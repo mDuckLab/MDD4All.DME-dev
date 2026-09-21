@@ -16,6 +16,8 @@ namespace MDD4All.DME.DataModels.PersonsExamples
 
         public int Age { get; set; }
 
+        public int Size { get; set; }
+
         public bool IsFemale { get; set; }
 
         public DateTime DayOfBirth { get; set; }
