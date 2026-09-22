@@ -3,14 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MDD4All.DME.DataModels.PersonsExamples
 {
-    // Four simple values, each of a different type, and one property that opens a branch of its
-    // own. Name and Size carry rules, so the editor has something to enforce.
+    // Five simple values, each of a different type, and one property that opens a branch of
+    // its own. Name and Size carry rules, so the editor has something to enforce.
     public class Person
     {
         public Person()
         {
             Name = string.Empty;
             DayOfBirth = new DateTime(1990, 1, 1);
+            Status = MaritalStatus.Single;
             Address = new Address();
         }
 
@@ -26,6 +27,9 @@ namespace MDD4All.DME.DataModels.PersonsExamples
         public bool IsFemale { get; set; }
 
         public DateTime DayOfBirth { get; set; }
+
+        // A list to pick from rather than a field to type into.
+        public MaritalStatus Status { get; set; }
 
         public Address Address { get; set; }
 
