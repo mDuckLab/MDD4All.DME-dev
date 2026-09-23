@@ -18,7 +18,9 @@
         @switch (DataContext.ViewState)
         {
             case ViewState.ShowStartPage:
-                <StartPageView OnSettingsRequested="@(() => DataContext.ActiveOverlay = OverlayState.Settings)" />
+                <StartPageView OnSettingsRequested="@(() => DataContext.ActiveOverlay = OverlayState.Settings)"
+                               CanReturnToEditor="@DataContext.CanShowEditor"
+                               OnEditorRequested="@DataContext.ShowEditor" />
                 break;
 
             case ViewState.ShowEditor:
@@ -42,6 +44,10 @@
 
     case OverlayState.TypeSelection:
         <TypeSelectionView />
+        break;
+
+    case OverlayState.UnsavedChanges:
+        <UnsavedChangesDialog />
         break;
 
     case OverlayState.ComplexKeyWarning:
