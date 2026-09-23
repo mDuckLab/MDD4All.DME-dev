@@ -70,6 +70,11 @@ Zu tun, wenn es soweit ist:
   sie ein eigenes `BaseIntermediateOutputPath`.
 - **`MDD4All.UI.Blazor` hat die umgekehrte Lücke:** nur ein `-dev`, kein schlichtes
   Projekt daneben.
+- **`MDD4All.DME.App.Wpf` trägt beide, aber die schlichte wird nie ein Paket** — aus
+  einer Anwendung wird keines. Sie steht nur da, damit alle achtzehn gleich gebaut
+  sind. Ihre beiden Namen stehen dort ausgeschrieben statt aus dem Projektnamen
+  abgeleitet: ein WPF-Bau legt zwischendurch ein `..._wpftmp.csproj` an, und
+  `MSBuildProjectName` ist dann dieser Name.
 - **`UI.BlazorComponents.csproj` steht auf `net9.0`.** Als veröffentlichtes Paket
   schließt das ältere Nutzer aus. Bei Bedarf
   `<TargetFrameworks>net8.0;net9.0</TargetFrameworks>`.
@@ -129,10 +134,6 @@ nach der Sprache dort gar nicht mehr — die Ansicht formuliert.
 - `bin/` und `obj/` sind in den Submodulen `MDD4All.DME.ViewModels` und
   `MDD4All.UI.Blazor` mitversioniert. Gehört in die `.gitignore`, danach einmal
   `git rm -r --cached`.
-- `src/MDD4All.DME.App.Blazor` liegt unversioniert im Arbeitsbaum. War das
-  Messwerkzeug für die Kultur in Blazor Server, hat seine Aufgabe erfüllt.
-  Entscheiden: löschen oder als eigenständigen Wirt aufbauen. Solange es liegt,
-  zeigen seine Verweise noch auf die schlichten Projekte.
 - Die `main`-Zweige der eigenen Submodule hinken `dev` hinterher. Bewusst
   liegengelassen. Bei `MDD4All.Localization` und `MDD4All.FileAccess.WPF` ist es
   **Absicht**: `main` bleibt auf oalts Stand, damit man sehen kann, was er ändert.
