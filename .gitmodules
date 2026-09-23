@@ -48,3 +48,23 @@
 	path = src/MDD4All.Person.DataModels
 	url = https://github.com/oalt/MDD4All.Person.DataModels.git
 	branch = dev
+[submodule "src/MDD4All.DME.AssemblyLoading"]
+	path = src/MDD4All.DME.AssemblyLoading
+	url = https://github.com/mDuckLab/MDD4All.DME.AssemblyLoading.git
+	branch = dev
+[submodule "src/MDD4All.DME.DataAccess"]
+	path = src/MDD4All.DME.DataAccess
+	url = https://github.com/mDuckLab/MDD4All.DME.DataAccess.git
+	branch = dev
+[submodule "src/MDD4All.DME.DataModels"]
+	path = src/MDD4All.DME.DataModels
+	url = https://github.com/mDuckLab/MDD4All.DME.DataModels.git
+	branch = dev
+[submodule "src/MDD4All.DME.Proxies"]
+	path = src/MDD4All.DME.Proxies
+	url = https://github.com/mDuckLab/MDD4All.DME.Proxies.git
+	branch = dev
+[submodule "src/MDD4All.DME.App.Wpf"]
+	path = src/MDD4All.DME.App.Wpf
+	url = https://github.com/mDuckLab/MDD4All.DME.App.Wpf.git
+	branch = dev

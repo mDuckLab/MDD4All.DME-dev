@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.DME.App.Wpf", "MDD4All.DME.App.Wpf\MDD4All.DME.App.Wpf.csproj", "{0BC3A119-7D73-448F-AB6A-107ACA8D8E0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.DME.App.Wpf", "MDD4All.DME.App.Wpf\src\MDD4All.DME.App.Wpf\MDD4All.DME.App.Wpf.csproj", "{0BC3A119-7D73-448F-AB6A-107ACA8D8E0D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1_App", "1_App", "{45070021-6E66-4D3F-ACE3-E0AA5CDE03A8}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.DME.ViewModels", "M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.DME.Views", "MDD4All.DME.Views\src\MDD4All.DME.Views-dev\MDD4All.DME.Views-dev.csproj", "{4959DCBE-BBDA-4B66-8385-25409C1DA781}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.DME.DataModels", "MDD4All.DME.DataModels\MDD4All.DME.DataModels-dev.csproj", "{D68A444F-A41F-4396-A96F-A951943540B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.DME.DataModels", "MDD4All.DME.DataModels\src\MDD4All.DME.DataModels\MDD4All.DME.DataModels-dev.csproj", "{D68A444F-A41F-4396-A96F-A951943540B4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3_ViewModels", "3_ViewModels", "{2ADF70E6-2F53-4923-931E-358B21E08C63}"
 EndProject
@@ -39,9 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.UI.Blazor", "MDD4Al
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.UI.BlazorComponents", "MDD4All.UI.BlazorComponents\src\MDD4All.UI.BlazorComponents\MDD4All.UI.BlazorComponents-dev.csproj", "{A59F3DFE-24BE-1CF0-B8A9-38EC3A0B64C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.DME.AssemblyLoading", "MDD4All.DME.AssemblyLoading\MDD4All.DME.AssemblyLoading-dev.csproj", "{BF18D98C-15CF-A59F-ECCC-0871E646FE63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.DME.AssemblyLoading", "MDD4All.DME.AssemblyLoading\src\MDD4All.DME.AssemblyLoading\MDD4All.DME.AssemblyLoading-dev.csproj", "{BF18D98C-15CF-A59F-ECCC-0871E646FE63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.DME.Proxies", "MDD4All.DME.Proxies\MDD4All.DME.Proxies-dev.csproj", "{206681C9-01FC-4AEF-1B14-922D83B3ECF4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.DME.Proxies", "MDD4All.DME.Proxies\src\MDD4All.DME.Proxies\MDD4All.DME.Proxies-dev.csproj", "{206681C9-01FC-4AEF-1B14-922D83B3ECF4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.UI.DataModels", "MDD4All.UI.DataModels\src\MDD4All.UI.DataModels\MDD4All.UI.DataModels-dev.csproj", "{BF4F7AB5-DF8C-EC99-5152-E0C1AF75185F}"
 EndProject
@@ -55,7 +55,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.FileAccess.WPF", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.Localization", "MDD4All.Localization\src\MDD4All.Localization\MDD4All.Localization-dev.csproj", "{0921CA2D-427C-0BA7-F0B3-2EAAFCA2AF9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.DME.DataAccess", "MDD4All.DME.DataAccess\MDD4All.DME.DataAccess-dev.csproj", "{2D26664E-9481-4150-A96A-9468C698F92F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.DME.DataAccess", "MDD4All.DME.DataAccess\src\MDD4All.DME.DataAccess\MDD4All.DME.DataAccess-dev.csproj", "{2D26664E-9481-4150-A96A-9468C698F92F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.Person.DataModels", "MDD4All.Person.DataModels\src\MDD4All.Person.DataModels\MDD4All.Person.DataModels-dev.csproj", "{8F912245-715F-4562-A853-0B991F3E977E}"
 EndProject
