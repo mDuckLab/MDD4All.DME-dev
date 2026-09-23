@@ -78,9 +78,6 @@ Zu tun, wenn es soweit ist:
 - **`UI.BlazorComponents.csproj` steht auf `net9.0`.** Als veröffentlichtes Paket
   schließt das ältere Nutzer aus. Bei Bedarf
   `<TargetFrameworks>net8.0;net9.0</TargetFrameworks>`.
-- **`Views` und `ViewModels` tragen `-dev` auch am Quellordner**
-  (`src/MDD4All.DME.Views-dev/`). Überall sonst heißt der Ordner schlicht und die
-  beiden Projektdateien liegen darin nebeneinander.
 
 ---
 
