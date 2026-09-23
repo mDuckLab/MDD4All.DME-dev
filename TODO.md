@@ -50,6 +50,15 @@ Offen bleibt:
 
 ## 3 — NuGet-Pakete (vorgemerkt, nicht angefangen)
 
+**Die Zweige sagen seit 2026-09-23, was veröffentlicht ist.** In jedem Projekt trägt
+`dev` den Entwicklungsstand und `main` den Stand des zuletzt veröffentlichten Pakets.
+Weil noch keines veröffentlicht ist, steht `main` überall auf dem Anfangsstand: bei
+eigenen Repos auf dem ersten Commit, bei Abspaltungen auf oalts Stand zum Zeitpunkt
+der Abspaltung. Mit jedem Release wird `main` nachgezogen.
+
+Das Hauptprojekt ist die Ausnahme — es wird nie ein Paket, hat deshalb nur `main`,
+und der trägt den aktuellen Entwicklungsstand.
+
 Seit 2026-09-23 steht die Aufteilung: `<Name>-dev.csproj` ist das Projekt, an dem
 gearbeitet wird und das `ProjectReference`s haben darf. `<Name>.csproj` daneben wird
 später zum Paket. In der Projektmappe steht nur die `-dev`-Fassung; `-dev` taucht
@@ -128,9 +137,8 @@ nach der Sprache dort gar nicht mehr — die Ansicht formuliert.
 
 ## 7 — Aufräumen im Repository
 
-- Die `main`-Zweige der eigenen Submodule hinken `dev` hinterher. Bewusst
-  liegengelassen. Bei `MDD4All.Localization` und `MDD4All.FileAccess.WPF` ist es
-  **Absicht**: `main` bleibt auf oalts Stand, damit man sehen kann, was er ändert.
+- `MDD4All.Configuration` hat nur einen `main` und keinen `dev`. Es ist oalts Repo,
+  dort lässt sich keiner anlegen — bei Bedarf fragen oder abspalten.
 
 ---
 
