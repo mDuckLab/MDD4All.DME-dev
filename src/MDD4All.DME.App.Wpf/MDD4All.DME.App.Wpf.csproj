@@ -32,9 +32,9 @@
     <ItemGroup>
       <ProjectReference Include="..\MDD4All.Configuration\src\MDD4All.Configuration\MDD4All.Configuration-dev.csproj" />
       <ProjectReference Include="..\MDD4All.DME.AssemblyTree\src\MDD4All.DME.AssemblyTree\MDD4All.DME.AssemblyTree-dev.csproj" />
-      <ProjectReference Include="..\MDD4All.DME.AssemblyLoading\MDD4All.DME.AssemblyLoading.csproj" />
-      <ProjectReference Include="..\MDD4All.DME.DataModels\MDD4All.DME.DataModels.csproj" />
-      <ProjectReference Include="..\MDD4All.DME.Proxies\MDD4All.DME.Proxies.csproj" />
+      <ProjectReference Include="..\MDD4All.DME.AssemblyLoading\MDD4All.DME.AssemblyLoading-dev.csproj" />
+      <ProjectReference Include="..\MDD4All.DME.DataModels\MDD4All.DME.DataModels-dev.csproj" />
+      <ProjectReference Include="..\MDD4All.DME.Proxies\MDD4All.DME.Proxies-dev.csproj" />
       <ProjectReference Include="..\MDD4All.DME.ViewModels\src\MDD4All.DME.ViewModels-dev\MDD4All.DME.ViewModels-dev.csproj" />
       <ProjectReference Include="..\MDD4All.DME.Views\src\MDD4All.DME.Views-dev\MDD4All.DME.Views-dev.csproj" />
       <ProjectReference Include="..\MDD4All.Reflection.TypeAnalyzer\src\MDD4All.Reflection.TypeAnalyzer\MDD4All.Reflection.TypeAnalyzer-dev.csproj" />
