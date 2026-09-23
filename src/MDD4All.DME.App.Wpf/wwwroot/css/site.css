@@ -23,6 +23,7 @@
     --success-dim: #0f740f;
     --warning-dim: #de8d44;
     --error-dim: #bd3033;
+    --accent-dim: #3f93dc;
     /* Hover Effects (Saturated & Opaque) */
     --hover-blue: #d0e8ff;
     --hover-green: #d9f2d9;
@@ -129,6 +130,105 @@ html, body {
             stroke: var(--warning-orange) !important;
         }
 
+    /* A card and its arrows stand side by side; the card takes the rest of the row. The rule
+   lives here because the card belongs to ObjectEditorView. */
+.complex-wrapper {
+    display: flex;
+    align-items: flex-start;
+}
+
+    .complex-wrapper > .editor-card {
+        flex-grow: 1;
+        min-width: 0;
+    }
+
+/* A line in a list of simple values reads index, then field. It borrows the property row,
+   whose first column is meant to hold a property name - here it holds a number, so it only
+   takes what the number needs and the field gets the rest of the line.
+
+   The rules live here because the row belongs to PrimitivePropertyEditorView, and they carry
+   the container as a third class on purpose: site.css is linked before the scoped bundle, so
+   an equally heavy selector would lose to the component's own rule. */
+.indexed-body-container .simple-line-item {
+    min-width: 0;
+}
+
+    .indexed-body-container .simple-line-item > .simple-property-row {
+        flex-grow: 1;
+        min-width: 0;
+    }
+
+    .indexed-body-container .simple-line-item .property-row {
+        grid-template-columns: auto 1fr;
+        min-width: 0;
+    }
+
+    .indexed-body-container .simple-line-item .property-input-zone,
+    .indexed-body-container .simple-line-item .form-control {
+        min-width: 0;
+    }
+
+/* MOVE ARROWS
+   Up over down in a single button's width, so a line in a list does not lose half its room
+   to them. The buttons belong to ToolbarButton, so their size has to be set here rather than
+   in the list's own scoped sheet - the scope attribute never reaches them. */
+.move-action-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: var(--btn-size);
+    flex-shrink: 0;
+    margin-right: 8px;
+}
+
+    .move-action-area .wb-btn-reset {
+        width: 1.6rem !important;
+        height: 1.15rem !important;
+        border-radius: 3px;
+    }
+
+        .move-action-area .wb-btn-reset svg {
+            width: 0.85rem;
+            height: 0.85rem;
+        }
+
+    .wb-btn-reset.btn-movemode .wb-icon-badge {
+        fill: var(--accent-dim) !important;
+    }
+
+    /* MoveMode-Button Hover */
+    .wb-btn-reset.btn-movemode:hover {
+        background-color: var(--hover-blue) !important;
+    }
+
+        .wb-btn-reset.btn-movemode:hover .wb-icon-lines,
+        .wb-btn-reset.btn-movemode:hover .wb-icon-badge {
+            fill: var(--accent-color) !important;
+        }
+
+        .wb-btn-reset.btn-movemode:hover .wb-icon-active-line {
+            stroke: var(--accent-color) !important;
+        }
+
+    /* Move Hover */
+    .wb-btn-reset.btn-moveup:not(:disabled):hover,
+    .wb-btn-reset.btn-movedown:not(:disabled):hover {
+        background-color: var(--hover-blue) !important;
+    }
+
+        .wb-btn-reset.btn-moveup:not(:disabled):hover .wb-icon-lines,
+        .wb-btn-reset.btn-movedown:not(:disabled):hover .wb-icon-lines {
+            fill: var(--accent-color) !important;
+        }
+
+    /* An element at the top or the bottom has nowhere left to go. */
+    .wb-btn-reset.btn-moveup:disabled,
+    .wb-btn-reset.btn-movedown:disabled {
+        opacity: 0.25;
+        cursor: default;
+    }
+
     /* Create & Trash Hover */
     .wb-btn-reset.btn-create:hover {
         background-color: var(--hover-blue) !important;
@@ -147,6 +247,12 @@ html, body {
         .wb-btn-reset.btn-deletechild:hover svg {
             fill: var(--error-color) !important;
         }
+
+    /* The two modes keep their own colour: orange warns about deleting, blue belongs to
+       moving. The extra class outweighs the shared active rule below. */
+    .wb-btn-reset.btn-movemode.active {
+        background-color: var(--accent-color) !important;
+    }
 
     /* Active Toggle State */
     .wb-btn-reset.active {
