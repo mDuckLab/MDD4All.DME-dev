@@ -128,9 +128,6 @@ nach der Sprache dort gar nicht mehr — die Ansicht formuliert.
 
 ## 7 — Aufräumen im Repository
 
-- `bin/` und `obj/` sind in den Submodulen `MDD4All.DME.ViewModels` und
-  `MDD4All.UI.Blazor` mitversioniert. Gehört in die `.gitignore`, danach einmal
-  `git rm -r --cached`.
 - Die `main`-Zweige der eigenen Submodule hinken `dev` hinterher. Bewusst
   liegengelassen. Bei `MDD4All.Localization` und `MDD4All.FileAccess.WPF` ist es
   **Absicht**: `main` bleibt auf oalts Stand, damit man sehen kann, was er ändert.
