@@ -22,7 +22,7 @@
 	branch = dev
 [submodule "src/MDD4All.AssemblyLoading.Contracts"]
 	path = src/MDD4All.AssemblyLoading.Contracts
-	url = https://github.com/oalt/MDD4All.AssemblyLoading.Contracts.git
+	url = https://github.com/synorvia-editor/MDD4All.AssemblyLoading.Contracts.git
 	branch = dev
 [submodule "src/MDD4All.Localization"]
 	path = src/MDD4All.Localization
